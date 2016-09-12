@@ -34,15 +34,12 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="SCSmartCityViewer" target="1.8" />
       <module name="SimCity" target="1.8" />
-      <module name="SimCity Viewer" target="1.8" />
       <module name="SimCity Worker" target="1.8" />
       <module name="SmartCity Central" target="1.8" />
-      <module name="SmartCity Common" target="1.5" />
+      <module name="SmartCity Common" target="1.8" />
       <module name="SmartCity Core" target="1.8" />
       <module name="SmartCity Viewer" target="1.8" />
-      <module name="SmartCityViewer" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

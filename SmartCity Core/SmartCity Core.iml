@@ -12,7 +12,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="SmartCity Common" />
-    <orderEntry type="module" module-name="SmartCity Common" />
     <orderEntry type="library" name="Maven: org.springframework:spring-context:4.2.7.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-beans:4.2.7.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-expression:4.2.7.RELEASE" level="project" />
@@ -83,11 +82,6 @@
     <orderEntry type="library" name="Maven: org.springframework:spring-aspects:4.2.7.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: com.h2database:h2:1.4.192" level="project" />
     <orderEntry type="library" name="Maven: mysql:mysql-connector-java:5.1.38" level="project" />
-    <orderEntry type="library" name="Maven: org.jgrapht:jgrapht-core:0.9.1" level="project" />
-    <orderEntry type="library" name="Maven: org.jgrapht:jgrapht-jdk1.5:0.7.3" level="project" />
-    <orderEntry type="library" name="Maven: jgraph:jgraph:5.13.0.0" level="project" />
-    <orderEntry type="library" name="Maven: org.jgrapht:jgrapht-ext:0.9.1" level="project" />
-    <orderEntry type="library" name="Maven: org.tinyjee.jgraphx:jgraphx:2.0.0.1" level="project" />
     <orderEntry type="library" name="Maven: com.google.code.gson:gson:2.6.2" level="project" />
     <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpclient:4.3.4" level="project" />
     <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpcore:4.4.5" level="project" />
