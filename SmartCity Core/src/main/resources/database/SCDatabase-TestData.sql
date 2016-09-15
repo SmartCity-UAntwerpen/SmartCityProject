@@ -28,33 +28,38 @@ CREATE TABLE smartcitydb.point (
   PRIMARY KEY (`pid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
 
+--
+-- Table attributes for Point
+-- (Id, RFID, Type, Pointlock)
+--
 /*!40101 LOCK TABLES smartcitydb.point WRITE; */
 /*!40000 ALTER TABLE smartcitydb.point DISABLE KEYS */;
 INSERT INTO smartcitydb.point VALUES
-  (1,'04 70 39 32 06 27 80','PARKING',0),
-  (2,'04 67 88 8A C8 48 80','POINT',0),
-  (3,'04 97 36 A2 F7 22 80','POINT',0),
-  (4,'04 36 8A 9A F6 1F 80','TRAFFICLIGHT',0),
-  (5,'04 7B 88 8A C8 48 80','POINT',1),
-  (6,'04 6C 6B 32 06 27 80','POINT',0),
-  (7,'04 84 88 8A C8 48 80','POINT',1),
-  (8,'04 B3 88 8A C8 48 80','PARKING',1),
-  (9,'04 8D 88 8A C8 48 80','PARKING',0),
-  (10,'04 AA 88 8A C8 48 80','POINT',0),
-  (11,'04 C4 FD 12 A9 34 80','PARKING',0),
-  (12,'04 96 88 8A C8 48 80','POINT',0),
-  (13,'04 A1 88 8A C8 48 80','POINT',0),
-  (14,'04 86 04 22 A9 34 84','TRAFFICLIGHT',0),
-  (15,'04 18 25 9A 7F 22 80','PARKING',0),
+  -- Parking
+  (1,'04 97 36 A2 7F 22 80','PARKING',0),
+  (2,'04 41 70 92 1E 25 80','PARKING',0),
+  (3,'04 70 39 32 06 27 80','PARKING',0),
+  (4,'04 26 3E 92 1E 25 80','PARKING',0),
+  (5,'04 3C 67 9A F6 1F 80','PARKING',0),
+  (6,'04 18 25 9A 7F 22 80','PARKING',0),
+
+  -- Crossings
+  (7,'04 C5 88 8A C8 48 80','POINT',0),
+  (8,'04 B3 88 8A C8 48 80','POINT',0),
+  (9,'04 8D 88 8A C8 48 80','POINT',0),
+  (10,'04 EC 88 8A C8 48 80','POINT',0),
+  (11,'04 AA 88 8A C8 48 80','POINT',0),
+  (12,'04 DA 88 8A C8 48 80','POINT',0),
+  (13,'04 E3 88 8A C8 48 80','POINT',0),
+  (14,'04 67 88 8A C8 48 80','POINT',0),
+  (15,'04 7B 88 8A C8 48 80','POINT',0),
   (16,'04 BC 88 8A C8 48 80','POINT',0),
-  (17,'04 C5 88 8A C8 48 80','POINT',0),
-  (18,'04 EC 88 8A C8 48 80','POINT',0),
-  (19,'04 E3 88 8A C8 48 80','POINT',0),
-  (20,'04 26 3E 92 1E 25 80','PARKING',1),
-  (21,'04 DA 88 8A C8 48 80','POINT',0),
-  (22,'04 D0 88 8A C8 48 80','POINT',0),
-  (23,'04 41 70 92 1E 25 80','PARKING',0),
-  (24,'04 3C 67 9A F6 1F 80','PARKING',0);
+  (17,'04 96 88 8A C8 48 80','POINT',0),
+  (18,'04 A1 88 8A C8 48 80','POINT',0),
+
+  -- Traffic-Lights
+  (19,'04 C4 FD 12 A9 34 80','TRAFFICLIGHT',0),  -- T1
+  (20,'04 86 04 22 A9 34 84','TRAFFICLIGHT',0);  -- T2
 /*!40000 ALTER TABLE smartcitydb.point ENABLE KEYS */;
 /*!40101 UNLOCK TABLES; */
 
@@ -70,68 +75,88 @@ CREATE TABLE smartcitydb.link (
   `start_point` bigint(20) DEFAULT NULL,
   `stop_direction` varchar(255) DEFAULT NULL,
   `stop_point` bigint(20) DEFAULT NULL,
-  `pid` bigint(20) DEFAULT NULL,
   `weight` int(11) DEFAULT '1',
   PRIMARY KEY (`lid`),
   KEY `fk_startpoint` (`start_point`),
   KEY `fk_stoppoint` (`stop_point`),
-  KEY `FK_fraaqnos7yp6t7drynxqo0ov` (`pid`),
-  CONSTRAINT `FK_fraaqnos7yp6t7drynxqo0ov` FOREIGN KEY (`pid`) REFERENCES `point` (`pid`),
   CONSTRAINT `fk_startpoint` FOREIGN KEY (`start_point`) REFERENCES `point` (`pid`),
   CONSTRAINT `fk_stoppoint` FOREIGN KEY (`stop_point`) REFERENCES `point` (`pid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8;
 
+--
+-- Table attributes for Link
+-- (Id, length, startDirection, startPoint, stopDirection, stopPoint, weight)
+--
 /*!40101 LOCK TABLES smartcitydb.link WRITE; */
 /*!40000 ALTER TABLE smartcitydb.link DISABLE KEYS */;
 INSERT INTO smartcitydb.link VALUES
-  (1,10,'E',1,'W',2,NULL,1),
-  (2,10,'W',2,'E',1,NULL,1),
-  (4,450,'W',7,'E',2,NULL,1),
-  (5,10,'S',3,'N',7,NULL,1),
-  (6,10,'N',7,'S',3,NULL,1),
-  (7,10,'S',4,'N',8,NULL,1),
-  (8,10,'N',8,'S',4,NULL,1),
-  (9,180,'E',7,'W',8,NULL,1),
-  (10,180,'W',8,'E',7,NULL,1),
-  (12,450,'W',5,'E',8,NULL,1),
-  (13,10,'E',5,'W',6,NULL,1),
-  (14,10,'W',6,'E',5,NULL,1),
-  (15,650,'S',2,'W',9,NULL,1),
-  (17,180,'S',7,'N',9,NULL,1),
-  (18,180,'N',9,'S',7,NULL,1),
-  (19,180,'S',8,'N',10,NULL,1),
-  (20,180,'N',10,'S',8,NULL,1),
-  (21,180,'E',9,'W',10,NULL,1),
-  (22,180,'W',10,'E',9,NULL,1),
-  (24,650,'E',10,'S',5,NULL,1),
-  (25,375,'S',9,'N',11,NULL,1),
-  (26,740,'N',12,'S',10,NULL,1),
-  (27,550,'S',11,'W',12,NULL,1),
-  (28,450,'S',12,'N',13,NULL,1),
-  (29,450,'N',13,'S',12,NULL,1),
-  (30,650,'W',13,'N',17,NULL,1),
-  (31,10,'N',18,'S',14,NULL,1),
-  (32,250,'N',14,'S',13,NULL,1),
-  (33,10,'E',15,'W',16,NULL,1),
-  (34,10,'W',16,'E',15,NULL,1),
-  (36,450,'W',17,'E',16,NULL,1),
-  (37,180,'E',17,'W',18,NULL,1),
-  (38,180,'W',18,'E',17,NULL,1),
-  (40,450,'W',19,'E',18,NULL,1),
-  (41,10,'E',19,'W',20,NULL,1),
-  (42,10,'W',20,'E',19,NULL,1),
-  (43,650,'S',16,'W',21,NULL,1),
-  (45,180,'S',17,'N',21,NULL,1),
-  (46,180,'N',21,'S',17,NULL,1),
-  (47,180,'S',18,'N',22,NULL,1),
-  (48,180,'N',22,'S',18,NULL,1),
-  (49,180,'E',21,'W',22,NULL,1),
-  (50,180,'W',22,'E',21,NULL,1),
-  (51,650,'E',22,'S',19,NULL,1),
-  (53,10,'S',21,'N',23,NULL,1),
-  (54,10,'N',23,'S',21,NULL,1),
-  (55,10,'S',22,'N',24,NULL,1),
-  (56,10,'N',24,'S',22,NULL,1);
+  (1,10,'E',1,'W',7,1), -- 1 -> 7
+  (2,10,'W',7,'E',1,1), -- 7 -> 1
+
+  (3,380,'S',2,'N',10,1), -- 2 -> 10
+  (4,380,'N',10,'S',2,1), -- 10 -> 2
+
+  (5,10,'E',3,'W',10,1), -- 3 -> 10
+  (6,10,'W',10,'E',3,1), -- 10 -> 3
+
+  (7,10,'W',4,'E',9,1), -- 4 -> 9
+  (8,10,'E',9,'W',4,1), -- 9 -> 4
+
+  (9,380,'N',5,'S',9,1), -- 5 -> 9
+  (10,380,'S',9,'N',5,1), -- 9 -> 5
+
+  (11,10,'W',6,'E',12,1), -- 6 -> 12
+  (12,10,'E',12,'W',6,1), -- 12 -> 6
+
+  (13,150,'E',7,'W',8,1), -- 7 -> 8
+  (14,150,'W',8,'E',7,1), -- 8 -> 7
+
+  (15,360,'N',7,'W',13,1), -- 7 -> 13
+  (16,360,'W',13,'N',7,1), -- 13 -> 7
+
+  (17,80,'S',7,'N',19,1), -- 7 -> T1 (19)
+
+  (18,705,'E',8,'W',9,1), -- 8 -> 9
+
+  (19,150,'N',8,'S',13,1), -- 8 -> 13
+  (20,150,'S',13,'N',8,1), -- 13 -> 8
+
+  (21,895,'N',9,'E',13,1), -- 9 -> 13
+
+  (22,619,'S',10,'W',17,1), -- 10 -> 17
+
+  (23,150,'E',11,'W',12,1), -- 11 -> 12
+  (24,150,'W',12,'E',11,1), -- 12 -> 11
+
+  (25,150,'W',11,'E',16,1), -- 11 -> 16
+  (26,150,'E',16,'W',11,1), -- 16 -> 11
+
+  (27,150,'S',11,'N',18,1), -- 11 -> 18
+  (28,150,'N',18,'S',11,1), -- 18 -> 11
+
+  (29,360,'S',12,'E',18,1), -- 12 -> 18
+  (30,360,'E',18,'S',12,1), -- 18 -> 12
+
+  (31,80,'N',12,'S',20,1), -- 12 -> T2 (20)
+
+  (32,425,'N',14,'S',8,1), -- 14 -> 8
+
+  (33,150,'E',14,'W',15,1), -- 14 -> 15
+  (34,150,'W',15,'E',14,1), -- 15 -> 14
+
+  (35,425,'S',15,'N',11,1), -- 15 -> 11
+
+  (36,425,'W',16,'E',10,1), -- 16 -> 10
+
+  (37,150,'S',16,'N',17,1), -- 16 -> 17
+  (38,150,'N',17,'S',16,1), -- 17 -> 16
+
+  (39,150,'E',17,'W',18,1), -- 17 -> 18
+  (40,150,'W',18,'E',17,1), -- 18 -> 17
+
+  (41,440,'S',19,'W',14,1), -- T1 (19) -> 14
+
+  (42,440,'N',20,'E',15,1); -- T2 (20) -> 15
 /*!40000 ALTER TABLE smartcitydb.link ENABLE KEYS */;
 /*!40101 UNLOCK TABLES; */
 
