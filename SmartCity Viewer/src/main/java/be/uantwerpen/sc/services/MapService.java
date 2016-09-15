@@ -1,7 +1,7 @@
 package be.uantwerpen.sc.services;
 
-import be.uantwerpen.sc.models.LinkEntity;
-import be.uantwerpen.sc.models.PointEntity;
+import be.uantwerpen.sc.models.Link;
+import be.uantwerpen.sc.models.Point;
 import be.uantwerpen.sc.tools.MapBuilder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -24,8 +24,8 @@ public class MapService
 
     public MapBuilder mapBuilder;
 
-    LinkEntity[] linkList;
-    PointEntity[] pointList;
+    Link[] linkList;
+    Point[] pointList;
 
     public MapService()
     {
@@ -88,20 +88,31 @@ public class MapService
 
         //build Sim Map
         mapBuilder = new MapBuilder(linkList, pointList);
-        System.out.println("Map Created");
-        mapBuilder.logMap();
 
+        try
+        {
+            mapBuilder.buildMap();
+
+            System.out.println("Map Created");
+            mapBuilder.logMap();
+        }
+        catch(Exception e)
+        {
+            System.err.println("Could not generate map!");
+            e.printStackTrace();
+        }
     }
 
-    private void getMap(){
+    private void getMap()
+    {
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<PointEntity[]> responseList;
-        responseList = restTemplate.getForEntity("http://" + serverCoreIP + ":" + serverCorePort + "/point/", PointEntity[].class);
+        ResponseEntity<Point[]> responseList;
+        responseList = restTemplate.getForEntity("http://" + serverCoreIP + ":" + serverCorePort + "/point/", Point[].class);
         pointList = responseList.getBody();
 
         restTemplate = new RestTemplate();
-        ResponseEntity<LinkEntity[]> responseList2;
-        responseList2 = restTemplate.getForEntity("http://" + serverCoreIP + ":" + serverCorePort + "/link/", LinkEntity[].class);
+        ResponseEntity<Link[]> responseList2;
+        responseList2 = restTemplate.getForEntity("http://" + serverCoreIP + ":" + serverCorePort + "/link/", Link[].class);
         linkList = responseList2.getBody();
     }
 }

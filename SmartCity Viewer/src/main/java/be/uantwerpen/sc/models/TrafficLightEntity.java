@@ -4,16 +4,16 @@ package be.uantwerpen.sc.models;
  * Created by Niels on 24/03/2016.
  */
 public class TrafficLightEntity {
-    private int tlid;
+    private Long id;
     private String direction;
     private String state;
-    private PointEntity puntid;
+    private Point point;
 
-    public int getTlid() {
-        return tlid;
+    public Long getId() {
+        return id;
     }
-    public void setTlid(int tlid) {
-        this.tlid = tlid;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getDirection() {
@@ -37,7 +37,7 @@ public class TrafficLightEntity {
 
         TrafficLightEntity that = (TrafficLightEntity) o;
 
-        if (tlid != that.tlid) return false;
+        if (id != that.id) return false;
         if (direction != null ? !direction.equals(that.direction) : that.direction != null) return false;
         if (state != null ? !state.equals(that.state) : that.state != null) return false;
 
@@ -46,16 +46,16 @@ public class TrafficLightEntity {
 
     @Override
     public int hashCode() {
-        int result = tlid;
+        int result = (int)(id % Integer.MAX_VALUE);
         result = 31 * result + (direction != null ? direction.hashCode() : 0);
         result = 31 * result + (state != null ? state.hashCode() : 0);
         return result;
     }
 
-    public PointEntity getPuntid() {
-        return puntid;
+    public Point getPoint() {
+        return point;
     }
-    public void setPuntid(PointEntity puntid) {
-        this.puntid = puntid;
+    public void setPoint(Point point) {
+        this.point = point;
     }
 }

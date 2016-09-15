@@ -66,8 +66,6 @@ public class BotControllerTests {
     @Test
     public void testSaveBot() throws Exception
     {
-        Point p1 = new Point();
-        Point p2 = new Point();
         Link l1 = new Link();
         bot = new Bot();
 

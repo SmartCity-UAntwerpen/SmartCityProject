@@ -43,9 +43,6 @@ public class BotControlServiceTests {
 
     @Before
     public void init() {
-
-        Point p1 = new Point();
-        Point p2 = new Point();
         Link l1 = new Link();
         bot1 = new Bot();
         botList = new ArrayList<>();
