@@ -150,9 +150,9 @@ public class MapBuilder{
     private boolean canProcessWithCurrentProcessingType(Link link, ProcessingType type){
         switch(type){
             case STRAIGHT:
-                if(link.getStartDirection() == "N" && link.getStopDirection() == "S" || link.getStartDirection() == "S" && link.getStopDirection() == "N")  // Vertical
+                if(link.getStartDirection().equals("N") && link.getStopDirection().equals("S") || link.getStartDirection().equals("S") && link.getStopDirection().equals("N"))  // Vertical
                     return true;
-                if(link.getStartDirection() == "W" && link.getStopDirection() == "E" || link.getStartDirection() == "E" && link.getStopDirection() == "W")      //Horizontal
+                if(link.getStartDirection().equals("W") && link.getStopDirection().equals("E") || link.getStartDirection().equals("E") && link.getStopDirection().equals("W"))      //Horizontal
                     return true;
                 break;
             case BEND:  //Both start and stop are already on map
@@ -165,9 +165,9 @@ public class MapBuilder{
 
             case ADVANCED:
                 //Just check for bend
-                if(link.getStartDirection() == "N" && link.getStopDirection() == "E" || link.getStartDirection() == "E" && link.getStopDirection() == "S" || link.getStartDirection() == "S" && link.getStopDirection() == "W" || link.getStartDirection() == "W" && link.getStopDirection() == "N")     // clockwise
+                if(link.getStartDirection().equals("N") && link.getStopDirection().equals("E") || link.getStartDirection().equals("E") && link.getStopDirection().equals("S") || link.getStartDirection().equals("S") && link.getStopDirection().equals("W") || link.getStartDirection().equals("W") && link.getStopDirection().equals("N"))     // clockwise
                     return true;
-                if(link.getStartDirection() == "N" && link.getStopDirection() == "W" || link.getStartDirection() == "W" && link.getStopDirection() == "S" || link.getStartDirection() == "S" && link.getStopDirection() == "E" || link.getStartDirection() == "E" && link.getStopDirection() == "N")      //counter-clockwise
+                if(link.getStartDirection().equals("N") && link.getStopDirection().equals("W") || link.getStartDirection().equals("W") && link.getStopDirection().equals("S") || link.getStartDirection().equals("S") && link.getStopDirection().equals("E") || link.getStartDirection().equals("E") && link.getStopDirection().equals("N"))      //counter-clockwise
                     return true;
                 break;
         }
@@ -256,16 +256,16 @@ public class MapBuilder{
                 int distVert2 = intersect[1] - intersect[3];
                 int distHor2 = intersect[0] - intersect[2];
                 //Add route to intersect
-                if(link.getStartDirection() == "N" || link.getStartDirection() == "S"){
-                    if(link.getStartDirection() == "N") {
-                        if(link.getStopDirection() == "E")
+                if(link.getStartDirection().equals("N") || link.getStartDirection().equals("S")){
+                    if(link.getStartDirection().equals("N")) {
+                        if(link.getStopDirection().equals("E"))
                         {
                             addTileVertical(distVert, Tile.SOUTH_WEST);
                         } else {   //WEST
                             addTileVertical(distVert, Tile.SOUTH_EAST);
                         }
                     }else{  //SOUTH
-                        if(link.getStopDirection() == "E")
+                        if(link.getStopDirection().equals("E"))
                         {
                             addTileVertical(distVert, Tile.NORTH_WEST);
                         } else {   //WEST
@@ -276,15 +276,15 @@ public class MapBuilder{
                     locY = intersect[1];
                     addTileHorizontal(distHor2, Tile.POINT);
                 }else{
-                    if(link.getStartDirection() == "E"){
-                        if(link.getStopDirection() == "N")
+                    if(link.getStartDirection().equals("E")){
+                        if(link.getStopDirection().equals("N"))
                         {
                             addTileHorizontal(distHor, Tile.SOUTH_WEST);
                         } else {   //SOUTH
                             addTileHorizontal(distHor, Tile.NORTH_WEST);
                         }
                     }else{  //WEST
-                        if(link.getStopDirection() == "N")
+                        if(link.getStopDirection().equals("N"))
                         {
                             addTileHorizontal(distHor, Tile.SOUTH_EAST);
                         } else {   //SOUTH
@@ -333,11 +333,11 @@ public class MapBuilder{
         int stopIndex = simPoints.indexOf(stopPoint);
         stopPoint = simPoints.get(stopIndex);
 
-        if(link.getStartDirection() == "N" || link.getStartDirection() == "S")
+        if(link.getStartDirection().equals("N") || link.getStartDirection().equals("S"))
         {
             intersect[0] = startPoint.getPosX();
             intersect[1] = stopPoint.getPosY();
-        } else if(link.getStartDirection() == "E" || link.getStartDirection() == "W")
+        } else if(link.getStartDirection().equals("E") || link.getStartDirection().equals("W"))
         {
             intersect[1] = startPoint.getPosY();
             intersect[0] = stopPoint.getPosX();
