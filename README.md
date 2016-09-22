@@ -3,6 +3,8 @@
 SmartCityProject
 ================
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/461c995ba3d3429eb5d67fd1eba67c19)](https://www.codacy.com/app/SmartCity-UAntwerpen/SmartCityProject?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=SmartCity-UAntwerpen/SmartCityProject&amp;utm_campaign=Badge_Grade)
+
 The SmartCity Project is a small scale model of an IoT city with autonomous vehicles and other city facilities
 controlled by our own developed cloud platform. The main goal of this project is to build a heterogeneous
 distributed environment which includes the integration of real-time embedded systems (e.g. cars, traffic-lights)
