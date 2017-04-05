@@ -19,6 +19,9 @@ public class TerminalService
     
     @Autowired
     private BotControlService botControlService;
+
+    @Autowired
+    private PointControlService pointControlService;
     
     private Terminal terminal;
 
@@ -36,7 +39,7 @@ public class TerminalService
 
     public void systemReady()
     {
-        terminal.printTerminal(" :: SmartCity Core - 2016 ::  -  Developed by: Huybrechts T., Janssens A., Vervliet N.");
+        terminal.printTerminal("\nSmartCity Core [Version " + getClass().getPackage().getImplementationVersion() + "]\n(c) 2015-2017 University of Antwerp. All rights reserved.");
         terminal.printTerminal("Type 'help' to display the possible commands.");
 
         terminal.activateTerminal();
@@ -61,7 +64,7 @@ public class TerminalService
                     {
                         parsedInt = this.parseInteger(commandString.split(" ", 3)[1]);
 
-                        this.sendJob(parsedInt, commandString.split(" ", 3)[2]);
+                        this.sendJob((long)parsedInt, commandString.split(" ", 3)[2]);
                     }
                     catch(Exception e)
                     {
@@ -88,6 +91,7 @@ public class TerminalService
                 break;
             case "reset":
                 this.resetBots();
+                this.clearPointLocks();
                 break;
             case "delete":
                 if(commandString.split(" ", 2).length <= 1)
@@ -137,7 +141,7 @@ public class TerminalService
                 terminal.printTerminal("-------------------");
                 terminal.printTerminal("'job {botId} {command}' : send a job to the bot with the given id.");
                 terminal.printTerminal("'show {bots}' : show all bots in the database.");
-                terminal.printTerminal("'reset' : remove all bots from the database.");
+                terminal.printTerminal("'reset' : remove all bots from the database and release all point locks.");
                 terminal.printTerminal("'delete {botId}' : remove the bot with the given id from the database.");
                 terminal.printTerminal("'exit' : shutdown the server.");
                 terminal.printTerminal("'help' / '?' : show all available commands.\n");
@@ -160,15 +164,15 @@ public class TerminalService
 
             for(Bot bot : bots)
             {
-                int linkId = -1;
+                Long linkId = -1L;
                 Link link = bot.getLinkId();
 
                 if(link != null)
                 {
-                    linkId = link.getLid();
+                    linkId = link.getId();
                 }
 
-                terminal.printTerminal("\t" + bot.getRid() + "\t\t" + linkId + "\t\t\t" + bot.getState());
+                terminal.printTerminal("\t" + bot.getId() + "\t\t" + linkId + "\t\t\t" + bot.getState());
             }
         }
     }
@@ -197,12 +201,26 @@ public class TerminalService
         }
     }
 
-    private void sendJob(int botId, String command)
+    private void clearPointLocks()
+    {
+        if(pointControlService.clearAllLocks())
+        {
+            terminal.printTerminalInfo("All points are released.");
+        }
+        else
+        {
+            terminal.printTerminalError("Could not release all points.");
+        }
+    }
+
+    private void sendJob(Long botId, String command)
     {
         if(botControlService.getBot((long)botId) == null)
         {
             //Could not find bot in database
             terminal.printTerminalError("Could not find bot with id: " + botId + "!");
+
+            return;
         }
 
         if(jobService.sendJob(botId, command))
@@ -229,5 +247,21 @@ public class TerminalService
         }
 
         return parsedInt;
+    }
+
+    private long parseLong(String value) throws Exception
+    {
+        Long parsedLong;
+
+        try
+        {
+            parsedLong = Long.parseLong(value);
+        }
+        catch(NumberFormatException e)
+        {
+            throw new Exception("'" + value + "' is not a numeric value!");
+        }
+
+        return parsedLong;
     }
 }

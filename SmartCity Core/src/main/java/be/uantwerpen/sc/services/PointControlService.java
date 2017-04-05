@@ -21,7 +21,7 @@ public class PointControlService
         return pointRepository.findAll();
     }
 
-    public Point getPoint(int id)
+    public Point getPoint(Long id)
     {
         return pointRepository.findOne(id);
     }
@@ -29,5 +29,16 @@ public class PointControlService
     public Point save(Point point)
     {
         return pointRepository.save(point);
+    }
+
+    public boolean clearAllLocks()
+    {
+        for(Point point : pointRepository.findAll())
+        {
+            point.setPointLock(0);
+            this.save(point);
+        }
+
+        return true;
     }
 }

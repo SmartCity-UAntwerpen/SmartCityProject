@@ -1,8 +1,6 @@
 package be.uantwerpen.sc.services;
 
-import be.uantwerpen.sc.models.BotEntity;
-import be.uantwerpen.sc.models.LinkEntity;
-import be.uantwerpen.sc.models.PointEntity;
+import be.uantwerpen.sc.models.Bot;
 import be.uantwerpen.sc.models.sim.SimBot;
 import be.uantwerpen.sc.models.sim.SimPath;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +27,7 @@ public class CarService
     @Value("#{new Integer(${sc.core.port}) ?: 1994}")
     private int serverCorePort;
 
-    BotEntity[] botList;
+    Bot[] botList;
     public ArrayList<SimBot> simBots;
 
     public CarService(){
@@ -52,10 +50,10 @@ public class CarService
     public void getBots(){
         simBots.clear();
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<BotEntity[]> responseList;
-        responseList = restTemplate.getForEntity("http://" + serverCoreIP + ":" + serverCorePort +"/bot/", BotEntity[].class);
+        ResponseEntity<Bot[]> responseList;
+        responseList = restTemplate.getForEntity("http://" + serverCoreIP + ":" + serverCorePort +"/bot/", Bot[].class);
         botList = responseList.getBody();
-        for(BotEntity bot : botList){
+        for(Bot bot : botList){
             SimBot simBot = new SimBot(bot);
             if(mapService != null) {
                 SimPath path = null;

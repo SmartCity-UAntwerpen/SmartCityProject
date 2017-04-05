@@ -1,7 +1,5 @@
 package be.uantwerpen.sc.models.sim;
 
-import be.uantwerpen.sc.models.LinkEntity;
-
 import java.util.ArrayList;
 
 /**
@@ -9,11 +7,11 @@ import java.util.ArrayList;
  */
 public class SimPath
 {
-    private int linkID;
-    private int length;
+    private Long linkID;
+    private Long length;
     private ArrayList<int[]> locs;
 
-    public SimPath(int linkID)
+    public SimPath(Long linkID)
     {
         this.linkID = linkID;
         locs = new ArrayList<>();
@@ -25,7 +23,7 @@ public class SimPath
         locs.add(loc);
     }
 
-    public int getLinkID()
+    public Long getLinkID()
     {
         return linkID;
     }
@@ -35,12 +33,12 @@ public class SimPath
         return locs;
     }
 
-    public int getLength()
+    public Long getLength()
     {
         return length;
     }
 
-    public void setLength(int length)
+    public void setLength(Long length)
     {
         this.length = length;
     }

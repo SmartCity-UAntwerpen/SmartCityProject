@@ -1,35 +1,40 @@
 package be.uantwerpen.sc.models.sim;
 
-import be.uantwerpen.sc.models.BotEntity;
+import be.uantwerpen.sc.models.Bot;
 
 /**
  * Created by Thomas on 27/02/2016.
  */
 public class SimBot
 {
-    int linkID;
+    Long linkID;
     double percentageComplete;  //from 0-1
     int[] loc;
 
     public SimBot()
     {
-        linkID = -1;
+        linkID = -1L;
         loc = new int[]{0,0};
         percentageComplete = 0;
     }
 
-    public SimBot(BotEntity bot)
+    public SimBot(Bot bot)
     {
         if(bot.getLinkId() == null)
         {
-            this.linkID = -1;
-        }else {
-            this.linkID = bot.getLinkId().getLid();
+            this.linkID = -1L;
+        }
+        else
+        {
+            this.linkID = bot.getLinkId().getId();
         }
         
-        if(bot.getPercentageCompleted() == null) {
+        if(bot.getPercentageCompleted() == null)
+        {
             this.percentageComplete = 0;
-        }else {
+        }
+        else
+        {
             this.percentageComplete = bot.getPercentageCompleted();
         }
         loc = new int[]{0,0};
@@ -38,10 +43,10 @@ public class SimBot
     public void update(SimPath currentPath)
     {
         int size = currentPath.getLocs().size();
-        int length = currentPath.getLength();
+        Long length = currentPath.getLength();
         double perc = percentageComplete / length;
         
-        if (perc >= 1)
+        if(perc >= 1)
         {
             perc = 0.999;
         }
@@ -62,16 +67,18 @@ public class SimBot
     {
         this.percentageComplete += 0.1;
         
-        if(percentageComplete >= 1){
+        if(percentageComplete >= 1)
+        {
             percentageComplete = 0.99;
         }
     }
 
-    public void setLinkID(int linkID)
+    public void setLinkID(Long linkID)
     {
         this.linkID = linkID;
     }
-    public int getLinkID()
+
+    public Long getLinkID()
     {
         return this.linkID;
     }
@@ -85,5 +92,4 @@ public class SimBot
     {
         return loc;
     }
-
 }

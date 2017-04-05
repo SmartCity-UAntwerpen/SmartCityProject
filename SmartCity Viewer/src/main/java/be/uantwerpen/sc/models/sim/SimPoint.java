@@ -5,19 +5,19 @@ package be.uantwerpen.sc.models.sim;
  */
 public class SimPoint
 {
-    private int id;
+    private Long id;
     private int posX, posY;
     private String rfId;
 
     public SimPoint()
     {
-        this.id = -1;
+        this.id = -1L;
         this.posX = 0;
         this.posY = 0;
         this.rfId = "";
     }
 
-    public SimPoint(int id)
+    public SimPoint(Long id)
     {
         this.id = id;
         this.posX = 0;
@@ -25,7 +25,7 @@ public class SimPoint
         this.rfId = "";
     }
 
-    public SimPoint(int id, int posX, int posY)
+    public SimPoint(Long id, int posX, int posY)
     {
         this.id = id;
         this.posX = posX;
@@ -51,11 +51,11 @@ public class SimPoint
         return true;
     }
 
-    public int getId()
+    public Long getId()
     {
         return this.id;
     }
-    public void setId(int id)
+    public void setId(Long id)
     {
         this.id = id;
     }

@@ -1,7 +1,7 @@
 package be.uantwerpen.sc.tools;
 
-import be.uantwerpen.sc.models.LinkEntity;
-import be.uantwerpen.sc.models.PointEntity;
+import be.uantwerpen.sc.models.Link;
+import be.uantwerpen.sc.models.Point;
 import be.uantwerpen.sc.models.sim.SimMap;
 import be.uantwerpen.sc.models.sim.SimPath;
 import be.uantwerpen.sc.models.sim.SimPoint;
@@ -24,10 +24,10 @@ public class MapBuilder{
 
     SimMap simMap;
 
-    ArrayList<LinkEntity> linkEntities;
-    ArrayList<PointEntity> pointEntities;
+    ArrayList<Link> linkEntities;
+    ArrayList<Point> pointEntities;
 
-    ArrayList<LinkEntity> linkEntitiesPointGeneration;
+    ArrayList<Link> linkEntitiesPointGeneration;
 
     //Keep track of point locations
     ArrayList<SimPoint> simPoints = new ArrayList<>();
@@ -39,15 +39,15 @@ public class MapBuilder{
     int locX, locY = 0;
     int currSizeX = 1;
     int currSizeY = 1;
+    boolean mapReady = false;
 
-    public MapBuilder(LinkEntity[] linkEntities, PointEntity[] pointEntities){
+    public MapBuilder(Link[] linkEntities, Point[] pointEntities){
 
-        this.linkEntities = new ArrayList<LinkEntity>(Arrays.asList(linkEntities));
-        this.linkEntitiesPointGeneration = new ArrayList<LinkEntity>(Arrays.asList(linkEntities));
-        this.pointEntities = new ArrayList<PointEntity>(Arrays.asList(pointEntities));
+        this.linkEntities = new ArrayList<Link>(Arrays.asList(linkEntities));
+        this.linkEntitiesPointGeneration = new ArrayList<Link>(Arrays.asList(linkEntities));
+        this.pointEntities = new ArrayList<Point>(Arrays.asList(pointEntities));
 
         simMap = new SimMap();
-        buildMap();
     }
 
     public SimMap getSimMap(){
@@ -55,6 +55,11 @@ public class MapBuilder{
     }
     public ArrayList<SimPath> getSimPaths(){
         return simPaths;
+    }
+
+    public boolean getMapReady()
+    {
+        return this.mapReady;
     }
 
     public void logMap(){
@@ -88,15 +93,15 @@ public class MapBuilder{
         System.out.println("----------------------------------------");
     }
 
-    private int buildMap(){
+    public int buildMap(){
 
         ProcessingType processingType = ProcessingType.STRAIGHT;
 
-        Iterator<LinkEntity> linkIterator = linkEntities.iterator();
+        Iterator<Link> linkIterator = linkEntities.iterator();
 
         boolean firstFound = false;
         while(linkIterator.hasNext() && firstFound == false){
-            LinkEntity link = linkIterator.next();
+            Link link = linkIterator.next();
             if(processFirstLink(link, processingType)){
                 firstFound = true;
             }
@@ -110,9 +115,9 @@ public class MapBuilder{
             linkIterator = linkEntities.iterator();
             nextMode = true;
             while(linkIterator.hasNext()){
-                LinkEntity link = linkIterator.next();
+                Link link = linkIterator.next();
                 //Check if we can process this link with the current processing type
-                System.out.println(link.getLid());
+                System.out.println(link.getId());
                 if(canProcessWithCurrentProcessingType(link, processingType)){
                     //Removes link on success, thus, we need to start linkIterator again    //TODO Find alternative
                     if(processLink(link, processingType)){
@@ -142,17 +147,17 @@ public class MapBuilder{
         return 0;
     }
 
-    private boolean canProcessWithCurrentProcessingType(LinkEntity link, ProcessingType type){
+    private boolean canProcessWithCurrentProcessingType(Link link, ProcessingType type){
         switch(type){
             case STRAIGHT:
-                if(link.getStartDirection() == 'N' && link.getStopDirection() == 'S' || link.getStartDirection() == 'S' && link.getStopDirection() == 'N')  // Vertical
+                if(link.getStartDirection().equals("N") && link.getStopDirection().equals("S") || link.getStartDirection().equals("S") && link.getStopDirection().equals("N"))  // Vertical
                     return true;
-                if(link.getStartDirection() == 'W' && link.getStopDirection() == 'E' || link.getStartDirection() == 'E' && link.getStopDirection() == 'W')      //Horizontal
+                if(link.getStartDirection().equals("W") && link.getStopDirection().equals("E") || link.getStartDirection().equals("E") && link.getStopDirection().equals("W"))      //Horizontal
                     return true;
                 break;
             case BEND:  //Both start and stop are already on map
-                SimPoint point = new SimPoint(link.getStartId().getPid());
-                SimPoint point2 = new SimPoint(link.getStopId().getPid());
+                SimPoint point = new SimPoint(link.getStartPoint().getId());
+                SimPoint point2 = new SimPoint(link.getStopPoint().getId());
                 //check if start already on map
                 if(!(simPoints.contains(point)) || !(simPoints.contains(point2)))
                     return false;
@@ -160,17 +165,17 @@ public class MapBuilder{
 
             case ADVANCED:
                 //Just check for bend
-                if(link.getStartDirection() == 'N' && link.getStopDirection() == 'E' || link.getStartDirection() == 'E' && link.getStopDirection() == 'S' || link.getStartDirection() == 'S' && link.getStopDirection() == 'W' || link.getStartDirection() == 'W' && link.getStopDirection() == 'N')     // clockwise
+                if(link.getStartDirection().equals("N") && link.getStopDirection().equals("E") || link.getStartDirection().equals("E") && link.getStopDirection().equals("S") || link.getStartDirection().equals("S") && link.getStopDirection().equals("W") || link.getStartDirection().equals("W") && link.getStopDirection().equals("N"))     // clockwise
                     return true;
-                if(link.getStartDirection() == 'N' && link.getStopDirection() == 'W' || link.getStartDirection() == 'W' && link.getStopDirection() == 'S' || link.getStartDirection() == 'S' && link.getStopDirection() == 'E' || link.getStartDirection() == 'E' && link.getStopDirection() == 'N')      //counter-clockwise
+                if(link.getStartDirection().equals("N") && link.getStopDirection().equals("W") || link.getStartDirection().equals("W") && link.getStopDirection().equals("S") || link.getStartDirection().equals("S") && link.getStopDirection().equals("E") || link.getStartDirection().equals("E") && link.getStopDirection().equals("N"))      //counter-clockwise
                     return true;
                 break;
         }
         return false;
     }
 
-    private boolean processFirstLink(LinkEntity link, ProcessingType type){
-        SimPoint point = new SimPoint(link.getStartId().getPid(), locX, locY);
+    private boolean processFirstLink(Link link, ProcessingType type){
+        SimPoint point = new SimPoint(link.getStartPoint().getId(), locX, locY);
         //Add first point to map
         simPoints.add(point);
         //Add link's start point to map
@@ -179,13 +184,13 @@ public class MapBuilder{
         return processLink(link, type);
     }
 
-    private boolean processLink(LinkEntity link, ProcessingType type){
+    private boolean processLink(Link link, ProcessingType type){
         //Create new path
-        path = new SimPath(link.getLid());
+        path = new SimPath(link.getId());
         path.setLength(link.getLength());
 
-        SimPoint point = new SimPoint(link.getStartId().getPid(), locX, locY);
-        SimPoint point2 = new SimPoint(link.getStopId().getPid(), locX, locY);
+        SimPoint point = new SimPoint(link.getStartPoint().getId(), locX, locY);
+        SimPoint point2 = new SimPoint(link.getStopPoint().getId(), locX, locY);
         boolean swap = false;
         //check if start already on map
         if(!(simPoints.contains(point))){   //If starting point of link not yet in list -> check if end is in list
@@ -215,25 +220,25 @@ public class MapBuilder{
         switch(type){
             case STRAIGHT:  //Only one point needs to exist already
                 switch (link.getStartDirection()){
-                    case 'N':
+                    case "N":
                         if(swap)
                             addTileBelow(length);
                         else
                             addTileAbove(length);
                         break;
-                    case 'E':
+                    case "E":
                         if(swap)
                             addTileLeft(length);
                         else
                             addTileRight(length);
                         break;
-                    case 'S':
+                    case "S":
                         if(swap)
                             addTileAbove(length);
                         else
                             addTileBelow(length);
                         break;
-                    case 'W':
+                    case "W":
                         if(swap)
                             addTileRight(length);
                         else
@@ -251,15 +256,17 @@ public class MapBuilder{
                 int distVert2 = intersect[1] - intersect[3];
                 int distHor2 = intersect[0] - intersect[2];
                 //Add route to intersect
-                if(link.getStartDirection()=='N' || link.getStartDirection() == 'S'){
-                    if(link.getStartDirection()=='N') {
-                        if (link.getStopDirection() == 'E') {
+                if(link.getStartDirection().equals("N") || link.getStartDirection().equals("S")){
+                    if(link.getStartDirection().equals("N")) {
+                        if(link.getStopDirection().equals("E"))
+                        {
                             addTileVertical(distVert, Tile.SOUTH_WEST);
                         } else {   //WEST
                             addTileVertical(distVert, Tile.SOUTH_EAST);
                         }
                     }else{  //SOUTH
-                        if (link.getStopDirection() == 'E') {
+                        if(link.getStopDirection().equals("E"))
+                        {
                             addTileVertical(distVert, Tile.NORTH_WEST);
                         } else {   //WEST
                             addTileVertical(distVert, Tile.NORTH_EAST);
@@ -269,14 +276,16 @@ public class MapBuilder{
                     locY = intersect[1];
                     addTileHorizontal(distHor2, Tile.POINT);
                 }else{
-                    if(link.getStartDirection()=='E'){
-                        if (link.getStopDirection() == 'N') {
+                    if(link.getStartDirection().equals("E")){
+                        if(link.getStopDirection().equals("N"))
+                        {
                             addTileHorizontal(distHor, Tile.SOUTH_WEST);
                         } else {   //SOUTH
                             addTileHorizontal(distHor, Tile.NORTH_WEST);
                         }
                     }else{  //WEST
-                        if (link.getStopDirection() == 'N') {
+                        if(link.getStopDirection().equals("N"))
+                        {
                             addTileHorizontal(distHor, Tile.SOUTH_EAST);
                         } else {   //SOUTH
                             addTileHorizontal(distHor, Tile.NORTH_EAST);
@@ -296,9 +305,9 @@ public class MapBuilder{
         //Add endpoint to simPoints
         SimPoint endPoint;
         if(swap){
-            endPoint = new SimPoint(link.getStartId().getPid(), locX, locY);
+            endPoint = new SimPoint(link.getStartPoint().getId(), locX, locY);
         }else {
-            endPoint = new SimPoint(link.getStopId().getPid(), locX, locY);
+            endPoint = new SimPoint(link.getStopPoint().getId(), locX, locY);
         }
         //check if stop already on map
         if(!(simPoints.contains(endPoint))){
@@ -311,24 +320,25 @@ public class MapBuilder{
         return true;
     }
 
-    private int[] findIntersect(LinkEntity link){
+    private int[] findIntersect(Link link){
         int[] intersect = {-1,-1,-1,-1};
 
-        int startId = link.getStartId().getPid();
+        Long startId = link.getStartPoint().getId();
         SimPoint startPoint = new SimPoint(startId);
         int startIndex = simPoints.indexOf(startPoint);
         startPoint = simPoints.get(startIndex);
 
-        int stopId = link.getStopId().getPid();
+        Long stopId = link.getStopPoint().getId();
         SimPoint stopPoint = new SimPoint(stopId);
         int stopIndex = simPoints.indexOf(stopPoint);
         stopPoint = simPoints.get(stopIndex);
 
-        if (link.getStartDirection() == 'N' || link.getStartDirection() == 'S') {
+        if(link.getStartDirection().equals("N") || link.getStartDirection().equals("S"))
+        {
             intersect[0] = startPoint.getPosX();
             intersect[1] = stopPoint.getPosY();
-
-        } else if (link.getStartDirection() =='E' || link.getStartDirection() == 'W') {
+        } else if(link.getStartDirection().equals("E") || link.getStartDirection().equals("W"))
+        {
             intersect[1] = startPoint.getPosY();
             intersect[0] = stopPoint.getPosX();
         }
@@ -746,7 +756,7 @@ public class MapBuilder{
     }
 
     private void updateType(SimPoint point){
-        int id = point.getId();
+        Long id = point.getId();
 
         int up, down, left, right;
         up = 0;
@@ -755,25 +765,25 @@ public class MapBuilder{
         right = 0;
 
         //search for all of a point's accessed directions
-        char c = '!';
-        for(LinkEntity link : linkEntitiesPointGeneration){
-            c='!';
-            if(link.getStartId().getPid()==id) {
+        String c = "!";
+        for(Link link : linkEntitiesPointGeneration){
+            c="!";
+            if(link.getStartPoint().getId()==id) {
                 c = link.getStartDirection();
-            }else if(link.getStopId().getPid() == id) {
+            }else if(link.getStopPoint().getId() == id) {
                 c = link.getStopDirection();
             }
             switch (c){
-                case 'N':
+                case "N":
                     up = 1;
                     break;
-                case 'E':
+                case "E":
                     right = 1;
                     break;
-                case 'S':
+                case "S":
                     down = 1;
                     break;
-                case 'W':
+                case "W":
                     left = 1;
                     break;
                 default:
