@@ -6,6 +6,10 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="SCCentral" />
+        <module name="SCCore" />
+        <module name="SCSimCity" />
+        <module name="SCSimCityWorker" />
         <module name="SCSmartCityViewer" />
         <module name="SimCity" />
         <module name="SimCity Viewer" />
@@ -18,6 +22,10 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="1.8">
+      <module name="SCCentral" target="1.8" />
+      <module name="SCCore" target="1.8" />
+      <module name="SCSimCity" target="1.8" />
+      <module name="SCSimCityWorker" target="1.8" />
       <module name="SimCity" target="1.8" />
       <module name="SimCity Worker" target="1.8" />
       <module name="SmartCity Central" target="1.8" />
