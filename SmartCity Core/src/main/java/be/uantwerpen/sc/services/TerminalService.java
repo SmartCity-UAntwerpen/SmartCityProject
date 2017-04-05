@@ -19,6 +19,9 @@ public class TerminalService
     
     @Autowired
     private BotControlService botControlService;
+
+    @Autowired
+    private PointControlService pointControlService;
     
     private Terminal terminal;
 
@@ -88,6 +91,7 @@ public class TerminalService
                 break;
             case "reset":
                 this.resetBots();
+                this.clearPointLocks();
                 break;
             case "delete":
                 if(commandString.split(" ", 2).length <= 1)
@@ -137,7 +141,7 @@ public class TerminalService
                 terminal.printTerminal("-------------------");
                 terminal.printTerminal("'job {botId} {command}' : send a job to the bot with the given id.");
                 terminal.printTerminal("'show {bots}' : show all bots in the database.");
-                terminal.printTerminal("'reset' : remove all bots from the database.");
+                terminal.printTerminal("'reset' : remove all bots from the database and release all point locks.");
                 terminal.printTerminal("'delete {botId}' : remove the bot with the given id from the database.");
                 terminal.printTerminal("'exit' : shutdown the server.");
                 terminal.printTerminal("'help' / '?' : show all available commands.\n");
@@ -194,6 +198,18 @@ public class TerminalService
         else
         {
             terminal.printTerminalError("Could not clear all robots from the database.");
+        }
+    }
+
+    private void clearPointLocks()
+    {
+        if(pointControlService.clearAllLocks())
+        {
+            terminal.printTerminalInfo("All points are released.");
+        }
+        else
+        {
+            terminal.printTerminalError("Could not release all points.");
         }
     }
 

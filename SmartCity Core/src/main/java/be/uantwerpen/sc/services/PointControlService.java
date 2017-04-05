@@ -30,4 +30,15 @@ public class PointControlService
     {
         return pointRepository.save(point);
     }
+
+    public boolean clearAllLocks()
+    {
+        for(Point point : pointRepository.findAll())
+        {
+            point.setPointLock(0);
+            this.save(point);
+        }
+
+        return true;
+    }
 }
