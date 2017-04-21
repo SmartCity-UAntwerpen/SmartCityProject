@@ -117,8 +117,6 @@ public class LocationHandler
                 return false;
             }
 
-            System.out.println(startNode.getNeighbours().get(0).getId());//.getStopId());
-            //System.out.println(startNode.getNeighbours().size());
             this.destinationLocation = startNode.getNeighbours().get(0).getStopPoint().getPid();
             this.destinationDistance = startNode.getNeighbours().get(0).getLength();
             this.travelledDistance = 0L;
@@ -350,7 +348,6 @@ public class LocationHandler
         responseMap = template.getForEntity("http://" + serverIP + ":" + serverPort + "/map/", Map.class);
         map = responseMap.getBody();
 
-        System.out.println(map.toString());
         return map;
     }
 }
