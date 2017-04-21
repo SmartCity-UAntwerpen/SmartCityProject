@@ -14,7 +14,7 @@ public class Map implements AbstractMap
 {
     private List<Node> nodeList;
     private List<Bot> botEntities;
-    private List<TrafficLight> trafficlightEntity;
+    private List<TrafficLight> trafficLightEntities;
 
     public Map(){
         nodeList = new ArrayList<>();
@@ -43,11 +43,11 @@ public class Map implements AbstractMap
     }
 
     public List<TrafficLight> getTrafficlightEntity() {
-        return trafficlightEntity;
+        return trafficLightEntities;
     }
 
-    public void setTrafficlightEntity(List<TrafficLight> trafficlightEntity) {
-        this.trafficlightEntity = trafficlightEntity;
+    public void setTrafficlightEntity(List<TrafficLight> trafficLightEntities) {
+        this.trafficLightEntities = trafficLightEntities;
     }
 
     @Override
@@ -55,7 +55,7 @@ public class Map implements AbstractMap
         return "AbstractMap{" +
                 "nodeList=" + nodeList +
                 ", botEntities=" + botEntities +
-                ", trafficlightEntity=" + trafficlightEntity +
+                ", trafficlightEntity=" + trafficLightEntities +
                 '}';
     }
 }

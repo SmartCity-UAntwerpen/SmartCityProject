@@ -1,7 +1,9 @@
 package be.uantwerpen.sc.repositories;
 
 import be.uantwerpen.sc.models.Link;
+import org.hibernate.annotations.Fetch;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.cdi.Eager;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

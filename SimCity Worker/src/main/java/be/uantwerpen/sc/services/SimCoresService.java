@@ -1,5 +1,6 @@
 package be.uantwerpen.sc.services;
 
+import be.uantwerpen.sc.models.SimWorker;
 import be.uantwerpen.sc.models.sim.SimBot;
 import be.uantwerpen.sc.models.sim.SimCore;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,7 @@ import java.io.File;
 @Service
 public class SimCoresService
 {
-    private final static String coreResourceFolder = "botCores/";
+    private final static String coreResourceFolder = "configTemplates/";
     private final static String coreConfigFile = "BotCoreConfig.xml";
 
     static public SimCore getSimulationCore(SimBot bot)
@@ -33,10 +34,14 @@ public class SimCoresService
         Document document;
         SimCore simCore = null;
 
-        File configFile = new File("./" + coreResourceFolder + coreConfigFile);
+        File configFile = new File("./SimCity Worker/src/main/resources/" + coreResourceFolder + coreConfigFile);
+
+        // Debug by outputting path
+        //System.err.println(configFile.getAbsolutePath());
 
         if(!configFile.exists() || configFile.isDirectory())
         {
+
             //Configuration file is not available
             System.err.println("Configuration file: '" + coreResourceFolder + coreConfigFile + "' not found!");
 

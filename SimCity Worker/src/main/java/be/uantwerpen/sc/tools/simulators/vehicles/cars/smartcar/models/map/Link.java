@@ -5,31 +5,31 @@ package be.uantwerpen.sc.tools.simulators.vehicles.cars.smartcar.models.map;
  */
 public class Link
 {
-    private int lid;
-    private Integer length;
+    private Long id;
+    private Long length;
     private String startDirection;
     private String stopDirection;
-    private Point startId;
-    private Point stopId;
+    private Point startPoint;
+    private Point stopPoint;
     private int weight;
-    private int pointLock;
+    //private int pointLock;
 
-    public int getLid()
+    public Long getId()
     {
-        return lid;
+        return id;
     }
 
-    public void setLid(int lid)
+    public void setId(Long id)
     {
-        this.lid = lid;
+        this.id = id;
     }
 
-    public Integer getLength()
+    public Long getLength()
     {
         return length;
     }
 
-    public void setLength(Integer length)
+    public void setLength(Long length)
     {
         this.length = length;
     }
@@ -54,24 +54,24 @@ public class Link
         this.stopDirection = stopDirection;
     }
 
-    public Point getStartId()
+    public Point getStartPoint()
     {
-        return startId;
+        return startPoint;
     }
 
-    public void setStartId(Point startId)
+    public void setStartPoint(Point startPoint)
     {
-        this.startId = startId;
+        this.startPoint = startPoint;
     }
 
-    public Point getStopId()
+    public Point getStopPoint()
     {
-        return stopId;
+        return stopPoint;
     }
 
-    public void setStopId(Point stopId)
+    public void setStopPoint(Point stopPoint)
     {
-        this.stopId = stopId;
+        this.stopPoint = stopPoint;
     }
 
     public int getWeight()
@@ -84,7 +84,7 @@ public class Link
         this.weight = weight;
     }
 
-    public int getPointLock() {
+    /*public int getPointLock() {
         return pointLock;
     }
 
@@ -92,7 +92,7 @@ public class Link
     {
         this.pointLock = pointlock;
     }
-
+*/
     @Override
     public boolean equals(Object o)
     {
@@ -101,7 +101,7 @@ public class Link
 
         Link that = (Link) o;
 
-        if (lid != that.lid)
+        if (id != that.id)
             return false;
 
         if (length != null ? !length.equals(that.length) : that.length != null)
@@ -119,7 +119,7 @@ public class Link
     @Override
     public int hashCode()
     {
-        int result = lid;
+        int result = (int)(id % Integer.MAX_VALUE);
 
         result = 31 * result + (length != null ? length.hashCode() : 0);
         result = 31 * result + (startDirection != null ? startDirection.hashCode() : 0);
