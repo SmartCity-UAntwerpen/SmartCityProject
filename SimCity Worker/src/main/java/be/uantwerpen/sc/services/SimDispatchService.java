@@ -2,6 +2,8 @@ package be.uantwerpen.sc.services;
 
 import be.uantwerpen.sc.models.sim.SimBot;
 import be.uantwerpen.sc.models.sim.SimCar;
+import be.uantwerpen.sc.models.sim.SimDrone;
+import be.uantwerpen.sc.models.sim.SimF1;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -48,6 +50,12 @@ public class SimDispatchService
         {
             case "car":
                 simBot = new SimCar();
+                break;
+            case "drone":
+                simBot = new SimDrone();
+                break;
+            case "F1":
+                simBot = new SimF1();
                 break;
             default:
                 simBot = null;
