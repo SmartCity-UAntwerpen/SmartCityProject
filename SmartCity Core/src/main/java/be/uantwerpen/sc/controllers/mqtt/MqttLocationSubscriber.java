@@ -129,7 +129,7 @@ public class MqttLocationSubscriber
             mqttSubscribeClient.connect(connOpts);
 
             //Subscribe to all subtopics of bots
-            mqttSubscribeClient.subscribe("BOT/#");
+            mqttSubscribeClient.subscribe("pos/#");
         }
         catch(MqttException e)
         {

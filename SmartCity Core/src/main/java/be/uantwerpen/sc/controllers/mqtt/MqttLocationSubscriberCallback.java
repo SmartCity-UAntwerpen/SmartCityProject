@@ -30,7 +30,7 @@ public class MqttLocationSubscriberCallback implements MqttCallback
         Long botID = Long.parseLong(botIDString);
 
         String payloadString = new String(mqttMessage.getPayload());
-
+        System.out.println(payloadString);
         if(!payloadString.endsWith("Location"))
         {
             //No topic of interest, drop message

@@ -33,7 +33,7 @@ public class MqttJobPublisher
     {
         String content  = job.toString();
         int qos         = 2;
-        String topic    = "BOT/" + robotID + "/Job";
+        String topic    = "job/" + robotID;
         String broker   = "tcp://" + mqttIP + ":" + mqttPort;
 
         MemoryPersistence persistence = new MemoryPersistence();
