@@ -161,6 +161,29 @@ public class SimSupervisorService
         }
     }
 
+    public boolean parseBotProperty(int botId, String property)
+    {
+        SimBot bot = this.getBot(botId);
+
+        if(bot != null)
+        {
+            try
+            {
+                return bot.parseProperty(property);
+            }
+            catch(Exception e)
+            {
+                Terminal.printTerminalError(e.getMessage());
+
+                return false;
+            }
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     private boolean removeBot(SimBot bot)
     {
         if(bot != null)
@@ -230,5 +253,20 @@ public class SimSupervisorService
         }
 
         return null;
+    }
+
+    public boolean printBotProperty(int botId, String property)
+    {
+        SimBot bot = this.getBot(botId);
+
+        if(bot != null)
+        {
+            bot.printProperty(property);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }

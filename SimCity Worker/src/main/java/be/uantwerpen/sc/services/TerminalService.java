@@ -186,7 +186,6 @@ public class TerminalService
                     else
                     {
                         terminal.printTerminalInfo("Missing arguments! 'get {botId} {property}'");
-
                     }
                 }
                 else
@@ -197,13 +196,13 @@ public class TerminalService
                     try
                     {
                         botId = this.parseInteger(commandString.split(" ", 4)[1]);
+
+                        this.getBotProperty(botId, property);
                     }
                     catch(Exception e)
                     {
                         terminal.printTerminalError(e.getMessage());
                     }
-
-                    terminal.printTerminalInfo("METHOD NOT IMPLEMENTED YET!");
                 }
                 break;
             case "setconfig":
@@ -394,6 +393,22 @@ public class TerminalService
         else
         {
             terminal.printTerminalError("Could not set property for bot with id: " + botId + "!");
+        }
+    }
+
+    private void getBotProperty(int botId, String property)
+    {
+        if(supervisorService.parseBotProperty(botId, property))
+        {
+            SimBotStatus status = supervisorService.getBotStatus(botId);
+            terminal.printTerminal("Bot-id:\t\t" + status.getId());
+            property = property.substring(0, 1).toUpperCase() + property.substring(1).toLowerCase();
+            terminal.printTerminalAppend(property + ":\t\t");
+            supervisorService.printBotProperty(botId, property);
+        }
+        else
+        {
+            terminal.printTerminalError("Could not get property: " + property + " for bot with id: " + botId + "!");
         }
     }
 

@@ -1,5 +1,7 @@
 package be.uantwerpen.sc.models.sim;
 
+import be.uantwerpen.sc.tools.Terminal;
+
 /**
  * Created by Thomas on 26/02/2016.
  */
@@ -23,9 +25,17 @@ public abstract class SimVehicle extends SimBot
         this.startPoint = startPoint;
     }
 
+    public int getStartPoint() {
+        return this.startPoint;
+    }
+
     public void setSimSpeed(int simSpeed)
     {
         this.simSpeed = simSpeed;
+    }
+
+    public Long getSimSpeed() {
+        return this.simSpeed;
     }
 
     @Override
@@ -69,6 +79,25 @@ public abstract class SimVehicle extends SimBot
         }
     }
 
+    @Override
+    public boolean parseProperty(String property) throws Exception
+    {
+        if(super.parseProperty(property))
+        {
+            return true;
+        }
+
+        switch(property.toLowerCase().trim())
+        {
+            case "speed":
+                return true;
+            case "startpoint":
+                return true;
+            default:
+                return false;
+        }
+    }
+
     private int parseInteger(String value) throws Exception
     {
         int parsedInt;
@@ -83,5 +112,26 @@ public abstract class SimVehicle extends SimBot
         }
 
         return parsedInt;
+    }
+
+    @Override
+    public boolean printProperty(String property)
+    {
+        if(super.printProperty(property))
+        {
+            return true;
+        }
+
+        switch(property.toLowerCase().trim())
+        {
+            case "speed":
+                Terminal.printTerminalAppend(String.valueOf(simSpeed) + "\n");
+                return true;
+            case "startpoint":
+                Terminal.printTerminalAppend(String.valueOf(startPoint) + "\n");
+                return true;
+            default:
+                return false;
+        }
     }
 }

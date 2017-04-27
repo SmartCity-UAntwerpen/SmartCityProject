@@ -90,6 +90,21 @@ public class SimCar extends SimVehicle
     }
 
     @Override
+    public boolean parseProperty(String property) throws Exception
+    {
+        if(super.parseProperty(property))
+        {
+            return true;
+        }
+
+        switch(property.toLowerCase().trim())
+        {
+            default:
+                return false;
+        }
+    }
+
+    @Override
     protected void simulationProcess()
     {
         Thread commandSocketServiceThread = new Thread(this.taskSocketService);
@@ -186,6 +201,21 @@ public class SimCar extends SimVehicle
         if(!carSimulation.stopSimulation())
         {
             System.err.println("Simulation layer is not stopped properly!");
+        }
+    }
+
+    @Override
+    public boolean printProperty(String property)
+    {
+        if(super.printProperty(property))
+        {
+            return true;
+        }
+
+        switch(property.toLowerCase().trim())
+        {
+            default:
+                return false;
         }
     }
 }

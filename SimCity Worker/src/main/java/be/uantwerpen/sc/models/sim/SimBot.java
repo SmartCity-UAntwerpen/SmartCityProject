@@ -2,6 +2,7 @@ package be.uantwerpen.sc.models.sim;
 
 import be.uantwerpen.sc.models.sim.messages.SimBotStatus;
 import be.uantwerpen.sc.services.sockets.SimSocketService;
+import be.uantwerpen.sc.tools.Terminal;
 
 import javax.annotation.PostConstruct;
 
@@ -174,6 +175,29 @@ public abstract class SimBot implements Runnable
         {
             case "name":
                 setName(value);
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    public boolean parseProperty(String property) throws Exception
+    {
+        switch(property.toLowerCase().trim())
+        {
+            case "name":
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    public boolean printProperty(String property)
+    {
+        switch(property.toLowerCase().trim())
+        {
+            case "name":
+                Terminal.printTerminalAppend(name + "\n");
                 return true;
             default:
                 return false;
