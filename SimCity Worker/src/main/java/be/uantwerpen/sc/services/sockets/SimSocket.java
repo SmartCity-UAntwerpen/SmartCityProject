@@ -2,6 +2,7 @@ package be.uantwerpen.sc.services.sockets;
 
 import java.io.*;
 import java.net.Socket;
+import java.net.SocketException;
 import java.net.SocketTimeoutException;
 
 /**
@@ -29,6 +30,14 @@ public class SimSocket
         this.writer.close();
 
         this.socket.close();
+    }
+
+    public void setTimeOut(int timeOut) {
+        try {
+            this.socket.setSoTimeout(timeOut);
+        } catch (SocketException e) {
+            System.err.println("SocketException: could not set socket time-out!");
+        }
     }
 
     public int getPort()

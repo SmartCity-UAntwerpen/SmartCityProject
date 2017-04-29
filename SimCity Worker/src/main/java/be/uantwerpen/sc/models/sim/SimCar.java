@@ -205,6 +205,16 @@ public class SimCar extends SimVehicle
     }
 
     @Override
+    protected boolean sendStop() {
+        return true;
+    }
+
+    @Override
+    protected boolean sendRemove() {
+        return true;
+    }
+
+    @Override
     public boolean printProperty(String property)
     {
         if(super.printProperty(property))

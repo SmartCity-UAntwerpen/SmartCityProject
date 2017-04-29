@@ -84,7 +84,18 @@ public class SimSupervisorService
     {
         SimBot bot = this.getBot(botId);
 
-        return this.removeBot(bot);
+        if(bot != null)
+        {
+            if(bot.remove())
+            {
+                return this.removeBot(bot);
+            }
+        }
+        else
+        {
+            return false;
+        }
+        return false;
     }
 
     public boolean removeBot(String botName)
