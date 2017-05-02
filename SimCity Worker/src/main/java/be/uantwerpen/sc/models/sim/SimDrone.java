@@ -100,7 +100,7 @@ public class SimDrone extends SimVehicle
             String text = ("stop " + id);
             socketOut.println(text);
 
-            //Receive ACK when drone is succesfully registered in the SmartCityCore
+            //Receive ACK when drone is succesfully stopped in the DroneCore
             String line = socketIn.readLine();
             if(line.equalsIgnoreCase("ack")) {
                 System.out.println("Stop acknowledge received: " + line);
@@ -137,7 +137,7 @@ public class SimDrone extends SimVehicle
             String text = ("stop " + id);
             socketOut.println(text);
 
-            //Receive ACK when drone is succesfully registered in the SmartCityCore
+            //Receive ACK when drone is succesfully removed from the SmartCityCore
             String line = socketIn.readLine();
             if(line.equalsIgnoreCase("ack")) {
                 System.out.println("Remove acknowledge received: " + line);
@@ -165,6 +165,38 @@ public class SimDrone extends SimVehicle
     {
         if(super.parseProperty(property, value))
         {
+            //Create socket connection to Drone Core
+            Socket socket;
+            try{
+                socket = new Socket("146.175.40.35", 4321);
+                socket.setSoTimeout(1000);
+                PrintWriter socketOut = new PrintWriter(socket.getOutputStream(),true);
+                BufferedReader socketIn = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+
+                //Send data over socket
+                String text = ("set " + property + " " + value);
+                socketOut.println(text);
+
+                //Receive ACK when drone property is succesfully set in the DroneCore
+                String line = socketIn.readLine();
+                if(line.equalsIgnoreCase("ack")) {
+                    System.out.println("Set acknowledge received: " + line);
+                    socket.close();
+                } else {
+                    socket.close();
+                    this.stop();
+                    return false;
+                }
+
+            } catch (UnknownHostException e) {
+                this.stop();
+                System.out.println("Unknown host");
+                return false;
+            } catch  (IOException e) {
+                this.stop();
+                System.out.println("No I/O");
+                return false;
+            }
             return true;
         }
 
