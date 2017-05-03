@@ -317,12 +317,12 @@ public class TerminalService
             case "drone":
                 bot = dispatchService.instantiateBot(type);
                 break;
-            /*case "F1":
+            case "f1":
                 bot = dispatchService.instantiateBot(type);
-                break;*/
+                break;
             default:
                 terminal.printTerminalInfo("Bottype: '" + type + "' is unknown!");
-                terminal.printTerminalInfo("Known types: {car | drone | F1}");
+                terminal.printTerminalInfo("Known types: {car | drone | f1}");
                 return;
         }
 
