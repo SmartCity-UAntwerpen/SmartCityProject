@@ -205,6 +205,16 @@ public class SimCar extends SimVehicle
     }
 
     @Override
+    protected boolean sendCreate() {
+        return true;
+    }
+
+    @Override
+    protected boolean sendStart() {
+        return true;
+    }
+
+    @Override
     protected boolean sendStop() {
         return true;
     }

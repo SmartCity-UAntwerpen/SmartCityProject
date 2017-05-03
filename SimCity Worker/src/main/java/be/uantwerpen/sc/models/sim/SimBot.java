@@ -42,10 +42,23 @@ public abstract class SimBot implements Runnable
         this.serverCorePort = serverPort;
     }
 
+    public boolean create()
+    {
+        if(!sendCreate())
+        {
+            return false;
+        }
+        return true;
+    }
+
     public boolean start()
     {
         if(this.running)
         {
+            return false;
+        }
+
+        if(!sendStart()) {
             return false;
         }
 
@@ -222,6 +235,10 @@ public abstract class SimBot implements Runnable
                 return false;
         }
     }
+
+    abstract protected boolean sendCreate();
+
+    abstract protected boolean sendStart();
 
     abstract protected boolean sendStop();
 

@@ -77,7 +77,11 @@ public class SimSupervisorService
         bot.setId(nextId);
         bot.setName("bot-" + nextId);
 
-        return bots.add(bot);
+        if(bot.create())
+        {
+            return bots.add(bot);
+        }
+        return false;
     }
 
     public boolean removeBot(int botId)
@@ -104,6 +108,11 @@ public class SimSupervisorService
 
         return this.removeBot(bot);
     }
+
+    /*public boolean createBot(int botId)
+    {
+
+    }*/
 
     public boolean startBot(int botId)
     {
@@ -155,15 +164,16 @@ public class SimSupervisorService
 
         if(bot != null)
         {
-            try
-            {
-                return bot.parseProperty(property, value);
-            }
-            catch(Exception e)
-            {
-                Terminal.printTerminalError(e.getMessage());
-
+            if(bot.isRunning()) {
+                Terminal.printTerminalError("Bot with id: " + botId + " is still running. Stop bot first and try again!");
                 return false;
+            } else {
+                try {
+                    return bot.parseProperty(property, value);
+                } catch (Exception e) {
+                    Terminal.printTerminalError(e.getMessage());
+                    return false;
+                }
             }
         }
         else

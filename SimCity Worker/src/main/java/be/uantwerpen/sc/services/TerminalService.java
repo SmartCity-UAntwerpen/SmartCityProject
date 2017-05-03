@@ -317,9 +317,9 @@ public class TerminalService
             case "drone":
                 bot = dispatchService.instantiateBot(type);
                 break;
-            case "F1":
+            /*case "F1":
                 bot = dispatchService.instantiateBot(type);
-                break;
+                break;*/
             default:
                 terminal.printTerminalInfo("Bottype: '" + type + "' is unknown!");
                 terminal.printTerminalInfo("Known types: {car | drone | F1}");
@@ -329,10 +329,12 @@ public class TerminalService
         if(bot != null)
         {
             terminal.printTerminalInfo("New bot of type: '" + bot.getType() + "' and name: '" + bot.getName() + "' instantiated.");
+            return;
         }
         else
         {
             terminal.printTerminalError("Could not instantiate bot of type: " + type + "!");
+            return;
         }
     }
 
