@@ -82,7 +82,7 @@ public abstract class SimBot implements Runnable
                 }
             }
 
-            while(simulationThread.isAlive())
+            while(simulationThread.isAlive() && getType() == "car")
             {
                 //Wait for thread to stop
             }
