@@ -61,6 +61,27 @@ public class TerminalService
                     this.instantiateBot(commandString.split(" ", 2)[1]);
                 }
                 break;
+            case "deploy":
+
+                if(commandString.split(" ", 3).length <= 2)
+                {
+                    terminal.printTerminalInfo("Missing arguments! 'deploy {type} {amount}'");
+                }
+                else
+                {
+                    int amount;
+                    String type = commandString.split(" ", 3)[1];
+                    try
+                    {
+                        amount = this.parseInteger(commandString.split(" ", 3)[2]);
+                        this.instantiateBots(type, amount);
+
+                    } catch (Exception e)
+                    {
+                        terminal.printTerminalError(e.getMessage());
+                    }
+                }
+                break;
             case "run":
                 if(commandString.split(" ", 2).length <= 1)
                 {
@@ -317,9 +338,9 @@ public class TerminalService
             case "drone":
                 bot = dispatchService.instantiateBot(type);
                 break;
-            /*case "F1":
+            case "F1":
                 bot = dispatchService.instantiateBot(type);
-                break;*/
+                break;
             default:
                 terminal.printTerminalInfo("Bottype: '" + type + "' is unknown!");
                 terminal.printTerminalInfo("Known types: {car | drone | F1}");
@@ -335,6 +356,40 @@ public class TerminalService
         {
             terminal.printTerminalError("Could not instantiate bot of type: " + type + "!");
             return;
+        }
+    }
+
+    private void instantiateBots(String type, int amount)
+    {
+        SimBot bot = null;
+
+        switch(type.toLowerCase().trim()) {
+            case "car":
+                bot = dispatchService.instantiateBot(type);
+                break;
+            case "drone":
+                bot = dispatchService.instantiateBot(type);
+                break;
+            case "F1":
+                bot = dispatchService.instantiateBot(type);
+                break;
+            default:
+                terminal.printTerminalInfo("Bottype: '" + type + "' is unknown!");
+                terminal.printTerminalInfo("Known types: {car | drone | F1}");
+        }
+        int i = 0;
+        while(i < amount && bot != null)
+        {
+            bot = dispatchService.instantiateBot(type);
+            if(bot == null)
+            {
+                terminal.printTerminalError("Could not instantiate bot of type: " + type + "!");
+            }
+            else
+            {
+                terminal.printTerminalInfo("New bot of type: '" + bot.getType() + "' and name: '" + bot.getName() + "' instantiated.");
+            }
+            i++;
         }
     }
 
@@ -501,6 +556,7 @@ public class TerminalService
                 terminal.printTerminal("Available commands:");
                 terminal.printTerminal("-------------------");
                 terminal.printTerminal("'create {type}' : instantiate a bot of the given type.");
+                terminal.printTerminal("'deploy {type} {amount}' : instantiate x bots of the given type.");
                 terminal.printTerminal("'run {botId}' : start the bot with the given id.");
                 terminal.printTerminal("'stop {botId}' : stop the bot with the given id.");
                 terminal.printTerminal("'restart {botId}' : restart the bot with the given id.");
