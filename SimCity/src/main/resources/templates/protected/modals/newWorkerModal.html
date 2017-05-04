@@ -13,15 +13,10 @@
                 <form id="newWorkerForm" th:action="@{/worker/add}" th:object="${worker}" method="post">
                     <div class="modal-body">
                         <div class="form-group">
-
-                        </div>
-                        <hr/>
-                        <div class="form-group">
-
-                        </div>
-                        <hr/>
-                        <div class="form-group">
-
+                            <label for="workerName" class="control" th:text="#{worker.workerName} + ':'">Worker name:</label>
+                            <input type="text" class="form-control" id="workerName" th:field="*{workerName}"/>
+                            <label for="workerUrl" class="control" th:text="#{worker.serverUrl} + ':'">Worker URL:</label>
+                            <input type="text" class="form-control" id="workerUrl" th:field="*{serverURL}"/>
                         </div>
                     </div>
                     <div class="modal-footer">

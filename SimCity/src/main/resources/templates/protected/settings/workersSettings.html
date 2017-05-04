@@ -7,6 +7,21 @@
 
 <div class="container-fluid">
     <div th:replace="protected/modals/newWorkerModal :: newWorkerModal"></div>
+    <div class="messagesContent">
+        <div th:if="${param.workerAdded}" class="alert alertbox alert-success fade in" role="alert">
+            <button class="close" data-dismiss="alert" aria-label="Close" aria-hidden="true">&times;</button>
+            <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+            <span class="sr-only">Info: </span>
+            <span id="workerAddedAlert" th:text="#{settings.alerts.workerAdded}">New worker has been created</span>
+        </div>
+        <div th:if="${param.workerRemoved}" class="alert alertbox alert-warning fade in" role="alert">
+            <button class="close" data-dismiss="alert" aria-label="Close" aria-hidden="true">&times;</button>
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span class="sr-only">Info: </span>
+            <span id="workerRemovedAlert" th:text="#{settings.alerts.workerRemoved}">Worker has been removed</span>
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-sm-3 col-md-3 sidebar non-mobile-element">
             <ul class="nav nav-pills nav-stacked">
@@ -37,9 +52,9 @@
                 <div class="panel-body" style="padding: 0">
                     <div style="height: 40vh; overflow-y: auto">
                         <table class="table table-striped">
-                            <col width="10%"/>
-                            <col width="40%"/>
-                            <col width="40%"/>
+                            <col width="30%"/>
+                            <col width="30%"/>
+                            <col width="30%"/>
                             <col width="5%"/>
                             <col width="5%"/>
                             <tr style="font-size:120%">

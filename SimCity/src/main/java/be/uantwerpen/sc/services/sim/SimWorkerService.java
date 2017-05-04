@@ -33,6 +33,37 @@ public class SimWorkerService
         return false;
     }
 
+    public boolean add(final SimWorker worker)
+    {
+        SimWorker w;
+        Long i = 0L;
+        w = findByWorkerId(i);
+
+        while(w != null && i <= this.getNumberOfWorkers() + 1)
+        {
+            w = findByWorkerId(i);
+            i++;
+        }
+        if(i <= this.getNumberOfWorkers() + 1)
+        {
+            if (i == 0L)
+            {
+                worker.setWorkerId(0L);
+                this.simWorkerRepository.save(worker);
+            }
+            else
+            {
+                worker.setWorkerId(i-1);
+                this.simWorkerRepository.save(worker);
+            }
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     public int getNumberOfWorkers()
     {
         return this.simWorkerRepository.findAll().size();
@@ -41,5 +72,10 @@ public class SimWorkerService
     public SimWorker findByWorkerName(String workerName)
     {
         return simWorkerRepository.findByWorkerName(workerName);
+    }
+
+    public SimWorker findByWorkerId(Long workerId)
+    {
+        return simWorkerRepository.findByWorkerId(workerId);
     }
 }

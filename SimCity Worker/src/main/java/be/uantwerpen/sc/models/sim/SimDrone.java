@@ -85,6 +85,10 @@ public class SimDrone extends SimVehicle
             if(simSocket.getMessage().equalsIgnoreCase("ACK")) {
                 System.out.println("Start acknowledge received.");
                 simSocket.close();
+            } else if(simSocket.getMessage().equalsIgnoreCase("NACK")) {
+                System.out.println("NACK received. Startpoint property was not set.");
+                simSocket.close();
+                return false;
             } else {
                 simSocket.close();
                 this.stop();
@@ -169,6 +173,10 @@ public class SimDrone extends SimVehicle
                 if(simSocket.getMessage().equalsIgnoreCase("ACK")) {
                     System.out.println("Set acknowledge received.");
                     simSocket.close();
+                } else if(simSocket.getMessage().equalsIgnoreCase("NACK")) {
+                    System.out.println("NACK received. Property could not be set in drone core.");
+                    simSocket.close();
+                    return false;
                 } else {
                     simSocket.close();
                     this.stop();

@@ -52,8 +52,10 @@ public class SettingsController extends GlobalModelController
     public String showWorkersSettings(ModelMap model)
     {
         SimWorker worker = new SimWorker();
+        Iterable<SimWorker> workers = simWorkerService.findAll();
 
         model.addAttribute("worker", worker);
+        model.addAttribute("allWorkers", workers);
 
         return "protected/settings/workersSettings";
     }

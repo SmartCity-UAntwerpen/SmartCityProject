@@ -62,7 +62,6 @@ public class TerminalService
             default:
                 terminal.printTerminal("Available commands:");
                 terminal.printTerminal("-------------------");
-                terminal.printTerminal("'sendcommand {Something}': send a command to the robot c-core");
                 terminal.printTerminal("'exit' : shutdown the server.");
                 terminal.printTerminal("'help' / '?' : show all available commands.\n");
                 break;

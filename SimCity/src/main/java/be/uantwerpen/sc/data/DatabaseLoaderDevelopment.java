@@ -85,12 +85,14 @@ public class DatabaseLoaderDevelopment
         User user2 = new User("Arthur", "Janssens", "arthur.janssens", "test");
         User user3 = new User("Dennis", "Joosens", "dennis.joosens", "test");
         User user4 = new User("Niels", "Vervliet", "niels.vervliet", "test");
+        User user5 = new User("Thomas", "Molkens", "thomas.molkens", "test");
 
         //Set test users
         user1.setRoles(roles);
         user2.setRoles(roles);
         user3.setRoles(roles);
         user4.setRoles(roles);
+        user5.setRoles(roles);
 
         //Save users to database
         userRepository.save(adminUser);
@@ -98,5 +100,6 @@ public class DatabaseLoaderDevelopment
         userRepository.save(user2);
         userRepository.save(user3);
         userRepository.save(user4);
+        userRepository.save(user5);
     }
 }

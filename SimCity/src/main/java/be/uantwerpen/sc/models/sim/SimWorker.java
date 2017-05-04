@@ -16,9 +16,9 @@ import java.util.List;
 @Table(name = "worker", schema = "", catalog = "simcity")
 public class SimWorker extends MyAbstractPersistable<Long>
 {
-    private long workerID;
+    private long workerId;
     private String workerName;
-    private URL serverURL;
+    private String serverURL;
     private Date recordTime;
 
     @Transient
@@ -26,21 +26,30 @@ public class SimWorker extends MyAbstractPersistable<Long>
 
     public SimWorker()
     {
-        this.workerID = 0L;
+        this.workerId = 0L;
         this.workerName = "";
         this.serverURL = null;
         this.recordTime = null;
         this.bots = null;
     }
 
+    public SimWorker(String workerName, String serverURL)
+    {
+        this.workerId = 0L;
+        this.workerName = workerName;
+        this.serverURL = serverURL;
+        this.recordTime = null;
+        this.bots = null;
+    }
+
     public void setWorkerId(long id)
     {
-        this.workerID = id;
+        this.workerId = id;
     }
 
     public long getWorkerId()
     {
-        return this.workerID;
+        return this.workerId;
     }
 
     public void setWorkerName(String workerName)
@@ -53,12 +62,12 @@ public class SimWorker extends MyAbstractPersistable<Long>
         return this.workerName;
     }
 
-    public void setServerURL(URL serverURL)
+    public void setServerURL(String serverURL)
     {
         this.serverURL = serverURL;
     }
 
-    public URL getServerURL()
+    public String getServerURL()
     {
         return this.serverURL;
     }
