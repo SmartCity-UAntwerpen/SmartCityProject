@@ -7,6 +7,7 @@
 
 <div class="container-fluid">
     <div th:replace="protected/modals/newUserModal :: newUserModal"></div>
+    <div th:replace="protected/modals/editUserModal :: editUserModal"></div>
     <div class="messagesContent">
         <div th:if="${param.userAdded}" class="alert alertbox alert-success fade in" role="alert">
             <button class="close" data-dismiss="alert" aria-label="Close" aria-hidden="true">&times;</button>
@@ -74,7 +75,7 @@
                                 <td th:text="${user.id}">ID</td>
                                 <td th:text="${user.firstName} + ' ' + ${user.lastName}">Name</td>
                                 <td th:text="${user.username}">Username</td>
-                                <td><a th:href="@{'/users/' + ${user.username} + '/'}" type="button" class="btn btn-default btn-sm" th:title="#{settings.edit}"><span class="glyphicon glyphicon-pencil"></span></a></td>
+                                <td><a type="button" class="btn btn-default btn-sm" th:title="#{settings.edit}" data-toggle="modal" data-target="#editUserModal"><span class="glyphicon glyphicon-pencil"></span></a></td>
                                 <td><a th:href="@{'/users/' + ${user.username} + '/delete'}" type="button" class="btn btn-danger btn-sm" th:title="#{settings.delete}"><span class="glyphicon glyphicon-trash"></span></a></td>
                             </tr>
                         </table>
