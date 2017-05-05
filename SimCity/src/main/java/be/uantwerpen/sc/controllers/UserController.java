@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
  * Created by Thomas on 03/04/2016.
  */
 @Controller
-public class UsersController extends GlobalModelController
+public class UserController extends GlobalModelController
 {
     @Autowired
     private UserService userService;

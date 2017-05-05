@@ -26,4 +26,11 @@ public class GlobalModelController
     {
         return simWorkerService.findAll();
     }
+
+    @ModelAttribute("numOfBots")
+    public int getNumberOfBots()
+    {
+        //return botService.getNumberOfBots();
+        return 20;
+    }
 }
