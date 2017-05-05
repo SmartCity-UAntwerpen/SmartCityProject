@@ -55,6 +55,11 @@ public class SimSupervisorService
         return stats;
     }
 
+    public int getNumberOfBots()
+    {
+        return this.bots.size();
+    }
+
     public String getBotLog(int botId)
     {
         SimBot bot = this.getBot(botId);

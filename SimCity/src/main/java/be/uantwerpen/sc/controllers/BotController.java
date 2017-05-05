@@ -25,7 +25,7 @@ public class BotController extends GlobalModelController{
     SimSupervisorService supervisorService;
 
     private Terminal terminal;
-
+/*
     @RequestMapping(value="/bots/")
     @PreAuthorize("hasRole('logon')")
     public String displayBotPage(ModelMap model)
@@ -357,5 +357,5 @@ public class BotController extends GlobalModelController{
         }
 
         return parsedInt;
-    }
+    }*/
 }

@@ -1,6 +1,7 @@
 package be.uantwerpen.sc.controllers;
 
 import be.uantwerpen.sc.models.sim.SimWorker;
+import be.uantwerpen.sc.services.sim.SimSupervisorService;
 import be.uantwerpen.sc.services.sim.SimWorkerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,9 @@ public class GlobalModelController
 {
     @Autowired
     private SimWorkerService simWorkerService;
+
+    @Autowired
+    private SimSupervisorService simSupervisorService;
 
     @ModelAttribute("numOfWorkers")
     public int getNumberOfWorkers()
@@ -30,7 +34,6 @@ public class GlobalModelController
     @ModelAttribute("numOfBots")
     public int getNumberOfBots()
     {
-        //return botService.getNumberOfBots();
-        return 20;
+        return simSupervisorService.getNumberOfBots();
     }
 }
