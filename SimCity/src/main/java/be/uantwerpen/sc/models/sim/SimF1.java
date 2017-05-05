@@ -8,34 +8,34 @@ import java.net.Socket;
 /**
  * Created by Thomas on 5/05/2017.
  */
-public class SimDrone extends SimVehicle
+public class SimF1 extends SimVehicle
 {
     private String ip;
     private int port;
 
-    public SimDrone()
+    public SimF1()
     {
         super("bot", 0, 90);
 
-        this.type = "drone";
+        this.type = "f1";
         this.ip = "localhost";
         this.port = 0;
     }
 
-    public SimDrone(String ip, int port)
+    public SimF1(String ip, int port)
     {
         super("bot", 0, 90);
 
-        this.type = "drone";
+        this.type = "f1";
         this.ip = ip;
         this.port = port;
     }
 
-    public SimDrone(String name, int startPoint, long simSpeed)
+    public SimF1(String name, int startPoint, long simSpeed)
     {
         super(name, startPoint, simSpeed);
 
-        this.type = "drone";
+        this.type = "f1";
         this.ip = "localhost";
         this.port = 0;
     }
@@ -46,7 +46,7 @@ public class SimDrone extends SimVehicle
 
     @Override
     protected boolean sendCreate() {
-        //Create socket connection to Drone Core
+        //Create socket connection to F1 Core
         try {
             SimSocket simSocket = new SimSocket(new Socket(this.ip, this.port));
             simSocket.setTimeOut(500);
@@ -54,7 +54,7 @@ public class SimDrone extends SimVehicle
             //Send data over socket
             simSocket.sendMessage("create " + id + "\n");
 
-            //Receive ACK when drone is succesfully created in the core
+            //Receive ACK when F1 car is succesfully created in the core
             if(simSocket.getMessage().equalsIgnoreCase("ACK")) {
                 System.out.println("Create acknowledge received.");
                 simSocket.close();
@@ -73,7 +73,7 @@ public class SimDrone extends SimVehicle
 
     @Override
     protected boolean sendStart() {
-        //Create socket connection to Drone Core
+        //Create socket connection to F1 Core
         try {
             SimSocket simSocket = new SimSocket(new Socket(this.ip, this.port));
             simSocket.setTimeOut(500);
@@ -81,14 +81,10 @@ public class SimDrone extends SimVehicle
             //Send data over socket
             simSocket.sendMessage("run " + id + "\n");
 
-            //Receive ACK when drone is succesfully started in the core
+            //Receive ACK when F1 car is succesfully started in the core
             if(simSocket.getMessage().equalsIgnoreCase("ACK")) {
                 System.out.println("Start acknowledge received.");
                 simSocket.close();
-            } else if(simSocket.getMessage().equalsIgnoreCase("NACK")) {
-                System.out.println("NACK received. Startpoint property was not set.");
-                simSocket.close();
-                return false;
             } else {
                 simSocket.close();
                 this.stop();
@@ -104,7 +100,7 @@ public class SimDrone extends SimVehicle
 
     @Override
     protected boolean sendStop() {
-        //Create socket connection to Drone Core
+        //Create socket connection to F1 Core
         try {
             SimSocket simSocket = new SimSocket(new Socket(this.ip, this.port));
             simSocket.setTimeOut(500);
@@ -112,7 +108,7 @@ public class SimDrone extends SimVehicle
             //Send data over socket
             simSocket.sendMessage("stop " + id + "\n");
 
-            //Receive ACK when drone is succesfully stopped in the core
+            //Receive ACK when F1 car is succesfully stopped in the core
             if(simSocket.getMessage().equalsIgnoreCase("ACK")) {
                 System.out.println("Stop acknowledge received.");
                 simSocket.close();
@@ -131,7 +127,7 @@ public class SimDrone extends SimVehicle
 
     @Override
     protected boolean sendRemove() {
-        //Create socket connection to Drone Core
+        //Create socket connection to F1 Core
         try {
             SimSocket simSocket = new SimSocket(new Socket(this.ip, this.port));
             simSocket.setTimeOut(500);
@@ -139,7 +135,7 @@ public class SimDrone extends SimVehicle
             //Send data over socket
             simSocket.sendMessage("kill " + id + "\n");
 
-            //Receive ACK when drone is succesfully removed in the core
+            //Receive ACK when F1 car is succesfully removed in the core
             if(simSocket.getMessage().equalsIgnoreCase("ACK")) {
                 System.out.println("Remove acknowledge received.");
                 simSocket.close();
@@ -161,7 +157,7 @@ public class SimDrone extends SimVehicle
     {
         if(super.parseProperty(property, value))
         {
-            //Create socket connection to Drone Core
+            //Create socket connection to F1 Core
             try {
                 SimSocket simSocket = new SimSocket(new Socket(this.ip, this.port));
                 simSocket.setTimeOut(500);
@@ -169,14 +165,10 @@ public class SimDrone extends SimVehicle
                 //Send data over socket
                 simSocket.sendMessage("set " + id + " " + property + " " + value + "\n");
 
-                //Receive ACK when drone property is succesfully set in the core
+                //Receive ACK when F1 car property is succesfully set in the core
                 if(simSocket.getMessage().equalsIgnoreCase("ACK")) {
                     System.out.println("Set acknowledge received.");
                     simSocket.close();
-                } else if(simSocket.getMessage().equalsIgnoreCase("NACK")) {
-                    System.out.println("NACK received. Property could not be set in drone core.");
-                    simSocket.close();
-                    return false;
                 } else {
                     simSocket.close();
                     this.stop();
@@ -227,3 +219,4 @@ public class SimDrone extends SimVehicle
         }
     }
 }
+

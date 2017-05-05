@@ -1,5 +1,7 @@
 package be.uantwerpen.sc.controllers;
 
+import be.uantwerpen.sc.models.sim.messages.SimBotStatus;
+import be.uantwerpen.sc.services.sim.SimSupervisorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

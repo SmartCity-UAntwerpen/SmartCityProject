@@ -1,7 +1,10 @@
 package be.uantwerpen.sc.models.sim;
 
 import be.uantwerpen.sc.models.sim.messages.SimBotStatus;
+import be.uantwerpen.sc.services.sim.SimCoresService;
+import be.uantwerpen.sc.services.sockets.SimSocketService;
 import be.uantwerpen.sc.tools.Terminal;
+import be.uantwerpen.sc.tools.simulators.vehicles.cars.smartcar.SmartCar;
 
 import java.util.ArrayList;
 import java.util.List;
