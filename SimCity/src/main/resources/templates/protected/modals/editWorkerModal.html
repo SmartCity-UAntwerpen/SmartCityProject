@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 
-<!-- New Worker Modal Form -->
-<div th:fragment="newWorkerModal">
-    <div class="modal fade" id="newWorkerModal" tabindex="-1" role="dialog" aria-labelledby="newWorkerModalLabel">
+<!-- Edit Worker Modal Form -->
+<div th:fragment="editWorkerModal">
+    <div class="modal fade" id="editWorkerModal" tabindex="-1" role="dialog" aria-labelledby="editWorkerModalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="newWorkerModalLabel" th:text="#{modal.newworker.title}">Add new worker</h4>
+                    <h4 class="modal-title" id="editWorkerModalLabel" th:text="#{modal.editworker.title}">Edit worker</h4>
                 </div>
-                <form id="newWorkerForm" th:action="@{/workers/add}" th:object="${worker}" method="post">
+                <form id="editWorkerForm" th:action="@{/workers/__${worker.workerId}__/}" th:object="${worker}" method="post">
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="workerName" class="control" th:text="#{worker.workerName} + ':'">Worker name:</label>
@@ -21,7 +21,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal" th:text="#{cancel}">Cancel</button>
-                        <button type="submit" class="btn btn-primary" th:text="#{add}">Add</button>
+                        <button type="submit" class="btn btn-primary" th:text="#{edit}">Confirm</button>
                     </div>
                 </form>
             </div>

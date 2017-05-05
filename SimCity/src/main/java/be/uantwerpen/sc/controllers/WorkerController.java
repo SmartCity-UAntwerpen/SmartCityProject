@@ -37,7 +37,7 @@ public class WorkerController extends GlobalModelController
         }
     }
 
-    @RequestMapping(value="/worker/add", method= RequestMethod.POST)
+    @RequestMapping(value="/workers/add", method= RequestMethod.POST)
     @PreAuthorize("hasRole('logon')")
     public String addWorker(@Validated @ModelAttribute("worker") SimWorker worker, BindingResult result, HttpServletRequest request, SessionStatus sessionStatus, ModelMap model)
     {
@@ -53,6 +53,29 @@ public class WorkerController extends GlobalModelController
         else
         {
             return "redirect:/settings/workers?errorAlreadyExists";
+        }
+    }
+
+    @RequestMapping(value="/workers/{workerId}/", method= RequestMethod.POST)
+    @PreAuthorize("hasRole('logon')")
+    public String editWorker(@Validated @ModelAttribute("worker") SimWorker worker, BindingResult result, HttpServletRequest request, SessionStatus sessionStatus, ModelMap model)
+    {
+        System.out.println("TEST");
+        if(result.hasErrors())
+        {
+            return "protected/settings/workers";
+        }
+        SimWorker w = workerService.findByWorkerId(worker.getWorkerId());
+        w.setWorkerName(worker.getWorkerName());
+        w.setServerURL(worker.getServerURL());
+
+        if(workerService.save(w))
+        {
+            return "redirect:/settings/workers?workerEdited";
+        }
+        else
+        {
+            return "redirect:" + request.getRequestURI() + "?errorAlreadyExists";
         }
     }
 

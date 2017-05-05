@@ -64,6 +64,26 @@ public class SimWorkerService
         }
     }
 
+    public boolean save(SimWorker worker)
+    {
+        for(SimWorker w : findAll())
+        {
+            if(w.getId().equals(worker.getId()))
+            {
+                w.setWorkerName(worker.getWorkerName());
+                w.setServerURL(worker.getServerURL());
+                w.setRecordTime(worker.getRecordTime());
+                w.setBotList(worker.getBotList());
+
+                    if(simWorkerRepository.save(w) != null)
+                    {
+                        return true;
+                    }
+            }
+        }
+        return false;
+    }
+
     public int getNumberOfWorkers()
     {
         return this.simWorkerRepository.findAll().size();
