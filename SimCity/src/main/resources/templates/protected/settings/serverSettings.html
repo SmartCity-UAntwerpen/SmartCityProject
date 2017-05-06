@@ -17,7 +17,13 @@
 
         <div class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-3 front-content">
             <h2 th:text="#{settings.title}">Settings</h2>
+            <dl>
+                <dt th:text="#{settings.serverName}">Server name:</dt>
+                <dd th:text="${serverName}">localhost</dd>
 
+                <dt th:text="#{settings.serverIp}">Server IP:</dt>
+                <dd th:text="${serverIp}">localhost</dd>
+            </dl>
             <ul class="nav nav-tabs mobile-element">
                 <li role="presentation" class="active"><a href="#" th:text="#{settings.server}">Server</a></li>
                 <li role="presentation"><a th:href="@{/settings/users}" th:text="#{settings.users}">Users</a></li>
