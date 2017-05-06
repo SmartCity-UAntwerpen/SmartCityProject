@@ -36,7 +36,7 @@ public class BotController extends GlobalModelController{
     //Enkel mappings aangemaakt met logica, nog geen model attributes die teruggegeven worden om types te bepalen
     @RequestMapping(value="/workers/{workerId}/bots/create/{type}/")
     @PreAuthorize("hasRole('logon')")
-    public String createBot(ModelMap model)
+    public String createBot(@Validated @ModelAttribute("worker") SimBot bot, BindingResult result, ModelMap model)
     {
         if(this.instantiateBot(type))
         {

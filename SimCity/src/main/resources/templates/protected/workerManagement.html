@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head th:replace="layout :: head (pageTitle=#{homepage.title})"></head>
+<body>
+<!-- Import navigation bar -->
+<div th:replace="layout :: navbar"></div>
+
+<div class="container-fluid">
+    <div class="front-content">
+        <h2 th:text="#{application.title}">SimCity</h2>
+
+        <div class="buttons" style="margin-top: 10px; margin-bottom: 10px">
+            <button onclick="history.go(0)" value="refresh" type="button" class="btn btn-default btn-lg" th:title="#{refresh}"><span class="glyphicon glyphicon-refresh"></span></button>
+            <a type="button" class="btn btn-success btn-lg" th:title="#{addNew}" data-toggle="modal" data-target="#newBotModal"><span class="glyphicon glyphicon-plus"></span></a>
+        </div>
+
+        <!-- New Bot Modal Form -->
+        <div th:fragment="newBotModal">
+            <div class="modal fade" id="newBotModal" tabindex="-1" role="dialog" aria-labelledby="newBotModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="newBotModalLabel" th:text="#{modal.newbot.title}">Add new bot</h4>
+                        </div>
+
+                        <!--<form id="newWorkerForm" th:action="@{/workers/{workerId}/bots/create/{type}/(id=${bot.type})}" th:object="${bot}" method="post">-->
+                        <form id="newWorkerForm" th:action="@{/workers/add}" th:object="${bot}" method="post">
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="type" class="control" th:text="#{bot.type} + ':'">Bot type:</label>
+                                    <!--<input type="text" class="form-control" id="type" th:field="*{type}"/>-->
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal" th:text="#{cancel}">Cancel</button>
+                                <button type="submit" class="btn btn-primary" th:text="#{add}">Add</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title" th:text="#{bots}">Bots</h3>
+            </div>
+            <div class="panel-body" style="padding: 0">
+                <div style="height: 40vh; overflow-y: auto">
+                    <table class="table table-striped">
+                        <col width="30%"/>
+                        <col width="35%"/>
+                        <col width="35%"/>
+                        <tr style="font-size:120%">
+                            <th th:text="#{bot.id}">ID</th>
+                            <th th:text="#{bot.name}">Bot</th>
+                            <th th:text="#{bot.type}">Type</th>
+                            <th th:text="#{bot.status}">Status</th>
+                        </tr>
+                        <!--<tr th:each="bot : ${allBots}">-->
+                        <!--<td th:text="${bot.id}">ID</td>-->
+                        <!--<td th:text="${bot.botName}">Bot name</td>-->
+                        <!--<td>Unknown</td>-->
+                        <!--</tr>-->
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Import footer -->
+<div th:replace="layout :: footer"></div>
+</body>
+</html>
