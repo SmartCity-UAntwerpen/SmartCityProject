@@ -78,4 +78,12 @@ public class WorkerController extends GlobalModelController
         }
     }
 
+    // Mapping moet /workers/{id}/... worden
+    @RequestMapping(value="/workers/management", method= RequestMethod.GET)
+    public String manageWorker()
+    {
+
+        return "protected/workerManagement";
+    }
+
 }

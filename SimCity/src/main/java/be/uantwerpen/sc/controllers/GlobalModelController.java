@@ -1,5 +1,6 @@
 package be.uantwerpen.sc.controllers;
 
+import be.uantwerpen.sc.models.sim.SimBot;
 import be.uantwerpen.sc.models.sim.SimWorker;
 import be.uantwerpen.sc.services.sim.SimWorkerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,4 +34,11 @@ public class GlobalModelController
         //return botService.getNumberOfBots();
         return 20;
     }
+
+/*    @ModelAttribute("allBots")
+    public Iterable<SimBot> getAllBots()
+    {
+        //return botService.findAll();
+        return
+    }*/
 }
