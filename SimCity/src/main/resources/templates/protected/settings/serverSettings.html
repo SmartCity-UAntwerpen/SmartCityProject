@@ -21,8 +21,9 @@
                 <dt th:text="#{settings.serverName}">Server name:</dt>
                 <dd th:text="${serverName}">localhost</dd>
 
-                <dt th:text="#{settings.serverIp}">Server IP:</dt>
-                <dd th:text="${serverIp}">localhost</dd>
+                <dt th:text="#{settings.serverIp}">Server IP-addresses:</dt>
+                <!--<dd th:text="${serverIp}">localhost</dd>-->
+                <dd th:each="address : ${allServerIps}" th:text="${address}">localhost</dd>
             </dl>
             <ul class="nav nav-tabs mobile-element">
                 <li role="presentation" class="active"><a href="#" th:text="#{settings.server}">Server</a></li>

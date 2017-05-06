@@ -8,8 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
+import java.net.*;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.List;
 
 /**
  * Created by Thomas on 04/04/2016.
@@ -68,5 +70,33 @@ public class GlobalModelController
             e.printStackTrace();
             return "No IP address assigned to this server machine";
         }
+    }
+
+    @ModelAttribute("allServerIps")
+    public List<String> getAllServerIps()
+    {
+        List<String> addresses = new ArrayList<String>();
+        Enumeration interfaceList = null;
+        try {
+            interfaceList = NetworkInterface.getNetworkInterfaces();
+            while(interfaceList.hasMoreElements())
+            {
+                NetworkInterface networkInterface = (NetworkInterface) interfaceList.nextElement();
+                Enumeration addressesList = networkInterface.getInetAddresses();
+                while (addressesList.hasMoreElements())
+                {
+                    InetAddress address = (InetAddress) addressesList.nextElement();
+                    //addresses.add(addresses.size(), address.getHostAddress().toString());
+                    if(address instanceof Inet4Address && !address.isLoopbackAddress())
+                    {
+                        addresses.add(addresses.size(), address.getHostAddress().toString());
+                    }
+                }
+            }
+        } catch (SocketException se) {
+            se.printStackTrace();
+            addresses.add(addresses.size(), "No IP addresses assigned to this server machine");
+        }
+        return addresses;
     }
 }
