@@ -86,7 +86,7 @@ public class WorkerController extends GlobalModelController
 
     // Mapping moet /workers/{id}/... worden
     @RequestMapping(value="/workers/management", method= RequestMethod.GET)
-    public String manageWorker(ModelMap model)
+    public String manageWorker(ModelMap model, @Validated @ModelAttribute("type") String type)
     {
         List<String> types = new ArrayList<String>();
         try {

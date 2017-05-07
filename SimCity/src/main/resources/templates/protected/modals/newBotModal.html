@@ -10,12 +10,12 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="newBotModalLabel" th:text="#{modal.newbot.title}">Add new bot</h4>
                 </div>
-                <form id="newBotForm" th:action="@{/bots/add}" th:object="${type}" method="post">
+                <form id="newBotForm" th:action="@{/bots/create/__${typeOption}__}" th:object="${type}" method="post">
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="type" class="control" th:text="#{type} + ':'">Type:</label>
+                            <label for="type" class="control" th:text="#{type}">Type:</label>
                             <select class="form-control" id="type" th:field="${type}">
-                                <option th:each="type:${types}" th:value="${type}" th:text="${type}"></option>
+                                <option th:each="typeOption:${types}" th:value="${typeOption}" th:text="${typeOption}"></option>
                             </select>
                         </div>
                     </div>
