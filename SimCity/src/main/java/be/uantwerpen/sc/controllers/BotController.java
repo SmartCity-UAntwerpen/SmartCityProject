@@ -9,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -25,7 +28,7 @@ public class BotController extends GlobalModelController{
     SimSupervisorService supervisorService;
 
     private Terminal terminal;
-/*
+
     @RequestMapping(value="/bots/")
     @PreAuthorize("hasRole('logon')")
     public String displayBotPage(ModelMap model)
@@ -34,9 +37,10 @@ public class BotController extends GlobalModelController{
     }
 
     //Enkel mappings aangemaakt met logica, nog geen model attributes die teruggegeven worden om types te bepalen
+    //Types starten met hoofdletter ==> nog naar lowercase, anders geen geldig type
     @RequestMapping(value="/workers/{workerId}/bots/create/{type}/")
     @PreAuthorize("hasRole('logon')")
-    public String createBot(@Validated @ModelAttribute("worker") SimBot bot, BindingResult result, ModelMap model)
+    public String createBot(@Validated @ModelAttribute("type") String type, BindingResult result, ModelMap model)
     {
         if(this.instantiateBot(type))
         {
@@ -48,7 +52,7 @@ public class BotController extends GlobalModelController{
         }
 
     }
-
+/*
     @RequestMapping(value="/workers/{workerId}/bots/deploy/{type}/{amount}/")
     @PreAuthorize("hasRole('logon')")
     public String deployBots(ModelMap model)
@@ -166,7 +170,7 @@ public class BotController extends GlobalModelController{
             return "redirect:/workers/{workerId}/bots/?botStartedFail";
         }
     }
-
+*/
     private boolean instantiateBot(String type)
     {
         SimBot bot;
@@ -357,5 +361,5 @@ public class BotController extends GlobalModelController{
         }
 
         return parsedInt;
-    }*/
+    }
 }

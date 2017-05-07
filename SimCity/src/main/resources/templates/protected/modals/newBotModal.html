@@ -8,15 +8,15 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="newWorkerModalLabel" th:text="#{modal.newbot.title}">Add new bot</h4>
+                    <h4 class="modal-title" id="newBotModalLabel" th:text="#{modal.newbot.title}">Add new bot</h4>
                 </div>
-                <form id="newBotForm" th:action="@{/bots/add}" th:object="${bot}" method="post">
+                <form id="newBotForm" th:action="@{/bots/add}" th:object="${type}" method="post">
                     <div class="modal-body">
                         <div class="form-group">
-                          <!--  <label for="workerName" class="control" th:text="#{worker.workerName} + ':'">Worker name:</label>
-                            <input type="text" class="form-control" id="workerName" th:field="*{workerName}"/>
-                            <label for="workerUrl" class="control" th:text="#{worker.serverUrl} + ':'">Worker URL:</label>
-                            <input type="text" class="form-control" id="workerUrl" th:field="*{serverURL}"/>-->
+                            <label for="type" class="control" th:text="#{type} + ':'">Type:</label>
+                            <select class="form-control" id="type" th:field="${type}">
+                                <option th:each="type:${types}" th:value="${type}" th:text="${type}"></option>
+                            </select>
                         </div>
                     </div>
                     <div class="modal-footer">

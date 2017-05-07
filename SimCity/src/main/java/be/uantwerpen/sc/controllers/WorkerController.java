@@ -2,6 +2,7 @@ package be.uantwerpen.sc.controllers;
 
 import be.uantwerpen.sc.models.sim.SimWorker;
 import be.uantwerpen.sc.services.sim.SimWorkerService;
+import be.uantwerpen.sc.tools.TypesList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Thomas on 03/04/2016.
@@ -21,6 +24,9 @@ public class WorkerController extends GlobalModelController
 {
     @Autowired
     private SimWorkerService workerService;
+
+    @Autowired
+    TypesList typesList;
 
     @RequestMapping(value="/workers/{workerName}/delete")
     @PreAuthorize("hasRole('logon')")
@@ -80,9 +86,17 @@ public class WorkerController extends GlobalModelController
 
     // Mapping moet /workers/{id}/... worden
     @RequestMapping(value="/workers/management", method= RequestMethod.GET)
-    public String manageWorker()
+    public String manageWorker(ModelMap model)
     {
-
+        List<String> types = new ArrayList<String>();
+        try {
+            types = typesList.getTypes();
+            model.addAttribute("types", types);
+        } catch (Exception e) {
+            types.add("No types could be loaded!");
+            e.printStackTrace();
+            model.addAttribute("types", types);
+        }
         return "protected/workerManagement";
     }
 
