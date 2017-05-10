@@ -54,8 +54,13 @@ public class SimDrone extends SimVehicle
             //Send data over socket
             simSocket.sendMessage("create " + id + "\n");
 
-            //Receive ACK when drone is succesfully created in the core
-            if(simSocket.getMessage().equalsIgnoreCase("ACK")) {
+            String response = simSocket.getMessage();
+            while(response == null)
+            {
+                response = simSocket.getMessage();
+            }
+            //Receive ACK when drone is successfully created in the core
+            if(response.equalsIgnoreCase("ACK")) {
                 System.out.println("Create acknowledge received.");
                 simSocket.close();
             } else {
@@ -81,11 +86,17 @@ public class SimDrone extends SimVehicle
             //Send data over socket
             simSocket.sendMessage("run " + id + "\n");
 
-            //Receive ACK when drone is succesfully started in the core
-            if(simSocket.getMessage().equalsIgnoreCase("ACK")) {
+            String response = simSocket.getMessage();
+            while(response == null)
+            {
+                response = simSocket.getMessage();
+            }
+            //System.out.println(response);
+            //Receive ACK when drone is successfully started in the core
+            if(response.equalsIgnoreCase("ACK")) {
                 System.out.println("Start acknowledge received.");
                 simSocket.close();
-            } else if(simSocket.getMessage().equalsIgnoreCase("NACK")) {
+            } else if(response.equalsIgnoreCase("NACK")) {
                 System.out.println("NACK received. Startpoint property was not set.");
                 simSocket.close();
                 return false;
@@ -112,9 +123,46 @@ public class SimDrone extends SimVehicle
             //Send data over socket
             simSocket.sendMessage("stop " + id + "\n");
 
-            //Receive ACK when drone is succesfully stopped in the core
-            if(simSocket.getMessage().equalsIgnoreCase("ACK")) {
+            String response = simSocket.getMessage();
+            while(response == null)
+            {
+                response = simSocket.getMessage();
+            }
+            //Receive ACK when drone is successfully stopped in the core
+            if(response.equalsIgnoreCase("ACK")) {
                 System.out.println("Stop acknowledge received.");
+                simSocket.close();
+            } else {
+                simSocket.close();
+                this.stop();
+                return false;
+            }
+        } catch (IOException e) {
+            System.out.println("I/O exception occurred!");
+            this.stop();
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    protected boolean sendRestart() {
+        //Create socket connection to Drone Core
+        try {
+            SimSocket simSocket = new SimSocket(new Socket(this.ip, this.port));
+            simSocket.setTimeOut(500);
+
+            //Send data over socket
+            simSocket.sendMessage("restart " + id + "\n");
+
+            String response = simSocket.getMessage();
+            while(response == null)
+            {
+                response = simSocket.getMessage();
+            }
+            //Receive ACK when drone is successfully restarted in the core
+            if(response.equalsIgnoreCase("ACK")) {
+                System.out.println("Restart acknowledge received.");
                 simSocket.close();
             } else {
                 simSocket.close();
@@ -139,8 +187,13 @@ public class SimDrone extends SimVehicle
             //Send data over socket
             simSocket.sendMessage("kill " + id + "\n");
 
-            //Receive ACK when drone is succesfully removed in the core
-            if(simSocket.getMessage().equalsIgnoreCase("ACK")) {
+            String response = simSocket.getMessage();
+            while(response == null)
+            {
+                response = simSocket.getMessage();
+            }
+            //Receive ACK when drone is successfully removed in the core
+            if(response.equalsIgnoreCase("ACK")) {
                 System.out.println("Remove acknowledge received.");
                 simSocket.close();
             } else {
@@ -169,11 +222,16 @@ public class SimDrone extends SimVehicle
                 //Send data over socket
                 simSocket.sendMessage("set " + id + " " + property + " " + value + "\n");
 
-                //Receive ACK when drone property is succesfully set in the core
-                if(simSocket.getMessage().equalsIgnoreCase("ACK")) {
+                String response = simSocket.getMessage();
+                while(response == null)
+                {
+                    response = simSocket.getMessage();
+                }
+                //Receive ACK when drone property is successfully set in the core
+                if(response.equalsIgnoreCase("ACK")) {
                     System.out.println("Set acknowledge received.");
                     simSocket.close();
-                } else if(simSocket.getMessage().equalsIgnoreCase("NACK")) {
+                } else if(response.equalsIgnoreCase("NACK")) {
                     System.out.println("NACK received. Property could not be set in drone core.");
                     simSocket.close();
                     return false;

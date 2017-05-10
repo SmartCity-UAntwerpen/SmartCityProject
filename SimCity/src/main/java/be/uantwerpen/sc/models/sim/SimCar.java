@@ -220,6 +220,11 @@ public class SimCar extends SimVehicle
     }
 
     @Override
+    protected boolean sendRestart() {
+        return true;
+    }
+
+    @Override
     protected boolean sendRemove() {
         return true;
     }

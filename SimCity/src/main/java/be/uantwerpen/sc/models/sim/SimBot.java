@@ -74,9 +74,7 @@ public abstract class SimBot implements Runnable
         {
             if(this.running)
             {
-                if(sendStop()) {
-                    this.running = false;
-                }
+                this.running = false;
             }
 
             while(simulationThread.isAlive() && getType() == "car")
@@ -84,8 +82,22 @@ public abstract class SimBot implements Runnable
                 //Wait for thread to stop
             }
         }
-
-        return this.start();
+        if(getType() == "car")
+        {
+            return this.start();
+        }
+        else
+        {
+            if(this.sendRestart())
+            {
+                this.running = true;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 
     public boolean stop()
@@ -238,6 +250,8 @@ public abstract class SimBot implements Runnable
     abstract protected boolean sendStart();
 
     abstract protected boolean sendStop();
+
+    abstract protected boolean sendRestart();
 
     abstract protected boolean sendRemove();
 
