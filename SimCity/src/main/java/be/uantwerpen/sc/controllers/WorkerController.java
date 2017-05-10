@@ -62,11 +62,13 @@ public class WorkerController extends GlobalModelController
         }
     }
 
-    @RequestMapping(value="/workers/{workerId}/", method= RequestMethod.POST)
+    @RequestMapping(value="/workers/{workerId}", method= RequestMethod.POST)
     @PreAuthorize("hasRole('logon')")
     public String editWorker(@Validated @ModelAttribute("worker") SimWorker worker, BindingResult result, HttpServletRequest request, SessionStatus sessionStatus, ModelMap model)
     {
-        System.out.println("WorkerId: " + worker.getId());
+        String[] path = request.getServletPath().split("/");
+        worker.setWorkerId(Long.parseLong(path[2]));
+        System.out.println("WorkerId: " + worker.getWorkerId());
         //System.out.println("ID: " + workerId);
         if(result.hasErrors())
         {

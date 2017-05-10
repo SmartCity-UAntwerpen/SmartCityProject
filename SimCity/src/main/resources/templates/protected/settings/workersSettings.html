@@ -7,13 +7,13 @@
 
 <div class="container-fluid">
     <div th:replace="protected/modals/newWorkerModal :: newWorkerModal"></div>
-    <div th:replace="protected/modals/editWorkerModal :: editWorkerModal"></div>
+    <!--<div th:replace="protected/modals/editWorkerModal :: editWorkerModal"></div>-->
     <div class="messagesContent">
         <div th:if="${param.workerAdded}" class="alert alertbox alert-success fade in" role="alert">
             <button class="close" data-dismiss="alert" aria-label="Close" aria-hidden="true">&times;</button>
             <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
             <span class="sr-only">Info: </span>
-            <span id="workerAddedAlert" th:text="#{settings.alerts.botAdded}">New bot has been created</span>
+            <span id="workerAddedAlert" th:text="#{settings.alerts.workerAdded}">New worker has been created</span>
         </div>
         <div th:if="${param.workerRemoved}" class="alert alertbox alert-warning fade in" role="alert">
             <button class="close" data-dismiss="alert" aria-label="Close" aria-hidden="true">&times;</button>
@@ -75,8 +75,34 @@
                                 <td th:text="${worker.id}">ID</td>
                                 <td th:text="${worker.workerName}">Worker name</td>
                                 <td>Unknown</td>
-                                <!--<td><a th:href="@{'/workers/' + ${worker.workerName} + '/'}" type="button" class="btn btn-default btn-sm" th:title="#{settings.edit}"><span class="glyphicon glyphicon-pencil"></span></a></td>-->
-                                <td><a type="button" class="btn btn-default btn-sm" th:title="#{settings.edit}" data-toggle="modal" data-target="#editWorkerModal"><span class="glyphicon glyphicon-pencil"></span></a></td>
+                                <!--<td><a type="button" class="btn btn-default btn-sm" th:title="#{settings.edit}" data-toggle="modal" data-target="#editWorkerModal"><span class="glyphicon glyphicon-pencil"></span></a></td>-->
+                                <td><a type="button" class="btn btn-default btn-sm" th:title="#{settings.edit}" data-toggle="modal" th:attr="data-target='#editWorkerModal'+${worker.id}"><span class="glyphicon glyphicon-pencil"></span></a></td>
+                                <!--MODAL NOG NAAR APARTE FILE-->
+                                <div class="modal fade" th:id="editWorkerModal+${worker.id}" tabindex="-1" role="dialog" aria-labelledby="editWorkerModalLabel">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                <h4 class="modal-title" id="editWorkerModalLabel" th:text="#{modal.editworker.title}">Edit worker</h4>
+                                            </div>
+                                            <form id="editWorkerForm" th:action="@{/workers/{id}(id=${worker.id})}" th:object="${worker}" method="post">
+                                                <div class="modal-body">
+                                                    <div class="form-group">
+                                                        <label for="workerName" class="control" th:text="#{worker.workerName} + ':'">Worker name:</label>
+                                                        <input type="text" class="form-control" id="workerName" th:field="*{workerName}"/>
+                                                        <label for="workerUrl" class="control" th:text="#{worker.serverUrl} + ':'">Worker URL:</label>
+                                                        <input type="text" class="form-control" id="workerUrl" th:field="*{serverURL}"/>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal" th:text="#{cancel}">Cancel</button>
+                                                    <button type="submit" class="btn btn-primary" th:text="#{edit}">Confirm</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--MODAL NOG NAAR APARTE FILE-->
                                 <td><a th:href="@{'/workers/' + ${worker.workerName} + '/delete'}" type="button" class="btn btn-danger btn-sm" th:title="#{settings.delete}"><span class="glyphicon glyphicon-trash"></span></a></td>
                             </tr>
                         </table>

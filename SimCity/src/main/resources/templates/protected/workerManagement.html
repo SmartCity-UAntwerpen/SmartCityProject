@@ -7,7 +7,7 @@
 
 <div class="container-fluid">
     <div th:replace="protected/modals/newBotModal :: newBotModal"></div>
-    <div th:replace="protected/modals/editBotModal :: editBotModal"></div>
+    <!--<div th:replace="protected/modals/editBotModal :: editBotModal"></div>-->
     <div class="messagesContent">
         <div th:if="${param.botCreatedSuccess}" class="alert alertbox alert-success fade in" role="alert">
             <button class="close" data-dismiss="alert" aria-label="Close" aria-hidden="true">&times;</button>
@@ -79,7 +79,7 @@
                             <td th:text="${bot.type}">Type</td>
                             <td th:text="${bot.status}">Status</td>
                             <td><a th:href="@{'/workers/' + ${worker.workerId} + '/bots/run/' + ${bot.id}" type="button" class="btn btn-success btn-sm" th:title="#{run}"><span class="glyphicon glyphicon-play"></span></a></td>
-                            <td><a type="button" class="btn btn-default btn-sm" th:title="#{edit}" data-toggle="modal" data-target="#editBotModal"><span class="glyphicon glyphicon-pencil"></span></a></td>
+                           <!-- <td><a type="button" class="btn btn-default btn-sm" th:title="#{edit}" data-toggle="modal" data-target="#editBotModal"><span class="glyphicon glyphicon-pencil"></span></a></td>-->
                             <td><a th:href="@{'/workers/' + ${worker.workerId} + '/bots/stop/' + ${bot.id}}" type="button" class="btn btn-success btn-sm" th:title="#{stop}"><span class="glyphicon glyphicon-stop"></span></a></td>
                             <td><a th:href="@{'/workers/' + ${worker.workerId} + '/bots/delete/' + ${bot.id}}" type="button" class="btn btn-danger btn-sm" th:title="#{delete}"><span class="glyphicon glyphicon-trash"></span></a></td>
                         </tr>

@@ -29,11 +29,11 @@ public class BotController extends GlobalModelController{
 
     private Terminal terminal;
 
-    @RequestMapping(value="/bots/")
+    @RequestMapping(value="/bots")
     @PreAuthorize("hasRole('logon')")
     public String displayBotPage(ModelMap model)
     {
-        return "redirect:/bots/";
+        return "protected/botManagement";
     }
 
     //Enkel mappings aangemaakt met logica, nog geen model attributes die teruggegeven worden om types te bepalen
