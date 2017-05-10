@@ -10,7 +10,8 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="editWorkerModalLabel" th:text="#{modal.editworker.title}">Edit worker</h4>
                 </div>
-                <form id="editWorkerForm" th:action="@{/workers/__${worker.workerId}__/}" th:object="${worker}" method="post">
+                <form id="editWorkerForm" th:action="@{/workers/{id}(id=${worker.workerId})}" th:object="${worker}" method="post">
+                    <input th:type="hidden" th:field="*{workerId}"/>
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="workerName" class="control" th:text="#{worker.workerName} + ':'">Worker name:</label>

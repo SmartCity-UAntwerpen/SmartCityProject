@@ -7,6 +7,39 @@
 
 <div class="container-fluid">
     <div th:replace="protected/modals/newBotModal :: newBotModal"></div>
+    <div th:replace="protected/modals/editBotModal :: editBotModal"></div>
+    <div class="messagesContent">
+        <div th:if="${param.botCreatedSuccess}" class="alert alertbox alert-success fade in" role="alert">
+            <button class="close" data-dismiss="alert" aria-label="Close" aria-hidden="true">&times;</button>
+            <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+            <span class="sr-only">Info: </span>
+            <span id="botAddedAlert" th:text="#{settings.alerts.botAdded}">New bot has been created</span>
+        </div>
+        <div th:if="${param.botStartedSuccess}" class="alert alertbox alert-success fade in" role="alert">
+            <button class="close" data-dismiss="alert" aria-label="Close" aria-hidden="true">&times;</button>
+            <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+            <span class="sr-only">Info: </span>
+            <span id="botdStartedAlert" th:text="#{settings.alerts.botStarted}">New bot has been started</span>
+        </div>
+        <div th:if="${param.botKilledSuccess}" class="alert alertbox alert-warning fade in" role="alert">
+            <button class="close" data-dismiss="alert" aria-label="Close" aria-hidden="true">&times;</button>
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span class="sr-only">Info: </span>
+            <span id="botRemovedAlert" th:text="#{settings.alerts.botRemoved}">Bot has been removed</span>
+        </div>
+        <div th:if="${param.workerEdited}" class="alert alertbox alert-success fade in" role="alert">
+            <button class="close" data-dismiss="alert" aria-label="Close" aria-hidden="true">&times;</button>
+            <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+            <span class="sr-only">Info: </span>
+            <span id="botEditedAlert" th:text="#{settings.alerts.botEdited}">Bot has been edited</span>
+        </div>
+        <div th:if="${param.botStoppedSuccess}" class="alert alertbox alert-success fade in" role="alert">
+            <button class="close" data-dismiss="alert" aria-label="Close" aria-hidden="true">&times;</button>
+            <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+            <span class="sr-only">Info: </span>
+            <span id="botStoppedAlert" th:text="#{settings.alerts.botStopped}">Bot has been stopped</span>
+        </div>
+    </div>
     <div class="front-content">
         <h2 th:text="#{application.title}">SimCity</h2>
 
@@ -22,20 +55,34 @@
             <div class="panel-body" style="padding: 0">
                 <div style="height: 40vh; overflow-y: auto">
                     <table class="table table-striped">
-                        <col width="30%"/>
-                        <col width="35%"/>
-                        <col width="35%"/>
+                        <col width="20%"/>
+                        <col width="20%"/>
+                        <col width="20%"/>
+                        <col width="20%"/>
+                        <col width="5%"/>
+                        <col width="5%"/>
+                        <col width="5%"/>
+                        <col width="5%"/>
                         <tr style="font-size:120%">
                             <th th:text="#{bot.id}">ID</th>
                             <th th:text="#{bot.name}">Bot</th>
                             <th th:text="#{bot.type}">Type</th>
                             <th th:text="#{bot.status}">Status</th>
+                            <th th:text="''">Place holder - Play Button</th>
+                            <th th:text="''">Place holder - Edit Button</th>
+                            <th th:text="''">Place holder - Stop Button</th>
+                            <th th:text="''">Place holder - Delete Button</th>
                         </tr>
-                        <!--<tr th:each="bot : ${allBots}">-->
-                        <!--<td th:text="${bot.id}">ID</td>-->
-                        <!--<td th:text="${bot.botName}">Bot name</td>-->
-                        <!--<td>Unknown</td>-->
-                        <!--</tr>-->
+                        <tr th:each="bot : ${allBots}">
+                            <td th:text="${bot.id}">ID</td>
+                            <td th:text="${bot.name}">Bot name</td>
+                            <td th:text="${bot.type}">Type</td>
+                            <td th:text="${bot.status}">Status</td>
+                            <td><a th:href="@{'/workers/' + ${worker.workerId} + '/bots/run/' + ${bot.id}" type="button" class="btn btn-success btn-sm" th:title="#{run}"><span class="glyphicon glyphicon-play"></span></a></td>
+                            <td><a type="button" class="btn btn-default btn-sm" th:title="#{edit}" data-toggle="modal" data-target="#editBotModal"><span class="glyphicon glyphicon-pencil"></span></a></td>
+                            <td><a th:href="@{'/workers/' + ${worker.workerId} + '/bots/stop/' + ${bot.id}}" type="button" class="btn btn-success btn-sm" th:title="#{stop}"><span class="glyphicon glyphicon-stop"></span></a></td>
+                            <td><a th:href="@{'/workers/' + ${worker.workerId} + '/bots/delete/' + ${bot.id}}" type="button" class="btn btn-danger btn-sm" th:title="#{delete}"><span class="glyphicon glyphicon-trash"></span></a></td>
+                        </tr>
                     </table>
                 </div>
             </div>

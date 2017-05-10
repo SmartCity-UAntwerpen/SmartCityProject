@@ -1,6 +1,7 @@
 package be.uantwerpen.sc.controllers;
 
 import be.uantwerpen.sc.models.sim.SimBot;
+import be.uantwerpen.sc.models.sim.SimCar;
 import be.uantwerpen.sc.models.sim.SimWorker;
 import be.uantwerpen.sc.services.sim.SimSupervisorService;
 import be.uantwerpen.sc.services.sim.SimWorkerService;
@@ -9,9 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 import java.net.*;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by Thomas on 04/04/2016.
@@ -43,12 +42,12 @@ public class GlobalModelController
         return simSupervisorService.getNumberOfBots();
     }
 
-/*    @ModelAttribute("allBots")
+    @ModelAttribute("allBots")
     public Iterable<SimBot> getAllBots()
     {
         //return botService.findAll();
-        return
-    }*/
+        return null;
+    }
 
     @ModelAttribute("serverName")
     public String getServerName()

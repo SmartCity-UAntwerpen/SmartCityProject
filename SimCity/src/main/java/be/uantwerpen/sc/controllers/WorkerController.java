@@ -66,6 +66,8 @@ public class WorkerController extends GlobalModelController
     @PreAuthorize("hasRole('logon')")
     public String editWorker(@Validated @ModelAttribute("worker") SimWorker worker, BindingResult result, HttpServletRequest request, SessionStatus sessionStatus, ModelMap model)
     {
+        System.out.println("WorkerId: " + worker.getId());
+        //System.out.println("ID: " + workerId);
         if(result.hasErrors())
         {
             return "protected/settings/workers";
