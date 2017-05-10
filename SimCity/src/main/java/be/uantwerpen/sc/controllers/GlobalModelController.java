@@ -1,7 +1,6 @@
 package be.uantwerpen.sc.controllers;
 
 import be.uantwerpen.sc.models.sim.SimBot;
-import be.uantwerpen.sc.models.sim.SimCar;
 import be.uantwerpen.sc.models.sim.SimWorker;
 import be.uantwerpen.sc.services.sim.SimSupervisorService;
 import be.uantwerpen.sc.services.sim.SimWorkerService;
@@ -45,8 +44,7 @@ public class GlobalModelController
     @ModelAttribute("allBots")
     public Iterable<SimBot> getAllBots()
     {
-        //return botService.findAll();
-        return null;
+        return simSupervisorService.findAll();
     }
 
     @ModelAttribute("serverName")
@@ -85,7 +83,7 @@ public class GlobalModelController
                 while (addressesList.hasMoreElements())
                 {
                     InetAddress address = (InetAddress) addressesList.nextElement();
-                    //addresses.add(addresses.size(), address.getHostAddress().toString());
+
                     if(address instanceof Inet4Address && !address.isLoopbackAddress())
                     {
                         addresses.add(addresses.size(), address.getHostAddress().toString());

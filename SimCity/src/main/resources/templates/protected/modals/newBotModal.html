@@ -13,7 +13,7 @@
                 <form id="newBotForm" th:action="@{/bots/create/__${typeOption}__}" th:object="${type}" method="post">
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="type" class="control" th:text="#{type}">Type:</label>
+                            <label for="type" class="control" th:text="#{type} + ':'">Type:</label>
                             <select class="form-control" id="type" th:field="${type}">
                                 <option th:each="typeOption:${types}" th:value="${typeOption}" th:text="${typeOption}"></option>
                             </select>

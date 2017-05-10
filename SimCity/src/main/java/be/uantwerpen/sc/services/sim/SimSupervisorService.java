@@ -1,5 +1,6 @@
 package be.uantwerpen.sc.services.sim;
 
+import be.uantwerpen.sc.models.Bot;
 import be.uantwerpen.sc.models.sim.SimBot;
 import be.uantwerpen.sc.models.sim.messages.SimBotStatus;
 import be.uantwerpen.sc.tools.Terminal;
@@ -294,6 +295,11 @@ public class SimSupervisorService
         {
             return false;
         }
+    }
+
+    public List<SimBot> findAll()
+    {
+        return this.bots;
     }
 }
 
