@@ -10,15 +10,18 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="editBotModalLabel" th:text="#{modal.editbot.title}">Edit bot</h4>
                 </div>
-                <form id="editWorkerForm" th:action="@{/workers/{__${workerId}__}/bots/" th:object="${bot}" method="post">
+                <form id="editBotForm" th:action="@{/workers/0/bots/}" th:object="${bot}" method="post">
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="workerName" class="control" th:text="#{bot.name} + ':'">Bot name:</label>
-                            <input type="text" class="form-control" id="workerName" th:field="*{name}"/>
-                            <label for="workerUrl" class="control" th:text="#{bot.startpoint} + ':'">Bot startpoint:</label>
-                            <input type="text" class="form-control" id="workerUrl" th:field="*{startpoint}"/>
-                            <label for="workerUrl" class="control" th:text="#{bot.speed} + ':'">Bot speed:</label>
-                            <input type="text" class="form-control" id="workerUrl" th:field="*{speed}"/>
+                            <label for="botProperty" class="control" th:text="#{bot.property} + ':'">Property:</label>
+                            <select class="form-control" id="botProperty" th:field="*{property}">
+                                <option th:each="propertyOption:${properties}"
+                                        th:value="${propertyOption}"
+                                        th:text="${propertyOption}">
+                                </option>
+                            </select>
+                            <label for="propertyValue" class="control" th:text="#{bot.property.value} + ':'">Value:</label>
+                            <input type="text" class="form-control" id="propertyValue" th:field="*{value}"/>
                         </div>
                     </div>
                     <div class="modal-footer">

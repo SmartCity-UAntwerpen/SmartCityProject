@@ -52,17 +52,18 @@
             <div class="panel-heading">
                 <h3 class="panel-title" th:text="#{bots}">Bots</h3>
             </div>
-            <div class="panel-body" style="padding: 0">
+
+            <div class="panel-body" style="padding: 0" id="botDetails">
                 <div style="height: 40vh; overflow-y: auto">
                     <table class="table table-striped">
                         <col width="20%"/>
                         <col width="20%"/>
                         <col width="20%"/>
                         <col width="20%"/>
-                        <col width="5%"/>
-                        <col width="5%"/>
-                        <col width="5%"/>
-                        <col width="5%"/>
+                        <col width="1%"/>
+                        <col width="1%"/>
+                        <col width="1%"/>
+                        <col width="1%"/>
                         <tr style="font-size:120%">
                             <th th:text="#{bot.id}">ID</th>
                             <th th:text="#{bot.name}">Bot</th>
@@ -74,14 +75,15 @@
                             <th th:text="''">Place holder - Delete Button</th>
                         </tr>
                         <tr th:each="bot : ${allBots}">
+                            <input type="hidden" name="id" id="id" th:value="${bot.id}" />
                             <td th:text="${bot.id}">ID</td>
                             <td th:text="${bot.name}">Bot name</td>
                             <td th:text="${bot.type}">Type</td>
-                            <td th:text="${bot.status}">Status</td>
-                            <td><a th:href="@{'/workers/' + ${worker.workerId} + '/bots/run/' + ${bot.id}" type="button" class="btn btn-success btn-sm" th:title="#{run}"><span class="glyphicon glyphicon-play"></span></a></td>
-                            <td><a type="button" class="btn btn-default btn-sm" th:title="#{edit}" data-toggle="modal" data-target="#editBotModal"><span class="glyphicon glyphicon-pencil"></span></a></td>
-                            <td><a th:href="@{'/workers/' + ${worker.workerId} + '/bots/stop/' + ${bot.id}}" type="button" class="btn btn-success btn-sm" th:title="#{stop}"><span class="glyphicon glyphicon-stop"></span></a></td>
-                            <td><a th:href="@{'/workers/' + ${worker.workerId} + '/bots/delete/' + ${bot.id}}" type="button" class="btn btn-danger btn-sm" th:title="#{delete}"><span class="glyphicon glyphicon-trash"></span></a></td>
+                            <td th:text="${bot.getBotStatus().getRunningState()}">Status</td>
+                            <td><a th:href="@{'/workers/0/bots/run/' + __${bot.id}__}" type="button" class="btn btn-success btn-xs" th:title="#{run}"><span class="glyphicon glyphicon-play"></span></a></td>
+                            <td><a type="button" class="btn btn-default btn-xs" th:title="#{edit}" data-toggle="modal" data-target="#editBotModal"><span class="glyphicon glyphicon-pencil"></span></a></td>
+                            <td><a th:href="@{'/workers/0/bots/stop/' + __${bot.id}__}" type="button" class="btn btn-warning btn-xs" th:title="#{stop}"><span class="glyphicon glyphicon-stop"></span></a></td>
+                            <td><a th:href="@{'/workers/0/bots/delete/' + __${bot.id}__}" type="button" class="btn btn-danger btn-xs" th:title="#{delete}"><span class="glyphicon glyphicon-trash"></span></a></td>
                         </tr>
                     </table>
                 </div>

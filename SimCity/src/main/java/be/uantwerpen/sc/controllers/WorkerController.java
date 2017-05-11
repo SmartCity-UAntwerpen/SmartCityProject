@@ -62,12 +62,10 @@ public class WorkerController extends GlobalModelController
         }
     }
 
-    @RequestMapping(value="/workers/{workerId}/", method= RequestMethod.POST)
+    @RequestMapping(value="/workers/{workerId}", method= RequestMethod.POST)
     @PreAuthorize("hasRole('logon')")
     public String editWorker(@Validated @ModelAttribute("worker") SimWorker worker, BindingResult result, HttpServletRequest request, SessionStatus sessionStatus, ModelMap model)
     {
-        System.out.println("WorkerId: " + worker.getId());
-        //System.out.println("ID: " + workerId);
         if(result.hasErrors())
         {
             return "protected/settings/workers";
@@ -75,6 +73,8 @@ public class WorkerController extends GlobalModelController
         SimWorker w = workerService.findByWorkerId(worker.getWorkerId());
         w.setWorkerName(worker.getWorkerName());
         w.setServerURL(worker.getServerURL());
+        System.out.println(w.getWorkerName());
+        System.out.println(w.getServerURL());
 
         if(workerService.save(w))
         {

@@ -1,6 +1,7 @@
 package be.uantwerpen.sc.controllers;
 
 import be.uantwerpen.sc.models.security.User;
+import be.uantwerpen.sc.models.sim.SimForm;
 import be.uantwerpen.sc.models.sim.SimWorker;
 import be.uantwerpen.sc.services.security.RoleService;
 import be.uantwerpen.sc.services.security.UserService;

@@ -13,7 +13,7 @@
             <button class="close" data-dismiss="alert" aria-label="Close" aria-hidden="true">&times;</button>
             <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
             <span class="sr-only">Info: </span>
-            <span id="workerAddedAlert" th:text="#{settings.alerts.botAdded}">New bot has been created</span>
+            <span id="workerAddedAlert" th:text="#{settings.alerts.workerAdded}">New worker has been created</span>
         </div>
         <div th:if="${param.workerRemoved}" class="alert alertbox alert-warning fade in" role="alert">
             <button class="close" data-dismiss="alert" aria-label="Close" aria-hidden="true">&times;</button>
@@ -72,11 +72,11 @@
                                 <th th:text="''">Place holder - Delete Button</th>
                             </tr>
                             <tr th:each="worker : ${allWorkers}">
-                                <td th:text="${worker.id}">ID</td>
+                                <td id='tableId' th:text="${worker.id}">ID</td>
                                 <td th:text="${worker.workerName}">Worker name</td>
                                 <td>Unknown</td>
                                 <!--<td><a th:href="@{'/workers/' + ${worker.workerName} + '/'}" type="button" class="btn btn-default btn-sm" th:title="#{settings.edit}"><span class="glyphicon glyphicon-pencil"></span></a></td>-->
-                                <td><a type="button" class="btn btn-default btn-sm" th:title="#{settings.edit}" data-toggle="modal" data-target="#editWorkerModal"><span class="glyphicon glyphicon-pencil"></span></a></td>
+                                <td><a type="button" class="btn btn-default btn-sm" th:title="#{settings.edit}" data-toggle="modal" data-target="#editWorkerModal" onclick="setDataId()"><span class="glyphicon glyphicon-pencil"></span></a></td>
                                 <td><a th:href="@{'/workers/' + ${worker.workerName} + '/delete'}" type="button" class="btn btn-danger btn-sm" th:title="#{settings.delete}"><span class="glyphicon glyphicon-trash"></span></a></td>
                             </tr>
                         </table>

@@ -10,8 +10,7 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="editWorkerModalLabel" th:text="#{modal.editworker.title}">Edit worker</h4>
                 </div>
-                <form id="editWorkerForm" th:action="@{/workers/{id}(id=${worker.workerId})}" th:object="${worker}" method="post">
-                    <input th:type="hidden" th:field="*{workerId}"/>
+                <form id="editWorkerForm" th:action="@{/workers/0}" th:object="${worker}" method="post">
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="workerName" class="control" th:text="#{worker.workerName} + ':'">Worker name:</label>
@@ -24,6 +23,30 @@
                         <button type="button" class="btn btn-default" data-dismiss="modal" th:text="#{cancel}">Cancel</button>
                         <button type="submit" class="btn btn-primary" th:text="#{edit}">Confirm</button>
                     </div>
+
+                    <!--<script>-->
+                        <!--function setAction() {-->
+                            <!--var inputId = document.getElementById("workerId").value;-->
+                            <!--//alert(inputId);-->
+                            <!--if (inputId !== "") {-->
+                                <!--var url = "/workers/" + inputId;-->
+                                <!--alert(url);-->
+                                <!--document.getElementById("editWorkerForm").action = url;-->
+                                <!--document.getElementById("editWorkerForm").submit();-->
+                            <!--} else {-->
+                                <!--alert("Please set form action");-->
+                            <!--}-->
+                        <!--}-->
+                        <!--$(document).on("click", ".btn", function () {-->
+                            <!--var myId = $(this).data('id');-->
+                            <!--alert(myId);-->
+                            <!--var url = "/workers/" + inputId;-->
+                            <!--alert(url);-->
+                            <!--document.getElementById("editWorkerForm").action = url;-->
+                            <!--document.getElementById("editWorkerForm").submit();-->
+                            <!--$(".modal-body #workerId").val( myId );-->
+                        <!--});-->
+                    <!--</script>-->
                 </form>
             </div>
         </div>
