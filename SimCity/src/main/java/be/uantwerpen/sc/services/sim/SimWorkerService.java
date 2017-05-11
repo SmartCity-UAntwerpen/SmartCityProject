@@ -96,6 +96,6 @@ public class SimWorkerService
 
     public SimWorker findByWorkerId(Long workerId)
     {
-        return simWorkerRepository.findByWorkerId(workerId);
+        return simWorkerRepository.findById(workerId);
     }
 }

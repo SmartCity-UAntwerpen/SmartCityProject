@@ -7,7 +7,6 @@
 
 <div class="container-fluid">
     <div th:replace="protected/modals/newUserModal :: newUserModal"></div>
-    <div th:replace="protected/modals/editUserModal :: editUserModal"></div>
     <div class="messagesContent">
         <div th:if="${param.userAdded}" class="alert alertbox alert-success fade in" role="alert">
             <button class="close" data-dismiss="alert" aria-label="Close" aria-hidden="true">&times;</button>
@@ -26,6 +25,12 @@
             <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
             <span class="sr-only">Info: </span>
             <span id="userRemovedAlert" th:text="#{settings.alerts.userRemoved}">User has been removed</span>
+        </div>
+        <div th:if="${param.errorAlreadyExists}" class="alert alertbox alert-warning fade in" role="alert">
+            <button class="close" data-dismiss="alert" aria-label="Close" aria-hidden="true">&times;</button>
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span class="sr-only">Info: </span>
+            <span id="userAlreadyExistsAlert" th:text="#{settings.alerts.userAlreadyExists}">User already exists</span>
         </div>
     </div>
 
@@ -71,12 +76,13 @@
                                 <th th:text="''">Place holder - Edit Button</th>
                                 <th th:text="''">Place holder - Delete Button</th>
                             </tr>
-                            <tr th:each="user : ${allUsers}">
-                                <td th:text="${user.id}">ID</td>
-                                <td th:text="${user.firstName} + ' ' + ${user.lastName}">Name</td>
-                                <td th:text="${user.username}">Username</td>
-                                <td><a type="button" class="btn btn-default btn-sm" th:title="#{settings.edit}" data-toggle="modal" data-target="#editUserModal"><span class="glyphicon glyphicon-pencil"></span></a></td>
-                                <td><a th:href="@{'/users/' + ${user.username} + '/delete'}" type="button" class="btn btn-danger btn-sm" th:title="#{settings.delete}"><span class="glyphicon glyphicon-trash"></span></a></td>
+                            <tr th:each="aUser : ${allUsers}">
+                                <td th:text="${aUser.id}">ID</td>
+                                <td th:text="${aUser.firstName} + ' ' + ${aUser.lastName}">Name</td>
+                                <td th:text="${aUser.username}">Username</td>
+                                <td><a type="button" class="btn btn-default btn-sm" th:title="#{settings.edit}" data-toggle="modal" th:attr="data-target='#editUserModal'+${aUser.id}"><span class="glyphicon glyphicon-pencil"></span></a></td>
+                                <div th:replace="protected/modals/editUserModal :: editUserModal"></div>
+                                <td><a th:href="@{'/users/' + ${aUser.username} + '/delete'}" type="button" class="btn btn-danger btn-sm" th:title="#{settings.delete}"><span class="glyphicon glyphicon-trash"></span></a></td>
                             </tr>
                         </table>
                     </div>

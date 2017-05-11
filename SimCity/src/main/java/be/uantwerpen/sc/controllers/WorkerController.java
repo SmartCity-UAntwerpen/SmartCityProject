@@ -69,11 +69,12 @@ public class WorkerController extends GlobalModelController
         String[] path = request.getServletPath().split("/");
         worker.setWorkerId(Long.parseLong(path[2]));
         System.out.println("WorkerId: " + worker.getWorkerId());
-        //System.out.println("ID: " + workerId);
+        //System.out.println("ID: " + worker.getId());
         if(result.hasErrors())
         {
             return "protected/settings/workers";
         }
+        System.out.println(worker.getWorkerName());
         SimWorker w = workerService.findByWorkerId(worker.getWorkerId());
         w.setWorkerName(worker.getWorkerName());
         w.setServerURL(worker.getServerURL());
@@ -84,7 +85,7 @@ public class WorkerController extends GlobalModelController
         }
         else
         {
-            return "redirect:" + request.getRequestURI() + "?errorAlreadyExists";
+            return "redirect:/settings/workers";
         }
     }
 

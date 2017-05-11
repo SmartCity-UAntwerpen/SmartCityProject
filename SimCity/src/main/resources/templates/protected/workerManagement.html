@@ -7,37 +7,66 @@
 
 <div class="container-fluid">
     <div th:replace="protected/modals/newBotModal :: newBotModal"></div>
-    <!--<div th:replace="protected/modals/editBotModal :: editBotModal"></div>-->
     <div class="messagesContent">
         <div th:if="${param.botCreatedSuccess}" class="alert alertbox alert-success fade in" role="alert">
             <button class="close" data-dismiss="alert" aria-label="Close" aria-hidden="true">&times;</button>
             <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
             <span class="sr-only">Info: </span>
-            <span id="botAddedAlert" th:text="#{settings.alerts.botAdded}">New bot has been created</span>
+            <span id="botCreatedSuccessAlert" th:text="#{settings.alerts.botCreatedSuccess}">New bot has been created</span>
         </div>
         <div th:if="${param.botStartedSuccess}" class="alert alertbox alert-success fade in" role="alert">
             <button class="close" data-dismiss="alert" aria-label="Close" aria-hidden="true">&times;</button>
             <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
             <span class="sr-only">Info: </span>
-            <span id="botdStartedAlert" th:text="#{settings.alerts.botStarted}">New bot has been started</span>
+            <span id="botStartedSuccessAlert" th:text="#{settings.alerts.botStartedSuccess}">New bot has been started</span>
         </div>
         <div th:if="${param.botKilledSuccess}" class="alert alertbox alert-warning fade in" role="alert">
             <button class="close" data-dismiss="alert" aria-label="Close" aria-hidden="true">&times;</button>
             <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
             <span class="sr-only">Info: </span>
-            <span id="botRemovedAlert" th:text="#{settings.alerts.botRemoved}">Bot has been removed</span>
+            <span id="botKilledSuccessAlert" th:text="#{settings.alerts.botKilledSuccess}">Bot has been removed</span>
         </div>
-        <div th:if="${param.workerEdited}" class="alert alertbox alert-success fade in" role="alert">
+        <div th:if="${param.botEditedSuccess}" class="alert alertbox alert-success fade in" role="alert">
             <button class="close" data-dismiss="alert" aria-label="Close" aria-hidden="true">&times;</button>
             <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
             <span class="sr-only">Info: </span>
-            <span id="botEditedAlert" th:text="#{settings.alerts.botEdited}">Bot has been edited</span>
+            <span id="botEditedSuccessAlert" th:text="#{settings.alerts.botEditedSuccess}">Bot has been edited</span>
         </div>
         <div th:if="${param.botStoppedSuccess}" class="alert alertbox alert-success fade in" role="alert">
             <button class="close" data-dismiss="alert" aria-label="Close" aria-hidden="true">&times;</button>
             <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
             <span class="sr-only">Info: </span>
-            <span id="botStoppedAlert" th:text="#{settings.alerts.botStopped}">Bot has been stopped</span>
+            <span id="botStoppedSuccessAlert" th:text="#{settings.alerts.botStoppedSuccess}">Bot has been stopped</span>
+        </div>
+        <div th:if="${param.botCreatedFailed}" class="alert alertbox alert-warning fade in" role="alert">
+            <button class="close" data-dismiss="alert" aria-label="Close" aria-hidden="true">&times;</button>
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span class="sr-only">Info: </span>
+            <span id="botCreatedFailedAlert" th:text="#{settings.alerts.botCreatedFailed}">Bot cannot be created</span>
+        </div>
+        <div th:if="${param.botStartedFailed}" class="alert alertbox alert-warning fade in" role="alert">
+            <button class="close" data-dismiss="alert" aria-label="Close" aria-hidden="true">&times;</button>
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span class="sr-only">Info: </span>
+            <span id="botStartedFailedAlert" th:text="#{settings.alerts.botStartedFailed}">Bot cannot be started</span>
+        </div>
+        <div th:if="${param.botKilledFailed}" class="alert alertbox alert-warning fade in" role="alert">
+            <button class="close" data-dismiss="alert" aria-label="Close" aria-hidden="true">&times;</button>
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span class="sr-only">Info: </span>
+            <span id="botKilledFailedAlert" th:text="#{settings.alerts.botKilledFailed}">Bot cannot be killed</span>
+        </div>
+        <div th:if="${param.botEditedFailed}" class="alert alertbox alert-warning fade in" role="alert">
+            <button class="close" data-dismiss="alert" aria-label="Close" aria-hidden="true">&times;</button>
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span class="sr-only">Info: </span>
+            <span id="botEditedFailedAlert" th:text="#{settings.alerts.botEditedFailed}">Bot cannot be edited</span>
+        </div>
+        <div th:if="${param.botStoppedFailed}" class="alert alertbox alert-warning fade in" role="alert">
+            <button class="close" data-dismiss="alert" aria-label="Close" aria-hidden="true">&times;</button>
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span class="sr-only">Info: </span>
+            <span id="botStoppedFailedAlert" th:text="#{settings.alerts.botStoppedFailed}">Bot cannot be stopped</span>
         </div>
     </div>
     <div class="front-content">

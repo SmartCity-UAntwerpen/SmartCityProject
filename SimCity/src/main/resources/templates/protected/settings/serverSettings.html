@@ -25,7 +25,7 @@
                 <!--<dd th:text="${serverIp}">localhost</dd>-->
                 <dd th:each="address : ${allServerIps}" th:text="${address}">localhost</dd>
             </dl>
-            <p>URL is : <span id="url"></span></p>
+            <!--<p>URL is : <span id="url"></span></p>-->
             <ul class="nav nav-tabs mobile-element">
                 <li role="presentation" class="active"><a href="#" th:text="#{settings.server}">Server</a></li>
                 <li role="presentation"><a th:href="@{/settings/users}" th:text="#{settings.users}">Users</a></li>

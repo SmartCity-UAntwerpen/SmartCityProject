@@ -3,19 +3,18 @@
 
 <!-- Edit Worker Modal Form -->
 <div th:fragment="editWorkerModal">
-    <!--<div class="modal fade" id="editWorkerModal" tabindex="-1" role="dialog" aria-labelledby="editWorkerModalLabel">-->
-    <div class="modal fade" th:id="editWorkerModal+${worker.id}" tabindex="-1" role="dialog" aria-labelledby="editWorkerModalLabel">
+    <div class="modal fade" th:id="editWorkerModal+${aWorker.id}" tabindex="-1" role="dialog" aria-labelledby="editWorkerModalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="editWorkerModalLabel" th:text="#{modal.editworker.title}">Edit worker</h4>
                 </div>
-                <form id="editWorkerForm" th:action="@{/workers/{id}(id=${worker.id})}" th:object="${worker}" method="post">
+                <form id="editWorkerForm" th:action="@{/workers/{id}(id=${aWorker.id})}" th:object="${worker}" method="post">
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="workerName" class="control" th:text="#{worker.workerName} + ':'">Worker name:</label>
-                            <input type="text" class="form-control" id="workerName" th:field="*{workerName}"<!-- th:text="${worker.id}-->"/>
+                            <input type="text" class="form-control" id="workerName" th:field="*{workerName}"/>
                             <label for="workerUrl" class="control" th:text="#{worker.serverUrl} + ':'">Worker URL:</label>
                             <input type="text" class="form-control" id="workerUrl" th:field="*{serverURL}"/>
                         </div>

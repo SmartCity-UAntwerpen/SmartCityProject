@@ -53,7 +53,7 @@ public class UserController extends GlobalModelController
         return "protected/forms/userForm";
     }
 
-    @RequestMapping(value="/users/{username}/", method=RequestMethod.POST)
+    @RequestMapping(value="/users/{username}", method=RequestMethod.POST)
     @PreAuthorize("hasRole('logon')")
     public String editUser(@Validated @ModelAttribute("user") User user, BindingResult result, HttpServletRequest request, SessionStatus sessionStatus, ModelMap model)
     {
@@ -62,19 +62,23 @@ public class UserController extends GlobalModelController
             return "protected/forms/userForm";
         }
 
-        if(userService.save(user))
-        {
-            //Check if logged in user has been edited
-            if(userService.getPrincipalUser() == null)
-            {
-                userService.setPrincipalUser(user);
-            }
+        String[] path = request.getServletPath().split("/");
 
-            return "redirect:/settings/users?userEdited";
+        User retrievedUser = userService.findByUsername(user.getUsername());
+        if(retrievedUser != null)
+        {
+            return "redirect:/settings/users?errorAlreadyExists";
         }
         else
         {
-            return "redirect:" + request.getRequestURI() + "?errorAlreadyExists";
+            retrievedUser = userService.findByUsername(path[2]);
+            retrievedUser.setFirstName(user.getFirstName());
+            retrievedUser.setLastName(user.getLastName());
+            retrievedUser.setUsername(user.getUsername());
+            retrievedUser.setPassword(user.getPassword());
+            retrievedUser.setRoles(user.getRoles());
+            userService.save(retrievedUser);
+            return "redirect:/settings/users?userEdited";
         }
     }
 

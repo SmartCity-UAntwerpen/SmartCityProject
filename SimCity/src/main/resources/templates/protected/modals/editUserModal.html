@@ -3,14 +3,14 @@
 
 <!-- Edit Worker Modal Form -->
 <div th:fragment="editUserModal">
-    <div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="editUserModalLabel">
+    <div class="modal fade" th:id="editUserModal+${aUser.id}" tabindex="-1" role="dialog" aria-labelledby="editUserModalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="editUserModalLabel" th:text="#{modal.edituser.title}">Edit user</h4>
                 </div>
-                <form id="editUserForm" th:action="@{/users/__${user.username}__/}" th:object="${user}" method="post">
+                <form id="editUserForm" th:action="@{/users/{username}(username=${aUser.username})}" th:object="${user}" method="post">
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="firstName" class="control" th:text="#{user.firstName} + ':'">First name:</label>
@@ -24,8 +24,6 @@
                         <div class="form-group">
                             <label for="password" class="control" th:text="#{modal.newuser.newPassword} + ':'">New password:</label>
                             <input type="password" class="form-control" id="password" th:field="*{password}"/>
-                            <label for="repeatPassword" class="control" th:text="#{modal.newuser.repeatPassword} + ':'">Repeat password:</label>
-                            <input type="password" class="form-control" id="repeatPassword"/>
                         </div>
                         <hr/>
                         <div class="form-group">

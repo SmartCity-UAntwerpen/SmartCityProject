@@ -60,7 +60,6 @@ public class UserService
                     u.setUsername(user.getUsername());
                     u.setPassword(user.getPassword());
                     u.setRoles(user.getRoles());
-
                     if(userRepository.save(u) != null)
                     {
                         return true;
@@ -68,7 +67,6 @@ public class UserService
                 }
             }
         }
-
         return false;
     }
 
