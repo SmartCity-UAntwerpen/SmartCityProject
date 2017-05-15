@@ -25,8 +25,7 @@
 
                     <script>
                         function setAction() {
-                            var selectedIndex = document.getElementById("type").selectedIndex;
-                            var action = document.getElementsByTagName("option")[selectedIndex].value;
+                            var action = document.getElementById("type").value;
                             if (action !== "") {
                                 action = action.toLowerCase();
                                 var url = "/workers/0/bots/create/" + action;

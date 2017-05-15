@@ -137,7 +137,7 @@ public class BotController extends GlobalModelController{
         }
     }
 
-    @RequestMapping(value="/workers/{workerId}/bots/kill/{botId}/")
+    @RequestMapping(value="/workers/{workerId}/bots/kill/{botId}")
     @PreAuthorize("hasRole('logon')")
     public String killBot(@PathVariable int botId, ModelMap model)
     {
@@ -151,17 +151,19 @@ public class BotController extends GlobalModelController{
         }
     }
 
-    @RequestMapping(value="/workers/{workerId}/bots/set/{botId}/{property}/{value}/")
+    @RequestMapping(value="/workers/{workerId}/bots/set/{botId}/{property}/{value}")
     @PreAuthorize("hasRole('logon')")
     public String setBot(@PathVariable int botId, @PathVariable String property, @PathVariable String value, ModelMap model)
     {
+        System.out.println(property);
+        System.out.println("Bot id: " + botId);
         if(this.setBotProperty(botId, property, String.valueOf(value)))
         {
-            return "redirect:/workers/{workerId}/bots/?botStartedSuccess";
+            return "redirect:/bots/?botEditedSuccess";
         }
         else
         {
-            return "redirect:/workers/{workerId}/bots/?botStartedFail";
+            return "redirect:/bots/?botEditedFailed";
         }
     }
 
