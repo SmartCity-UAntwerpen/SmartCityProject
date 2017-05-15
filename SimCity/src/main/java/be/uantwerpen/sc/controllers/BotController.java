@@ -1,9 +1,11 @@
 package be.uantwerpen.sc.controllers;
 
 import be.uantwerpen.sc.models.sim.SimBot;
+import be.uantwerpen.sc.models.sim.SimForm;
 import be.uantwerpen.sc.models.sim.messages.SimBotStatus;
 import be.uantwerpen.sc.services.sim.SimDispatchService;
 import be.uantwerpen.sc.services.sim.SimSupervisorService;
+import be.uantwerpen.sc.tools.PropertiesList;
 import be.uantwerpen.sc.tools.Terminal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -12,6 +14,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -29,26 +32,32 @@ public class BotController extends GlobalModelController{
 
     private Terminal terminal;
 
-    @RequestMapping(value="/bots")
+    @RequestMapping(value = {"/bots"})
     @PreAuthorize("hasRole('logon')")
-    public String displayBotPage(ModelMap model)
-    {
+    public String showBotsSettings(ModelMap model) throws Exception {
+        SimForm botForm = new SimForm();
+        List<String> properties = new PropertiesList().getProperties();
+
+        model.addAttribute("bot", botForm);
+        model.addAttribute("properties", properties);
+
         return "protected/botManagement";
     }
 
     //Enkel mappings aangemaakt met logica, nog geen model attributes die teruggegeven worden om types te bepalen
     //Types starten met hoofdletter ==> nog naar lowercase, anders geen geldig type
-    @RequestMapping(value="/workers/{workerId}/bots/create/{type}/")
+    @RequestMapping(value="/workers/{workerId}/bots/create/{type}")
+    //@RequestMapping(value="/bots/create/{type}/")
     @PreAuthorize("hasRole('logon')")
     public String createBot(@Validated @ModelAttribute("type") String type, BindingResult result, ModelMap model)
     {
         if(this.instantiateBot(type))
         {
-            return "redirect:/workers/{workerId}/bots/?botCreatedSuccess";
+            return "redirect:/workers/management/?botCreatedSuccess";
         }
         else
         {
-            return "redirect:/workers/{workerId}/bots/?botCreatedFail";
+            return "redirect:/bots/?botCreatedFail";
         }
 
     }
@@ -67,24 +76,21 @@ public class BotController extends GlobalModelController{
         }
 
     }
-
-    @RequestMapping(value="/workers/{workerId}/bots/run/{botId}/")
+*/
+    @RequestMapping(value="/workers/{workerId}/bots/run/{botId}")
     @PreAuthorize("hasRole('logon')")
-    public String runBot(ModelMap model)
+    public String runBot(@PathVariable int botId, ModelMap model) throws Exception
     {
-        int botId;
-        botId = this.parseInteger(botId);
-
         if(this.startBot(botId))
         {
-            return "redirect:/workers/{workerId}/bots/?botStartedSuccess";
+            return "redirect:/bots/?botStartedSuccess";
         }
         else
         {
-            return "redirect:/workers/{workerId}/bots/?botStartedFail";
+            return "redirect:/bots/?botStartedFail";
         }
     }
-
+/*
     @RequestMapping(value="/workers/{workerId}/bots/run/{botId1}/{botId2}/")
     @PreAuthorize("hasRole('logon')")
     public String runBots(ModelMap model)
@@ -102,75 +108,65 @@ public class BotController extends GlobalModelController{
             return "redirect:/workers/{workerId}/bots/?botsStartedFail";
         }
     }
-
+*/
     @RequestMapping(value="/workers/{workerId}/bots/stop/{botId}/")
     @PreAuthorize("hasRole('logon')")
-    public String stopBot(ModelMap model)
+    public String stopBot(@PathVariable int botId, ModelMap model) throws Exception
     {
-        int botId;
-        botId = this.parseInteger(botId);
-
         if(this.stopBot(botId))
         {
-            return "redirect:/workers/{workerId}/bots/?botStoppedSuccess";
+            return "redirect:/bots/?botStoppedSuccess";
         }
         else
         {
-            return "redirect:/workers/{workerId}/bots/?botStoppedFail";
+            return "redirect:/bots/?botStoppedFail";
         }
     }
 
     @RequestMapping(value="/workers/{workerId}/bots/restart/{botId}/")
     @PreAuthorize("hasRole('logon')")
-    public String restartBot(ModelMap model)
+    public String restartBot(@PathVariable int botId, ModelMap model)
     {
-        int botId;
-        botId = this.parseInteger(botId);
-
         if(this.restartBot(botId))
         {
-            return "redirect:/workers/{workerId}/bots/?botRestartedSuccess";
+            return "redirect:/bots/?botRestartedSuccess";
         }
         else
         {
-            return "redirect:/workers/{workerId}/bots/?botRestartedFail";
+            return "redirect:/bots/?botRestartedFail";
         }
     }
 
-    @RequestMapping(value="/workers/{workerId}/bots/kill/{botId}/")
+    @RequestMapping(value="/workers/{workerId}/bots/kill/{botId}")
     @PreAuthorize("hasRole('logon')")
-    public String killBot(ModelMap model)
+    public String killBot(@PathVariable int botId, ModelMap model)
     {
-        int botId;
-        botId = this.parseInteger(botId);
-
         if(this.killBot(botId))
         {
-            return "redirect:/workers/{workerId}/bots/?botKilledSuccess";
+            return "redirect:/bots/?botKilledSuccess";
         }
         else
         {
-            return "redirect:/workers/{workerId}/bots/?botKilledFail";
+            return "redirect:/bots/?botKilledFail";
         }
     }
 
-    @RequestMapping(value="/workers/{workerId}/bots/set/{botId}/{property}/{value}/")
+    @RequestMapping(value="/workers/{workerId}/bots/set/{botId}/{property}/{value}")
     @PreAuthorize("hasRole('logon')")
-    public String setBot(ModelMap model)
+    public String setBot(@PathVariable int botId, @PathVariable String property, @PathVariable String value, ModelMap model)
     {
-        int botId;
-        botId = this.parseInteger(botId);
-
-        if(this.setBotProperty(botId, property, value))
+        System.out.println(property);
+        System.out.println("Bot id: " + botId);
+        if(this.setBotProperty(botId, property, String.valueOf(value)))
         {
-            return "redirect:/workers/{workerId}/bots/?botStartedSuccess";
+            return "redirect:/bots/?botEditedSuccess";
         }
         else
         {
-            return "redirect:/workers/{workerId}/bots/?botStartedFail";
+            return "redirect:/bots/?botEditedFailed";
         }
     }
-*/
+
     private boolean instantiateBot(String type)
     {
         SimBot bot;

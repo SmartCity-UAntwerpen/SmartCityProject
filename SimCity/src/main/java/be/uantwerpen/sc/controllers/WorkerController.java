@@ -1,7 +1,9 @@
 package be.uantwerpen.sc.controllers;
 
+import be.uantwerpen.sc.models.sim.SimForm;
 import be.uantwerpen.sc.models.sim.SimWorker;
 import be.uantwerpen.sc.services.sim.SimWorkerService;
+import be.uantwerpen.sc.tools.PropertiesList;
 import be.uantwerpen.sc.tools.TypesList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -91,7 +93,7 @@ public class WorkerController extends GlobalModelController
 
     // Mapping moet /workers/{id}/... worden
     @RequestMapping(value="/workers/management", method= RequestMethod.GET)
-    public String manageWorker(ModelMap model, @Validated @ModelAttribute("type") String type)
+    public String manageWorker(ModelMap model, @Validated @ModelAttribute("type") String type) throws Exception
     {
         List<String> types = new ArrayList<String>();
         try {
@@ -102,6 +104,13 @@ public class WorkerController extends GlobalModelController
             e.printStackTrace();
             model.addAttribute("types", types);
         }
+
+        SimForm botForm = new SimForm();
+        List<String> properties = new PropertiesList().getProperties();
+
+        model.addAttribute("bot", botForm);
+        model.addAttribute("properties", properties);
+
         return "protected/workerManagement";
     }
 

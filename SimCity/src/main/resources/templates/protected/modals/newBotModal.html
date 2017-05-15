@@ -10,18 +10,36 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="newBotModalLabel" th:text="#{modal.newbot.title}">Add new bot</h4>
                 </div>
-                <form id="newBotForm" th:action="@{/bots/create/__${typeOption}__}" th:object="${type}" method="post">
+                <form id="newBotForm" action="#" th:action="@{/bots/create/{type}}" th:object="${type}" method="post">
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="type" class="control" th:text="#{type} + ':'">Type:</label>
                             <select class="form-control" id="type" th:field="${type}">
-                                <option th:each="typeOption:${types}" th:value="${typeOption}" th:text="${typeOption}"></option>
+                                <option th:each="typeOption:${types}"
+                                        th:value="${typeOption}"
+                                        th:text="${typeOption}">
+                                </option>
                             </select>
                         </div>
                     </div>
+
+                    <script>
+                        function setAction() {
+                            var action = document.getElementById("type").value;
+                            if (action !== "") {
+                                action = action.toLowerCase();
+                                var url = "/workers/0/bots/create/" + action;
+                                document.getElementById("newBotForm").action = url;
+                                document.getElementById("newBotForm").submit();
+                            } else {
+                                alert("Please set form action");
+                            }
+                        }
+                    </script>
+
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal" th:text="#{cancel}">Cancel</button>
-                        <button type="submit" class="btn btn-primary" th:text="#{add}">Add</button>
+                        <button type="submit" class="btn btn-primary" onclick="setAction()" th:text="#{add}">Add</button>
                     </div>
                 </form>
             </div>
