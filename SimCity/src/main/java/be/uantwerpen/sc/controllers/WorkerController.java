@@ -70,8 +70,7 @@ public class WorkerController extends GlobalModelController
     {
         String[] path = request.getServletPath().split("/");
         worker.setWorkerId(Long.parseLong(path[2]));
-        System.out.println("WorkerId: " + worker.getWorkerId());
-        //System.out.println("ID: " + worker.getId());
+
         if(result.hasErrors())
         {
             return "protected/settings/workers";

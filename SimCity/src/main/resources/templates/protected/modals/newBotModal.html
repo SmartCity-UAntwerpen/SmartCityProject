@@ -20,23 +20,9 @@
                                         th:text="${typeOption}">
                                 </option>
                             </select>
+                            <script type="text/javascript" th:src="@{/js/URLparser.js}"></script>
                         </div>
                     </div>
-
-                    <script>
-                        function setAction() {
-                            var action = document.getElementById("type").value;
-                            if (action !== "") {
-                                action = action.toLowerCase();
-                                var url = "/workers/0/bots/create/" + action;
-                                document.getElementById("newBotForm").action = url;
-                                document.getElementById("newBotForm").submit();
-                            } else {
-                                alert("Please set form action");
-                            }
-                        }
-                    </script>
-
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal" th:text="#{cancel}">Cancel</button>
                         <button type="submit" class="btn btn-primary" onclick="setAction()" th:text="#{add}">Add</button>
@@ -46,5 +32,4 @@
         </div>
     </div>
 </div>
-
 </html>

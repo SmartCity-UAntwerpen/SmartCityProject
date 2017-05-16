@@ -109,7 +109,7 @@ public class BotController extends GlobalModelController{
         }
     }
 */
-    @RequestMapping(value="/workers/{workerId}/bots/stop/{botId}/")
+    @RequestMapping(value="/workers/{workerId}/bots/stop/{botId}")
     @PreAuthorize("hasRole('logon')")
     public String stopBot(@PathVariable int botId, ModelMap model) throws Exception
     {
@@ -123,7 +123,7 @@ public class BotController extends GlobalModelController{
         }
     }
 
-    @RequestMapping(value="/workers/{workerId}/bots/restart/{botId}/")
+    @RequestMapping(value="/workers/{workerId}/bots/restart/{botId}")
     @PreAuthorize("hasRole('logon')")
     public String restartBot(@PathVariable int botId, ModelMap model)
     {
@@ -137,7 +137,7 @@ public class BotController extends GlobalModelController{
         }
     }
 
-    @RequestMapping(value="/workers/{workerId}/bots/kill/{botId}")
+    @RequestMapping(value="/workers/{workerId}/bots/delete/{botId}")
     @PreAuthorize("hasRole('logon')")
     public String killBot(@PathVariable int botId, ModelMap model)
     {
