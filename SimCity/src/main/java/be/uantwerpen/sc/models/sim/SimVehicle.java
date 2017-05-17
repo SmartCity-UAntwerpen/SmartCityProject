@@ -25,6 +25,7 @@ public abstract class SimVehicle extends SimBot
         this.startPoint = startPoint;
     }
 
+    @Override
     public int getStartPoint() {
         return this.startPoint;
     }
@@ -34,6 +35,7 @@ public abstract class SimVehicle extends SimBot
         this.simSpeed = simSpeed;
     }
 
+    @Override
     public Long getSimSpeed() {
         return this.simSpeed;
     }

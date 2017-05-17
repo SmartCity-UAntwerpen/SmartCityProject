@@ -155,8 +155,6 @@ public class BotController extends GlobalModelController{
     @PreAuthorize("hasRole('logon')")
     public String setBot(@PathVariable int botId, @PathVariable String property, @PathVariable String value, ModelMap model)
     {
-        System.out.println(property);
-        System.out.println("Bot id: " + botId);
         if(this.setBotProperty(botId, property, String.valueOf(value)))
         {
             return "redirect:/bots/?botEditedSuccess";

@@ -210,6 +210,10 @@ public abstract class SimBot implements Runnable
         }
     }
 
+    public abstract int getStartPoint();
+
+    public abstract Long getSimSpeed();
+
     public boolean parseProperty(String property, String value) throws Exception
     {
         switch(property.toLowerCase().trim())
