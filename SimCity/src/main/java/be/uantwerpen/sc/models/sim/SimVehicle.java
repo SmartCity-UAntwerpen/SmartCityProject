@@ -35,6 +35,7 @@ public abstract class SimVehicle extends SimBot
         this.simSpeed = simSpeed;
     }
 
+    @Override
     public Long getSimSpeed() {
         return this.simSpeed;
     }
