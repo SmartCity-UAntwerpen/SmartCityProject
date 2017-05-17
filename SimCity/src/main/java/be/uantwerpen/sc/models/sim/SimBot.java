@@ -189,11 +189,11 @@ public abstract class SimBot implements Runnable
 
         if(this.running)
         {
-            status = "Running";
+            status = "RUNNING";
         }
         else
         {
-            status = "Off";
+            status = "OFF";
         }
 
         SimBotStatus simBotStatus = new SimBotStatus(this.id, this.type, this.name, status);

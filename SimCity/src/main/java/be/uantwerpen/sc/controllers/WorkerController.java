@@ -30,11 +30,11 @@ public class WorkerController extends GlobalModelController
     @Autowired
     TypesList typesList;
 
-    @RequestMapping(value="/workers/{workerName}/delete")
+    @RequestMapping(value="/workers/{id}/delete")
     @PreAuthorize("hasRole('logon')")
-    public String deleteUser(@PathVariable String workerName, HttpServletRequest request, ModelMap model)
+    public String deleteUser(@Validated @ModelAttribute("worker") SimWorker worker, ModelMap model)
     {
-        if(workerService.delete(workerName))
+        if(workerService.delete(worker.getId()))
         {
             model.clear();
             return "redirect:/settings/workers?workerRemoved";
@@ -69,14 +69,14 @@ public class WorkerController extends GlobalModelController
     public String editWorker(@Validated @ModelAttribute("worker") SimWorker worker, BindingResult result, HttpServletRequest request, SessionStatus sessionStatus, ModelMap model)
     {
         String[] path = request.getServletPath().split("/");
-        worker.setWorkerId(Long.parseLong(path[2]));
+        worker.setId(Long.parseLong(path[2]));
 
         if(result.hasErrors())
         {
             return "protected/settings/workers";
         }
-        System.out.println(worker.getWorkerName());
-        SimWorker w = workerService.findByWorkerId(worker.getWorkerId());
+        
+        SimWorker w = workerService.findById(worker.getId());
         w.setWorkerName(worker.getWorkerName());
         w.setServerURL(worker.getServerURL());
 

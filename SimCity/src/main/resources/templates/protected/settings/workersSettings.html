@@ -76,7 +76,7 @@
                                 <td>Unknown</td>
                                 <td><a type="button" class="btn btn-default btn-sm" th:title="#{settings.edit}" data-toggle="modal" th:attr="data-target='#editWorkerModal'+${aWorker.id}"><span class="glyphicon glyphicon-pencil"></span></a></td>
                                 <div th:replace="protected/modals/editWorkerModal :: editWorkerModal"></div>
-                                <td><a th:href="@{'/workers/' + ${worker.workerName} + '/delete'}" type="button" class="btn btn-danger btn-sm" th:title="#{settings.delete}"><span class="glyphicon glyphicon-trash"></span></a></td>
+                                <td><a th:href="@{'/workers/' + ${aWorker.id} + '/delete'}" type="button" class="btn btn-danger btn-sm" th:title="#{settings.delete}"><span class="glyphicon glyphicon-trash"></span></a></td>
                             </tr>
                         </table>
                     </div>

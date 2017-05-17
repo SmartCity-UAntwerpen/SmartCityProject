@@ -49,7 +49,7 @@ public class SimCar extends SimVehicle
         }
         else
         {
-            status = "Off";
+            status = "OFF";
         }
 
         SimBotStatus simBotStatus = new SimBotStatus(this.id, this.type, this.name, status);

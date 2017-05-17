@@ -33,6 +33,20 @@ public class SimWorkerService
         return false;
     }
 
+    public boolean delete(Long id)
+    {
+        SimWorker w = findById(id);
+
+        if(w != null)
+        {
+            this.simWorkerRepository.delete(id);
+
+            return true;
+        }
+
+        return false;
+    }
+
     public boolean add(final SimWorker worker)
     {
         SimWorker w;
@@ -96,6 +110,11 @@ public class SimWorkerService
 
     public SimWorker findByWorkerId(Long workerId)
     {
-        return simWorkerRepository.findById(workerId);
+        return simWorkerRepository.findByWorkerId(workerId);
+    }
+
+    public SimWorker findById(Long id)
+    {
+        return simWorkerRepository.findById(id);
     }
 }

@@ -95,6 +95,7 @@
                         <col width="1%"/>
                         <col width="1%"/>
                         <col width="1%"/>
+                        <col width="1%"/>
                         <tr style="font-size:120%">
                             <th th:text="#{bot.id}">ID</th>
                             <th th:text="#{bot.name}">Bot</th>
@@ -105,6 +106,7 @@
                             <th th:text="''">Place holder - Stop Button</th>
                             <th th:text="''">Place holder - Restart Button</th>
                             <th th:text="''">Place holder - Delete Button</th>
+                            <th th:text="''">Place holder - Info Button</th>
                         </tr>
                         <tr th:each="aBot : ${allBots}">
                             <td th:text="${aBot.id}">ID</td>
