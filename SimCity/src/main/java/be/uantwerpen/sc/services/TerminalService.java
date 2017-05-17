@@ -87,14 +87,14 @@ public class TerminalService
             case "run":
                 if(commandString.split(" ").length <= 1)
                 {
-                    terminal.printTerminalInfo("Missing arguments! 'run {botId}'");
+                    terminal.printTerminalInfo("Missing arguments! 'run {botId}'|'run range {startId} {endId}'");
                 }
                 else {
                     if (commandString.split(" ")[1].equals("range"))
                     {
                         if(commandString.split(" ").length <= 3)
                         {
-                            terminal.printTerminalInfo("Missing arguments! 'run {botId1} {botId2}'");
+                            terminal.printTerminalInfo("Missing arguments! 'run range {startId} {endId}'");
                         }
                         else
                         {
@@ -167,23 +167,32 @@ public class TerminalService
                 }
                 break;
             case "kill":
-                if(commandString.split(" ", 2).length <= 1)
+                if(commandString.split(" ").length <= 1)
                 {
-                    terminal.printTerminalInfo("Missing arguments! 'kill {botId}'");
+                    terminal.printTerminalInfo("Missing arguments! 'kill {botId}'|'kill all'");
                 }
-                else
-                {
-                    int parsedInt;
-
-                    try
+                else {
+                    if(commandString.split(" ").length <= 2)
                     {
-                        parsedInt = this.parseInteger(commandString.split(" ", 2)[1]);
+                        if (commandString.split(" ")[1].equals("all"))
+                        {
+                            this.killAllBots();
+                        }
+                        else
+                        {
+                            int parsedInt;
 
-                        this.killBot(parsedInt);
-                    }
-                    catch(Exception e)
-                    {
-                        terminal.printTerminalError(e.getMessage());
+                            try
+                            {
+                                parsedInt = this.parseInteger(commandString.split(" ", 2)[1]);
+
+                                this.killBot(parsedInt);
+                            }
+                            catch (Exception e)
+                            {
+                                terminal.printTerminalError(e.getMessage());
+                            }
+                        }
                     }
                 }
                 break;
@@ -490,6 +499,33 @@ public class TerminalService
         }
     }
 
+    private void killAllBots()
+    {
+        SimBot bot;
+        int i = 0;
+        boolean success = true;
+        List<SimBot> botList = supervisorService.findAll();
+
+        while(i < botList.size() && success)
+        {
+            bot = botList.get(i);
+            if(bot != null)
+            {
+                success = supervisorService.removeBot(bot.getId());
+                if(success)
+                {
+                    terminal.printTerminalInfo("Bot killed with id: " + bot.getId() + ".");
+                    i--;
+                }
+                else
+                {
+                    terminal.printTerminalInfo("Could not kill bot with id: " + bot.getId() + "!");
+                }
+            }
+            i++;
+        }
+    }
+
     private void setBotProperty(int botId, String property, String value)
     {
         if(supervisorService.setBotProperty(botId, property, value))
@@ -605,12 +641,13 @@ public class TerminalService
                 terminal.printTerminal("Available commands:");
                 terminal.printTerminal("-------------------");
                 terminal.printTerminal("'create {type}' : instantiate a bot of the given type.");
-                terminal.printTerminal("'deploy {type} {amount}' : instantiate x bots of the given type.");
+                terminal.printTerminal("'deploy {type} {amount}' : instantiate {amount} bots of the given type.");
                 terminal.printTerminal("'run {botId}' : start the bot with the given id.");
-                terminal.printTerminal("'run range {botId1} {botId2}' : start bots {botId1} to {botId2}.");
+                terminal.printTerminal("'run range {startId} {stopId}' : start bots {startId} to {stopId}.");
                 terminal.printTerminal("'stop {botId}' : stop the bot with the given id.");
                 terminal.printTerminal("'restart {botId}' : restart the bot with the given id.");
                 terminal.printTerminal("'kill {botId}' : destroy the bot with the given id.");
+                terminal.printTerminal("'kill all' : destroy all bots.");
                 terminal.printTerminal("'set {botId} {property} {value}' : set the property of the bot with the given id.");
                 terminal.printTerminal("'get {botId} {property}' : get the value of the property for the bot with the given id.");
                 terminal.printTerminal("'setconfig {property} {value}' : set the system property of the worker node.");

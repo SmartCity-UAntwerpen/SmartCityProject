@@ -115,11 +115,6 @@ public class SimSupervisorService
         return this.removeBot(bot);
     }
 
-    /*public boolean createBot(int botId)
-    {
-
-    }*/
-
     public boolean startBot(int botId)
     {
         SimBot bot = this.getBot(botId);
@@ -280,6 +275,11 @@ public class SimSupervisorService
         }
 
         return null;
+    }
+
+    public SimBot getBotByIndex(int index)
+    {
+        return this.bots.get(index);
     }
 
     public boolean printBotProperty(int botId, String property)

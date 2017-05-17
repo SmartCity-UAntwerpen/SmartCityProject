@@ -75,7 +75,7 @@ public class WorkerController extends GlobalModelController
         {
             return "protected/settings/workers";
         }
-        
+
         SimWorker w = workerService.findById(worker.getId());
         w.setWorkerName(worker.getWorkerName());
         w.setServerURL(worker.getServerURL());

@@ -149,6 +149,20 @@ public class BotController extends GlobalModelController{
         }
     }
 
+    @RequestMapping(value="/workers/{workerId}/bots/deleteAll")
+    @PreAuthorize("hasRole('logon')")
+    public String killAllBots(ModelMap model)
+    {
+        if(this.killAllBots())
+        {
+            return "redirect:/bots/?botsDeletedSuccess";
+        }
+        else
+        {
+            return "redirect:/bots/?botsDeletedFailed";
+        }
+    }
+
     @RequestMapping(value="/workers/{workerId}/bots/set/{botId}/{property}/{value}")
     @PreAuthorize("hasRole('logon')")
     public String setBot(@PathVariable int botId, @PathVariable String property, @PathVariable String value, ModelMap model)
@@ -325,6 +339,34 @@ public class BotController extends GlobalModelController{
             terminal.printTerminalError("Could not kill bot with id: " + botId + "!");
             return false;
         }
+    }
+
+    private boolean killAllBots()
+    {
+        SimBot bot;
+        int i = 0;
+        boolean success = true;
+        List<SimBot> botList = supervisorService.findAll();
+
+        while(i < botList.size() && success)
+        {
+            bot = botList.get(i);
+            if(bot != null)
+            {
+                success = supervisorService.removeBot(bot.getId());
+                if(success)
+                {
+                    terminal.printTerminalInfo("Bot killed with id: " + bot.getId() + ".");
+                    i--;
+                }
+                else
+                {
+                    terminal.printTerminalInfo("Could not kill bot with id: " + bot.getId() + "!");
+                }
+            }
+            i++;
+        }
+        return success;
     }
 
     private boolean setBotProperty(int botId, String property, String value)
