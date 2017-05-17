@@ -37,6 +37,12 @@
             <span class="sr-only">Info: </span>
             <span id="botEditedSuccessAlert" th:text="#{settings.alerts.botEditedSuccess}">Bot has been edited</span>
         </div>
+        <div th:if="${param.botsDeployedSuccess}" class="alert alertbox alert-success fade in" role="alert">
+            <button class="close" data-dismiss="alert" aria-label="Close" aria-hidden="true">&times;</button>
+            <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+            <span class="sr-only">Info: </span>
+            <span id="botsDeployedSuccessAlert" th:text="#{settings.alerts.botsDeployedSuccess}">Bots have been deployed</span>
+        </div>
         <div th:if="${param.botStoppedSuccess}" class="alert alertbox alert-success fade in" role="alert">
             <button class="close" data-dismiss="alert" aria-label="Close" aria-hidden="true">&times;</button>
             <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
@@ -72,6 +78,12 @@
             <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
             <span class="sr-only">Info: </span>
             <span id="botEditedFailedAlert" th:text="#{settings.alerts.botEditedFailed}">Bot cannot be edited</span>
+        </div>
+        <div th:if="${param.botsDeployedFailed}" class="alert alertbox alert-warning fade in" role="alert">
+            <button class="close" data-dismiss="alert" aria-label="Close" aria-hidden="true">&times;</button>
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span class="sr-only">Info: </span>
+            <span id="botsDeployedFailedAlert" th:text="#{settings.alerts.botsDeployedFailed}">Bots cannot be deployed</span>
         </div>
         <div th:if="${param.botStoppedFailed}" class="alert alertbox alert-warning fade in" role="alert">
             <button class="close" data-dismiss="alert" aria-label="Close" aria-hidden="true">&times;</button>

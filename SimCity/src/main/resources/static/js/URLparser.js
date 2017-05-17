@@ -35,3 +35,17 @@ function setEditAction(botId) {
         alert("Please fill in the property value");
     }
 }
+
+//Set correct URL on bots creation
+function createBotsAction() {
+    var action = document.getElementById("type_new").value;
+    var value = document.getElementById("amount").value;
+    if (action !== "") {
+        action = action.toLowerCase();
+        var url = "/workers/0/bots/deploy/" + action + "/" + value;
+        document.getElementById("newBotsForm").action = url;
+        document.getElementById("newBotsForm").submit();
+    } else {
+        alert("Please set form action");
+    }
+}

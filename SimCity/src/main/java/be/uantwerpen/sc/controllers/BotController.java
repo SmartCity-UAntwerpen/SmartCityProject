@@ -16,6 +16,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
 
@@ -44,10 +45,7 @@ public class BotController extends GlobalModelController{
         return "protected/botManagement";
     }
 
-    //Enkel mappings aangemaakt met logica, nog geen model attributes die teruggegeven worden om types te bepalen
-    //Types starten met hoofdletter ==> nog naar lowercase, anders geen geldig type
     @RequestMapping(value="/workers/{workerId}/bots/create/{type}")
-    //@RequestMapping(value="/bots/create/{type}/")
     @PreAuthorize("hasRole('logon')")
     public String createBot(@Validated @ModelAttribute("type") String type, BindingResult result, ModelMap model)
     {
@@ -61,22 +59,22 @@ public class BotController extends GlobalModelController{
         }
 
     }
-/*
-    @RequestMapping(value="/workers/{workerId}/bots/deploy/{type}/{amount}/")
+
+    @RequestMapping(value="/workers/{workerId}/bots/deploy/{type}/{amount}")
     @PreAuthorize("hasRole('logon')")
-    public String deployBots(ModelMap model)
+    public String deployBots(ModelMap model, @PathVariable String type, @PathVariable String amount)
     {
-        if(this.instantiateBots(type, amount))
+        if(this.instantiateBots(type, Integer.parseInt(amount)))
         {
-            return "redirect:/workers/{workerId}/bots/?botsDeployedSuccess";
+            return "redirect:/bots/?botsDeployedSuccess";
         }
         else
         {
-            return "redirect:/workers/{workerId}/bots/?botsDeployedFailed";
+            return "redirect:/bots/?botsDeployedFailed";
         }
 
     }
-*/
+
     @RequestMapping(value="/workers/{workerId}/bots/run/{botId}")
     @PreAuthorize("hasRole('logon')")
     public String runBot(@PathVariable int botId, ModelMap model) throws Exception
@@ -91,7 +89,7 @@ public class BotController extends GlobalModelController{
         }
     }
 /*
-    @RequestMapping(value="/workers/{workerId}/bots/run/{botId1}/{botId2}/")
+    @RequestMapping(value="/workers/{workerId}/bots/run/{botId1}/{botId2}")
     @PreAuthorize("hasRole('logon')")
     public String runBots(ModelMap model)
     {
@@ -221,6 +219,7 @@ public class BotController extends GlobalModelController{
         if(bot == null)
         {
             terminal.printTerminalError("Could not instantiate bot of type: " + type + "!");
+            return false;
         }
         else
         {
@@ -234,6 +233,7 @@ public class BotController extends GlobalModelController{
             if(bot == null)
             {
                 terminal.printTerminalError("Could not instantiate bot of type: " + type + "!");
+                return false;
             }
             else
             {
