@@ -57,7 +57,7 @@ public class BotController extends GlobalModelController{
         }
         else
         {
-            return "redirect:/bots/?botCreatedFail";
+            return "redirect:/bots/?botCreatedFailed";
         }
 
     }
@@ -72,7 +72,7 @@ public class BotController extends GlobalModelController{
         }
         else
         {
-            return "redirect:/workers/{workerId}/bots/?botsDeployedFail";
+            return "redirect:/workers/{workerId}/bots/?botsDeployedFailed";
         }
 
     }
@@ -87,7 +87,7 @@ public class BotController extends GlobalModelController{
         }
         else
         {
-            return "redirect:/bots/?botStartedFail";
+            return "redirect:/bots/?botStartedFailed";
         }
     }
 /*
@@ -105,7 +105,7 @@ public class BotController extends GlobalModelController{
         }
         else
         {
-            return "redirect:/workers/{workerId}/bots/?botsStartedFail";
+            return "redirect:/workers/{workerId}/bots/?botsStartedFailed";
         }
     }
 */
@@ -119,7 +119,7 @@ public class BotController extends GlobalModelController{
         }
         else
         {
-            return "redirect:/bots/?botStoppedFail";
+            return "redirect:/bots/?botStoppedFailed";
         }
     }
 
@@ -133,7 +133,7 @@ public class BotController extends GlobalModelController{
         }
         else
         {
-            return "redirect:/bots/?botRestartedFail";
+            return "redirect:/bots/?botRestartedFailed";
         }
     }
 
@@ -147,7 +147,7 @@ public class BotController extends GlobalModelController{
         }
         else
         {
-            return "redirect:/bots/?botKilledFail";
+            return "redirect:/bots/?botKilledFailed";
         }
     }
 
@@ -155,8 +155,6 @@ public class BotController extends GlobalModelController{
     @PreAuthorize("hasRole('logon')")
     public String setBot(@PathVariable int botId, @PathVariable String property, @PathVariable String value, ModelMap model)
     {
-        System.out.println(property);
-        System.out.println("Bot id: " + botId);
         if(this.setBotProperty(botId, property, String.valueOf(value)))
         {
             return "redirect:/bots/?botEditedSuccess";

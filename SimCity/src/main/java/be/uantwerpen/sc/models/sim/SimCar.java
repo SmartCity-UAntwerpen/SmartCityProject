@@ -20,7 +20,7 @@ public class SimCar extends SimVehicle
 
     public SimCar()
     {
-        super("bot", 0, 70);
+        super("bot", -1, 70);
 
         this.taskSocketService = new SimSocketService();
         this.eventSocketService = new SimSocketService();

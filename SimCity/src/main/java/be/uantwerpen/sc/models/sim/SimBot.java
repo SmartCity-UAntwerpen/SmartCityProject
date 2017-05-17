@@ -65,6 +65,12 @@ public abstract class SimBot implements Runnable
 
         this.running = true;
 
+        if(this.getType() == "car" && this.getStartPoint() == -1)
+        {
+            System.out.println("RESTS");
+            return false;
+        }
+
         return true;
     }
 
@@ -209,6 +215,8 @@ public abstract class SimBot implements Runnable
             this.simulationProcess();
         }
     }
+
+    public abstract int getStartPoint();
 
     public boolean parseProperty(String property, String value) throws Exception
     {

@@ -17,7 +17,13 @@
             <button class="close" data-dismiss="alert" aria-label="Close" aria-hidden="true">&times;</button>
             <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
             <span class="sr-only">Info: </span>
-            <span id="botStartedSuccessAlert" th:text="#{settings.alerts.botStartedSuccess}">New bot has been started</span>
+            <span id="botStartedSuccessAlert" th:text="#{settings.alerts.botStartedSuccess}">Bot has been started</span>
+        </div>
+        <div th:if="${param.botRestartedSuccess}" class="alert alertbox alert-success fade in" role="alert">
+            <button class="close" data-dismiss="alert" aria-label="Close" aria-hidden="true">&times;</button>
+            <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+            <span class="sr-only">Info: </span>
+            <span id="botRestartedSuccessAlert" th:text="#{settings.alerts.botRestartedSuccess}">Bot has been restarted</span>
         </div>
         <div th:if="${param.botKilledSuccess}" class="alert alertbox alert-warning fade in" role="alert">
             <button class="close" data-dismiss="alert" aria-label="Close" aria-hidden="true">&times;</button>
@@ -48,6 +54,12 @@
             <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
             <span class="sr-only">Info: </span>
             <span id="botStartedFailedAlert" th:text="#{settings.alerts.botStartedFailed}">Bot cannot be started</span>
+        </div>
+        <div th:if="${param.botRestartedFailed}" class="alert alertbox alert-warning fade in" role="alert">
+            <button class="close" data-dismiss="alert" aria-label="Close" aria-hidden="true">&times;</button>
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span class="sr-only">Info: </span>
+            <span id="botRestartedFailedAlert" th:text="#{settings.alerts.botRestartedFailed}">Bot cannot be restarted</span>
         </div>
         <div th:if="${param.botKilledFailed}" class="alert alertbox alert-warning fade in" role="alert">
             <button class="close" data-dismiss="alert" aria-label="Close" aria-hidden="true">&times;</button>
