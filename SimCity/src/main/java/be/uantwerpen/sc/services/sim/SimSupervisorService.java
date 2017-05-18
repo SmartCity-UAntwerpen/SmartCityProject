@@ -96,16 +96,12 @@ public class SimSupervisorService
 
         if(bot != null)
         {
-            if(bot.remove())
-            {
-                return this.removeBot(bot);
-            }
+            return this.removeBot(bot);
         }
         else
         {
             return false;
         }
-        return false;
     }
 
     public boolean removeBot(String botName)
@@ -211,7 +207,7 @@ public class SimSupervisorService
         if(bot != null)
         {
             bot.stop();
-
+            bot.remove();
             return this.bots.remove(bot);
         }
         else

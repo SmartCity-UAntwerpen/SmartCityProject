@@ -124,17 +124,14 @@ public abstract class SimBot implements Runnable
 
     public boolean remove()
     {
-        if(!this.running) {
-            if(sendRemove())
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+        if(sendRemove())
+        {
+            return true;
         }
-        return false;
+        else
+        {
+            return false;
+        }
     }
 
     public boolean interrupt()
