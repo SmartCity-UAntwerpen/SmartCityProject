@@ -3,9 +3,11 @@ package be.uantwerpen.sc.data;
 import be.uantwerpen.sc.models.security.Permission;
 import be.uantwerpen.sc.models.security.Role;
 import be.uantwerpen.sc.models.security.User;
+import be.uantwerpen.sc.models.sim.SimWorker;
 import be.uantwerpen.sc.repositories.security.PermissionRepository;
 import be.uantwerpen.sc.repositories.security.RoleRepository;
 import be.uantwerpen.sc.repositories.security.UserRepository;
+import be.uantwerpen.sc.repositories.sim.SimWorkerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
@@ -25,13 +27,15 @@ public class DatabaseLoaderDevelopment
     private final PermissionRepository permissionRepository;
     private final RoleRepository roleRepository;
     private final UserRepository userRepository;
+    private final SimWorkerRepository simWorkerRepository;
 
     @Autowired
-    public DatabaseLoaderDevelopment(PermissionRepository permissionRepos, RoleRepository roleRepos, UserRepository userRepos)
+    public DatabaseLoaderDevelopment(PermissionRepository permissionRepos, RoleRepository roleRepos, UserRepository userRepos, SimWorkerRepository simWorkerRepos)
     {
         this.permissionRepository = permissionRepos;
         this.roleRepository = roleRepos;
         this.userRepository = userRepos;
+        this.simWorkerRepository = simWorkerRepos;
     }
 
     @PostConstruct
@@ -46,6 +50,9 @@ public class DatabaseLoaderDevelopment
 
         //Initialise user database
         initUserDatabase();
+
+        //Initialise worker database
+        initWorkerDatabase();
     }
 
     private void initUserDatabase()
@@ -101,5 +108,14 @@ public class DatabaseLoaderDevelopment
         userRepository.save(user3);
         userRepository.save(user4);
         userRepository.save(user5);
+    }
+
+    private void initWorkerDatabase()
+    {
+        //Test worker
+        SimWorker worker1 = new SimWorker("worker-1", "localhost");
+
+        //Save workers to database
+        simWorkerRepository.save(worker1);
     }
 }
