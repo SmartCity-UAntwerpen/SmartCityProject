@@ -64,6 +64,7 @@ public class BotController extends GlobalModelController{
     @PreAuthorize("hasRole('logon')")
     public String deployBots(ModelMap model, @PathVariable String type, @PathVariable String amount)
     {
+
         if(this.instantiateBots(type, Integer.parseInt(amount)))
         {
             return "redirect:/bots/?botsDeployedSuccess";
