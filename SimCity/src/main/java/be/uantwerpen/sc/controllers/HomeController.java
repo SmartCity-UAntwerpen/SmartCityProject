@@ -1,5 +1,7 @@
 package be.uantwerpen.sc.controllers;
 
+import be.uantwerpen.sc.models.security.User;
+import be.uantwerpen.sc.services.security.UserService;
 import be.uantwerpen.sc.tools.DevelopersList;
 import be.uantwerpen.sc.tools.Terminal;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +23,9 @@ public class HomeController extends GlobalModelController
 {
     @Autowired
     DevelopersList developersList;
+
+    @Autowired
+    UserService userService;
 
     @RequestMapping(value = {"/"})
     @PreAuthorize("hasRole('logon')")
@@ -52,5 +58,14 @@ public class HomeController extends GlobalModelController
     public String showHelpPage()
     {
         return "protected/help";
+    }
+
+    @RequestMapping(value = {"/profile"})
+    @PreAuthorize("hasRole('logon')")
+    public String showProfile(HttpServletRequest request, ModelMap model)
+    {
+        User currentUser = userService.getPrincipalUser();
+        model.addAttribute("currentUser", currentUser);
+        return "protected/profile";
     }
 }
