@@ -14,16 +14,20 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="firstName" class="control" th:text="#{user.firstName} + ':'">First name:</label>
-                            <input type="text" class="form-control" id="firstName" th:field="*{firstName}"/>
+                            <input type="text" class="form-control" id="firstName" th:field="*{firstName}"
+                                   required="true" th:oninvalid="'javascript:this.setCustomValidity(\''+#{modal.newuser.fillFirstName}+'\');'" oninput="this.setCustomValidity('')"/>
                             <label for="lastName" class="control" th:text="#{user.lastName} + ':'">Last name:</label>
-                            <input type="text" class="form-control" id="lastName" th:field="*{lastName}"/>
+                            <input type="text" class="form-control" id="lastName" th:field="*{lastName}"
+                                   required="true" th:oninvalid="'javascript:this.setCustomValidity(\''+#{modal.newuser.fillLastName}+'\');'" oninput="this.setCustomValidity('')"/>
                             <label for="username" class="control" th:text="#{user.username} + ':'">Username:</label>
-                            <input type="text" class="form-control" id="username" th:field="*{username}"/>
+                            <input type="text" class="form-control" id="username" th:field="*{username}"
+                                   required="true" th:oninvalid="'javascript:this.setCustomValidity(\''+#{modal.newuser.fillUserName}+'\');'" oninput="this.setCustomValidity('')"/>
                         </div>
                         <hr/>
                         <div class="form-group">
                             <label for="password" class="control" th:text="#{modal.newuser.newPassword} + ':'">New password:</label>
-                            <input type="password" class="form-control" id="password" th:field="*{password}"/>
+                            <input type="password" class="form-control" id="password" th:field="*{password}"
+                                   required="true" th:oninvalid="'javascript:this.setCustomValidity(\''+#{modal.newuser.fillPassword}+'\');'" oninput="this.setCustomValidity('')"/>
                         </div>
                         <hr/>
                         <div class="form-group">
