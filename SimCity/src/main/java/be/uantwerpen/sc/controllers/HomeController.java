@@ -46,4 +46,11 @@ public class HomeController extends GlobalModelController
 
         return "public/about";
     }
+
+    @RequestMapping(value = {"/help"})
+    @PreAuthorize("hasRole('logon')")
+    public String showHelpPage()
+    {
+        return "protected/help";
+    }
 }

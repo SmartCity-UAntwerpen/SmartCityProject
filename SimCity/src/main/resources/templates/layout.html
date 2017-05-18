@@ -63,6 +63,8 @@
                             <li role="separator" class="divider"></li>
                             <li><a th:href="@{/about}"><span class="glyphicon glyphicon-info-sign"></span><span> </span><span th:text="#{navbar.about}">About</span></a></li>
                             <li role="seperator" class="divider"></li>
+                            <li><a th:href="@{/help}"><span class="glyphicon glyphicon-question-sign"></span><span> </span><span th:text="#{navbar.help}">About</span></a></li>
+                            <li role="seperator" class="divider"></li>
                             <li><a th:href="@{/logout}"><span class="glyphicon glyphicon-log-out"></span><span> </span><span th:text="#{navbar.logout}">Logout</span></a></li>
                         </ul>
                     </li>
@@ -87,7 +89,7 @@
 <div th:fragment="footer">
     <footer class="footer navbar-fixed-bottom non-mobile-element" style="padding:2em; margin-top:1em; position:absolute; bottom:0; height:20px">
         <div class="small text-center">
-            <p class="text-muted" th:text="'&copy;2016 UAntwerpen - ' + #{footer.currently} + ' v.' + #{application.version.main} + '.' + #{application.version.minor}">Footer text</p>
+            <p class="text-muted" th:text="'&copy;2017 UAntwerpen - ' + #{footer.currently} + ' v.' + #{application.version.main} + '.' + #{application.version.minor}">Footer text</p>
         </div>
     </footer>
 </div>
