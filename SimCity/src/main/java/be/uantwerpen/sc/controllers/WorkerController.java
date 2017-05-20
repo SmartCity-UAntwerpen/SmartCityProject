@@ -30,6 +30,13 @@ public class WorkerController extends GlobalModelController
     @Autowired
     TypesList typesList;
 
+    @RequestMapping(value = "/workers")
+    @PreAuthorize("hasRole('logon')")
+    public String showWorkerpage(ModelMap model)
+    {
+        return "protected/workerpage";
+    }
+
     @RequestMapping(value="/workers/{id}/delete")
     @PreAuthorize("hasRole('logon')")
     public String deleteUser(@Validated @ModelAttribute("worker") SimWorker worker, ModelMap model)

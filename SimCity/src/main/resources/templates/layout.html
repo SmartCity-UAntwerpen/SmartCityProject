@@ -52,7 +52,7 @@
                 <ul class="nav navbar-nav navbar-left">
                     <li sec:authorize="!hasRole('logon')"><a th:href="@{/login}"><span class="glyphicon glyphicon-log-in"></span><span> </span><span th:text="#{navbar.login}">Login</span></a></li>
                     <li sec:authorize="hasRole('logon')"><a th:href="@{/}"><span class="glyphicon glyphicon-home"></span><span> </span><span th:text="#{navbar.home}">Home</span></a></li>
-                    <li sec:authorize="hasRole('logon')"><a th:href="@{/}"><span class="glyphicon glyphicon-tasks"></span><span> </span><span th:text="#{navbar.workers}">Workers</span><span> </span><span class="badge" th:text="${numOfWorkers}">#VALUE</span></a></li>
+                    <li sec:authorize="hasRole('logon')"><a th:href="@{/workers}"><span class="glyphicon glyphicon-tasks"></span><span> </span><span th:text="#{navbar.workers}">Workers</span><span> </span><span class="badge" th:text="${numOfWorkers}">#VALUE</span></a></li>
                     <li sec:authorize="hasRole('logon')"><a th:href="@{/bots}"><span class="glyphicon glyphicon-th"></span><span> </span><span th:text="#{navbar.bots}">Bots</span><span> </span><span class="badge" th:text="${numOfBots}">#VALUE</span></a></li>
                 </ul>
                 <!-- Right buttons -->
