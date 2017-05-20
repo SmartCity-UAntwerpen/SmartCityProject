@@ -8,6 +8,7 @@ import java.util.List;
 /**
  * Created by Thomas on 04/04/2016.
  */
+// User role implementing permissions
 @Entity
 @Table(name = "role", schema = "", catalog = "sc_security")
 public class Role extends MyAbstractPersistable<Long>

@@ -16,6 +16,7 @@ import java.util.List;
 /**
  * Created by Thomas on 04/04/2016.
  */
+// Service for accessing UserRepository
 @Service
 public class UserService
 {

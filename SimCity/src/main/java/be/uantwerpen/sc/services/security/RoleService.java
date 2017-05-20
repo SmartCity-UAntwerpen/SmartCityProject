@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 /**
  * Created by Thomas on 04/04/2016.
  */
+// Service for accessing RoleRepository
 @Service
 public class RoleService
 {

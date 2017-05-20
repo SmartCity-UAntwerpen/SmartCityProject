@@ -14,6 +14,7 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
+// Service for supported bot properties
 @Service
 public class PropertiesList
 {

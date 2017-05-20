@@ -14,6 +14,7 @@ import java.util.*;
 /**
  * Created by Thomas on 04/04/2016.
  */
+// Add general model attributes
 @Controller
 public class GlobalModelController
 {
@@ -23,30 +24,35 @@ public class GlobalModelController
     @Autowired
     private SimSupervisorService simSupervisorService;
 
+    // Return worker count
     @ModelAttribute("numOfWorkers")
     public int getNumberOfWorkers()
     {
         return simWorkerService.getNumberOfWorkers();
     }
 
+    // Return list constaining all workers
     @ModelAttribute("allWorkers")
     public Iterable<SimWorker> getAllWorkers()
     {
         return simWorkerService.findAll();
     }
 
+    // Return bot count
     @ModelAttribute("numOfBots")
     public int getNumberOfBots()
     {
         return simSupervisorService.getNumberOfBots();
     }
 
+    // Return list containing all bots
     @ModelAttribute("allBots")
     public Iterable<SimBot> getAllBots()
     {
         return simSupervisorService.findAll();
     }
 
+    // Return front-end server name
     @ModelAttribute("serverName")
     public String getServerName()
     {
@@ -58,6 +64,7 @@ public class GlobalModelController
         }
     }
 
+    // Return front-end server first IPv4-address
     @ModelAttribute("serverIp")
     public String getServerIp()
     {
@@ -69,6 +76,7 @@ public class GlobalModelController
         }
     }
 
+    // Return all front-end server's IPv4-addresses
     @ModelAttribute("allServerIps")
     public List<String> getAllServerIps()
     {

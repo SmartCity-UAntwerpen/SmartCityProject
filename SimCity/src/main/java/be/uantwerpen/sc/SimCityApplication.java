@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.web.EmbeddedServletContainerAutoCo
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.web.SpringBootServletInitializer;
 
+// SimCity application run
 @SpringBootApplication(exclude = {EmbeddedServletContainerAutoConfiguration.class})
 public class SimCityApplication extends SpringBootServletInitializer
 {

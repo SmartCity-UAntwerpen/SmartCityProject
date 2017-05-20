@@ -9,6 +9,7 @@ import java.util.List;
 /**
  * Created by Thomas on 04/04/2016.
  */
+// User class
 @Entity
 @Table(name = "user", schema = "", catalog = "sc_security")
 public class User extends MyAbstractPersistable<Long>

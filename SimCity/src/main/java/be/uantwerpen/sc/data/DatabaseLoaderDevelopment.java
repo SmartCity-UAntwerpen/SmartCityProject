@@ -20,6 +20,7 @@ import java.util.List;
 /**
  * Created by Thomas on 03/04/2016.
  */
+// Database loader for development configuration
 @Service
 @Profile("dev")
 public class DatabaseLoaderDevelopment
@@ -38,6 +39,7 @@ public class DatabaseLoaderDevelopment
         this.simWorkerRepository = simWorkerRepos;
     }
 
+    // Initialise different DBs
     @PostConstruct
     private void initDatabase()
     {
@@ -55,6 +57,7 @@ public class DatabaseLoaderDevelopment
         initWorkerDatabase();
     }
 
+    // Configure initial users
     private void initUserDatabase()
     {
         List<Permission> allPermissions = new ArrayList<Permission>();
@@ -110,6 +113,7 @@ public class DatabaseLoaderDevelopment
         userRepository.save(user5);
     }
 
+    // Configure initial workers
     private void initWorkerDatabase()
     {
         //Test worker

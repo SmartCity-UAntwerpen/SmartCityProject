@@ -6,6 +6,7 @@ import be.uantwerpen.sc.tools.Terminal;
 /**
  * Created by Thomas on 03/04/2016.
  */
+// Abstract class for each simulated bot
 public abstract class SimBot implements Runnable
 {
     private Thread simulationThread;

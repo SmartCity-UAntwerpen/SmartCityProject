@@ -19,6 +19,7 @@ import java.util.stream.StreamSupport;
 /**
  * Created by Thomas on 04/04/2016.
  */
+// Service for accessing UserDetails
 @Service
 public class SecurityService implements UserDetailsService
 {

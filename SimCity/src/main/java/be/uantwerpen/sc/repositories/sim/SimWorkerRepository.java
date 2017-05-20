@@ -9,6 +9,7 @@ import java.util.List;
 /**
  * Created by Thomas on 03/04/2016.
  */
+// Repository containing SimWorkers
 @Repository
 public interface SimWorkerRepository extends CrudRepository<SimWorker,Long>
 {

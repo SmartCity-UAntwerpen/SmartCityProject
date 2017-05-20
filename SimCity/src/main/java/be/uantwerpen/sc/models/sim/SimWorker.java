@@ -12,6 +12,7 @@ import java.util.List;
 /**
  * Created by Thomas on 03/04/2016.
  */
+// Class for simulation workers
 @Entity
 @Table(name = "worker", schema = "", catalog = "simcity")
 public class SimWorker extends MyAbstractPersistable<Long>

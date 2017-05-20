@@ -27,12 +27,14 @@ public class UserController extends GlobalModelController
     @Autowired
     private RoleService roleService;
 
+    // Allowed user fields
     @InitBinder
     private void allowFields(WebDataBinder webDataBinder)
     {
         webDataBinder.setAllowedFields("username", "firstName", "lastName", "password", "roles");
     }
 
+    // Shows certain user information
     @RequestMapping(value="/users/{username}/", method=RequestMethod.GET)
     @PreAuthorize("hasRole('logon')")
     public String showUserForm(@PathVariable String username, HttpServletRequest request, ModelMap model)
@@ -53,6 +55,7 @@ public class UserController extends GlobalModelController
         return "protected/forms/userForm";
     }
 
+    // Edit user information
     @RequestMapping(value="/users/{username}", method=RequestMethod.POST)
     @PreAuthorize("hasRole('logon')")
     public String editUser(@Validated @ModelAttribute("user") User user, BindingResult result, HttpServletRequest request, SessionStatus sessionStatus, ModelMap model)
@@ -82,6 +85,7 @@ public class UserController extends GlobalModelController
         }
     }
 
+    // Create new user
     @RequestMapping(value="/user/create", method=RequestMethod.POST)
     @PreAuthorize("hasRole('logon')")
     public String createUser(@Validated @ModelAttribute("user") User user, BindingResult result, HttpServletRequest request, SessionStatus sessionStatus, ModelMap model)
@@ -101,6 +105,7 @@ public class UserController extends GlobalModelController
         }
     }
 
+    // Delete user
     @RequestMapping(value="/users/{username}/delete")
     @PreAuthorize("hasRole('logon')")
     public String deleteUser(@PathVariable String username, HttpServletRequest request, ModelMap model)

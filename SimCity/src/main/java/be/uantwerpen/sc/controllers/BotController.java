@@ -25,6 +25,7 @@ import java.util.List;
  */
 @Controller
 public class BotController extends GlobalModelController{
+
     @Autowired
     SimDispatchService dispatchService;
 
@@ -33,6 +34,7 @@ public class BotController extends GlobalModelController{
 
     private Terminal terminal;
 
+    // Returns bot management page
     @RequestMapping(value = {"/bots"})
     @PreAuthorize("hasRole('logon')")
     public String showBotsSettings(ModelMap model) throws Exception {
@@ -45,6 +47,7 @@ public class BotController extends GlobalModelController{
         return "protected/botManagement";
     }
 
+    // Create bot
     @RequestMapping(value="/workers/{workerId}/bots/create/{type}")
     @PreAuthorize("hasRole('logon')")
     public String createBot(@Validated @ModelAttribute("type") String type, BindingResult result, ModelMap model)
@@ -60,6 +63,7 @@ public class BotController extends GlobalModelController{
 
     }
 
+    // Deploy multiple bots of a certain type at once
     @RequestMapping(value="/workers/{workerId}/bots/deploy/{type}/{amount}")
     @PreAuthorize("hasRole('logon')")
     public String deployBots(ModelMap model, @PathVariable String type, @PathVariable String amount)
@@ -76,6 +80,7 @@ public class BotController extends GlobalModelController{
 
     }
 
+    // Run bot with certain ID
     @RequestMapping(value="/workers/{workerId}/bots/run/{botId}")
     @PreAuthorize("hasRole('logon')")
     public String runBot(@PathVariable int botId, ModelMap model) throws Exception
@@ -89,7 +94,9 @@ public class BotController extends GlobalModelController{
             return "redirect:/bots/?botStartedFailed";
         }
     }
+
 /*
+    // Run bots with IDs in a certain range
     @RequestMapping(value="/workers/{workerId}/bots/run/{botId1}/{botId2}")
     @PreAuthorize("hasRole('logon')")
     public String runBots(ModelMap model)
@@ -108,6 +115,8 @@ public class BotController extends GlobalModelController{
         }
     }
 */
+
+    // Stop bot with certain ID
     @RequestMapping(value="/workers/{workerId}/bots/stop/{botId}")
     @PreAuthorize("hasRole('logon')")
     public String stopBot(@PathVariable int botId, ModelMap model) throws Exception
@@ -122,6 +131,7 @@ public class BotController extends GlobalModelController{
         }
     }
 
+    // Restart bot with certain ID
     @RequestMapping(value="/workers/{workerId}/bots/restart/{botId}")
     @PreAuthorize("hasRole('logon')")
     public String restartBot(@PathVariable int botId, ModelMap model)
@@ -136,6 +146,7 @@ public class BotController extends GlobalModelController{
         }
     }
 
+    // Delete bot with certain ID
     @RequestMapping(value="/workers/{workerId}/bots/delete/{botId}")
     @PreAuthorize("hasRole('logon')")
     public String killBot(@PathVariable int botId, ModelMap model)
@@ -150,6 +161,7 @@ public class BotController extends GlobalModelController{
         }
     }
 
+    // Delete all bots
     @RequestMapping(value="/workers/{workerId}/bots/deleteAll")
     @PreAuthorize("hasRole('logon')")
     public String killAllBots(ModelMap model)
@@ -164,6 +176,7 @@ public class BotController extends GlobalModelController{
         }
     }
 
+    // Set property to value for bot with a certain ID
     @RequestMapping(value="/workers/{workerId}/bots/set/{botId}/{property}/{value}")
     @PreAuthorize("hasRole('logon')")
     public String setBot(@PathVariable int botId, @PathVariable String property, @PathVariable String value, ModelMap model)
@@ -178,6 +191,7 @@ public class BotController extends GlobalModelController{
         }
     }
 
+    // Create bot in worker back-end
     private boolean instantiateBot(String type)
     {
         SimBot bot;
@@ -211,6 +225,7 @@ public class BotController extends GlobalModelController{
         }
     }
 
+    // Create multiple bots of a certain type in worker back-end
     private boolean instantiateBots(String type, int amount)
     {
         SimBot bot = null;
@@ -259,6 +274,7 @@ public class BotController extends GlobalModelController{
         return existingType;
     }
 
+    // Start both with certain ID in worker back-end
     private boolean startBot(int botId)
     {
         if(supervisorService.startBot(botId))
@@ -273,6 +289,7 @@ public class BotController extends GlobalModelController{
         }
     }
 
+    // Start bots with IDs in a certain range in worker back-end
     private boolean startBots(int botId1, int botId2)
     {
         boolean success = true;
@@ -300,6 +317,7 @@ public class BotController extends GlobalModelController{
         }
     }
 
+    // Stop bot with certain ID in worker back-end
     private boolean stopBot(int botId)
     {
         if(supervisorService.stopBot(botId))
@@ -314,6 +332,7 @@ public class BotController extends GlobalModelController{
         }
     }
 
+    // Restart bot with certain ID in worker back-end
     private boolean restartBot(int botId)
     {
         if(supervisorService.restartBot(botId))
@@ -328,6 +347,7 @@ public class BotController extends GlobalModelController{
         }
     }
 
+    // Kill bot with certain ID in worker back-end
     private boolean killBot(int botId)
     {
         if(supervisorService.removeBot(botId))
@@ -342,6 +362,7 @@ public class BotController extends GlobalModelController{
         }
     }
 
+    // Kill all bots in worker back-end
     private boolean killAllBots()
     {
         SimBot bot;
@@ -370,6 +391,7 @@ public class BotController extends GlobalModelController{
         return success;
     }
 
+    // Set property to value for bot with certain ID in worker back-end
     private boolean setBotProperty(int botId, String property, String value)
     {
         if(supervisorService.setBotProperty(botId, property, value))
@@ -384,6 +406,7 @@ public class BotController extends GlobalModelController{
         }
     }
 
+    // Convert string to int
     private int parseInteger(String value) throws Exception
     {
         int parsedInt;

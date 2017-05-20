@@ -12,6 +12,7 @@ import java.util.List;
 /**
  * Created by Thomas on 5/05/2017.
  */
+// Class for simulated robots
 public class SimCar extends SimVehicle
 {
     private SimCore carCore;

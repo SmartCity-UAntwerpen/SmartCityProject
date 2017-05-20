@@ -30,6 +30,7 @@ public class WorkerController extends GlobalModelController
     @Autowired
     TypesList typesList;
 
+    // Show worker page
     @RequestMapping(value = "/workers")
     @PreAuthorize("hasRole('logon')")
     public String showWorkerpage(ModelMap model)
@@ -37,6 +38,7 @@ public class WorkerController extends GlobalModelController
         return "protected/workerpage";
     }
 
+    // Delete worker with certain ID
     @RequestMapping(value="/workers/{id}/delete")
     @PreAuthorize("hasRole('logon')")
     public String deleteUser(@Validated @ModelAttribute("worker") SimWorker worker, ModelMap model)
@@ -52,6 +54,7 @@ public class WorkerController extends GlobalModelController
         }
     }
 
+    // Add new worker
     @RequestMapping(value="/workers/add", method= RequestMethod.POST)
     @PreAuthorize("hasRole('logon')")
     public String addWorker(@Validated @ModelAttribute("worker") SimWorker worker, BindingResult result, HttpServletRequest request, SessionStatus sessionStatus, ModelMap model)
@@ -71,6 +74,7 @@ public class WorkerController extends GlobalModelController
         }
     }
 
+    // Edit worker with certain ID
     @RequestMapping(value="/workers/{workerId}", method= RequestMethod.POST)
     @PreAuthorize("hasRole('logon')")
     public String editWorker(@Validated @ModelAttribute("worker") SimWorker worker, BindingResult result, HttpServletRequest request, SessionStatus sessionStatus, ModelMap model)
@@ -97,6 +101,7 @@ public class WorkerController extends GlobalModelController
         }
     }
 
+    // Show worker management page with bot actions
     // Mapping moet /workers/{id}/... worden
     @RequestMapping(value="/workers/management", method= RequestMethod.GET)
     public String manageWorker(ModelMap model, @Validated @ModelAttribute("type") String type) throws Exception

@@ -27,6 +27,7 @@ public class HomeController extends GlobalModelController
     @Autowired
     UserService userService;
 
+    // Homepage
     @RequestMapping(value = {"/"})
     @PreAuthorize("hasRole('logon')")
     public String showHomepage(ModelMap model)
@@ -34,6 +35,7 @@ public class HomeController extends GlobalModelController
         return "protected/homepage";
     }
 
+    // About page
     @RequestMapping(value = {"/about"})
     public String showAboutpage(ModelMap model)
     {
@@ -53,6 +55,7 @@ public class HomeController extends GlobalModelController
         return "public/about";
     }
 
+    // Help page
     @RequestMapping(value = {"/help"})
     @PreAuthorize("hasRole('logon')")
     public String showHelpPage()
@@ -60,6 +63,7 @@ public class HomeController extends GlobalModelController
         return "protected/help";
     }
 
+    // Active user profile page
     @RequestMapping(value = {"/profile"})
     @PreAuthorize("hasRole('logon')")
     public String showProfile(HttpServletRequest request, ModelMap model)

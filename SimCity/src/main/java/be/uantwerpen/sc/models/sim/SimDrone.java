@@ -8,6 +8,7 @@ import java.net.Socket;
 /**
  * Created by Thomas on 5/05/2017.
  */
+// Class for simulated drones
 public class SimDrone extends SimVehicle
 {
     private String ip;

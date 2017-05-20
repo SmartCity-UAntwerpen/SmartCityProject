@@ -3,6 +3,7 @@ package be.uantwerpen.sc.models.sim;
 /**
  * Created by Gebruiker on 11/05/2017.
  */
+// Class for front-end fill in form
 public class SimForm {
     private String name;
     private int startPoint;

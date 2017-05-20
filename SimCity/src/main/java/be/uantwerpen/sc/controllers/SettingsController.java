@@ -27,6 +27,7 @@ public class SettingsController extends GlobalModelController
     @Autowired
     private RoleService roleService;
 
+    // Server settings page
     @RequestMapping(value = {"/settings", "/settings/server"})
     @PreAuthorize("hasRole('logon')")
     public String showServerSettings(ModelMap model)
@@ -34,6 +35,7 @@ public class SettingsController extends GlobalModelController
         return "protected/settings/serverSettings";
     }
 
+    // User settings page
     @RequestMapping(value = {"/settings/users"})
     @PreAuthorize("hasRole('logon')")
     public String showUsersSettings(ModelMap model)
@@ -48,6 +50,7 @@ public class SettingsController extends GlobalModelController
         return "protected/settings/usersSettings";
     }
 
+    // Worker settings page
     @RequestMapping(value = {"/settings/workers"})
     @PreAuthorize("hasRole('logon')")
     public String showWorkersSettings(ModelMap model)

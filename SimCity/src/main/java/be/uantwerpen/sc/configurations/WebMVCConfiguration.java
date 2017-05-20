@@ -17,6 +17,7 @@ import java.util.Locale;
 /**
  * Created by Thomas on 27/02/2016.
  */
+// Model-view-controller configuration
 @Configuration
 public class WebMVCConfiguration extends WebMvcConfigurerAdapter
 {

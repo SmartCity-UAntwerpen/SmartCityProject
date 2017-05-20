@@ -8,6 +8,7 @@ import javax.persistence.Table;
 /**
  * Created by Thomas on 04/04/2016.
  */
+// User security permission
 @Entity
 @Table(name = "permission", schema = "", catalog = "sc_security")
 public class Permission extends MyAbstractPersistable<Long>

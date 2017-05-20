@@ -16,6 +16,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 /**
  * Created by Thomas on 27/02/2016.
  */
+// Security configuration
 @Configuration
 @EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter
@@ -23,6 +24,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter
     @Autowired
     private Environment environment;
 
+    // Security configuration mappings
     @Override
     protected void configure(HttpSecurity http) throws Exception
     {
@@ -47,6 +49,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter
         devConfiguration(http);
     }
 
+    // Security configuration h2 console in development configuration
     protected void devConfiguration(HttpSecurity http) throws Exception
     {
         for(String profile : environment.getActiveProfiles())

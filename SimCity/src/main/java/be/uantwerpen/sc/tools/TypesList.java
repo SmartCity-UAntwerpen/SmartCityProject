@@ -16,6 +16,8 @@ import java.util.List;
 /**
  * Created by Thomas on 7/05/2017.
  */
+
+// Service for supported bot types
 @Service
 public class TypesList
 {

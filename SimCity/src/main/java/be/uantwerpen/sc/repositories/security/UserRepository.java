@@ -9,6 +9,7 @@ import java.util.List;
 /**
  * Created by Thomas on 04/04/2016.
  */
+// Repository containing users
 @Repository
 public interface UserRepository extends CrudRepository<User, Long>
 {

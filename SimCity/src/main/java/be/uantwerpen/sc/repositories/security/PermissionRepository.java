@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 /**
  * Created by Thomas on 04/04/2016.
  */
+// Repository containing permissions
 @Repository
 public interface PermissionRepository extends CrudRepository<Permission, Long>
 {
