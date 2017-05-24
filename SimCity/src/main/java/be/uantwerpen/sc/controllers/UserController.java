@@ -110,14 +110,21 @@ public class UserController extends GlobalModelController
     @PreAuthorize("hasRole('logon')")
     public String deleteUser(@PathVariable String username, HttpServletRequest request, ModelMap model)
     {
-        if(userService.delete(username))
+        if(!userService.getPrincipalUser().getUsername().equals(username))
         {
-            model.clear();
-            return "redirect:/settings/users?userRemoved";
+            if(userService.delete(username))
+            {
+                model.clear();
+                return "redirect:/settings/users?userRemoved";
+            }
+            else
+            {
+                return "redirect:/settings/users?errorUserRemove";
+            }
         }
         else
         {
-            return "redirect:/settings/users?errorUserRemove";
+            return "redirect:/settings/users?errorUserActive";
         }
     }
 }

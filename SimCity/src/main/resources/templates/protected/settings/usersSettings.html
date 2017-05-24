@@ -32,6 +32,24 @@
             <span class="sr-only">Info: </span>
             <span id="userAlreadyExistsAlert" th:text="#{settings.alerts.userAlreadyExists}">User already exists</span>
         </div>
+        <div th:if="${param.errorUserActive}" class="alert alertbox alert-warning fade in" role="alert">
+            <button class="close" data-dismiss="alert" aria-label="Close" aria-hidden="true">&times;</button>
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span class="sr-only">Info: </span>
+            <span id="errorUserActiveAlert" th:text="#{settings.alerts.userActive}">Cannot delete active user</span>
+        </div>
+        <div th:if="${param.errorUserNotFound}" class="alert alertbox alert-warning fade in" role="alert">
+            <button class="close" data-dismiss="alert" aria-label="Close" aria-hidden="true">&times;</button>
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span class="sr-only">Info: </span>
+            <span id="errorUserNotFoundAlert" th:text="#{settings.alerts.userNotFound}">User not found</span>
+        </div>
+        <div th:if="${param.errorUserRemove}" class="alert alertbox alert-warning fade in" role="alert">
+            <button class="close" data-dismiss="alert" aria-label="Close" aria-hidden="true">&times;</button>
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span class="sr-only">Info: </span>
+            <span id="errorUserRemoveAlert" th:text="#{settings.alerts.userNotRemoved}">User cannot be removed</span>
+        </div>
     </div>
 
     <div class="row">
