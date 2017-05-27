@@ -11,6 +11,7 @@ import java.util.List;
 /**
  * Created by Thomas on 26/02/2016.
  */
+// Terminal service implementation
 @Service
 public class TerminalService
 {

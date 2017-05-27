@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 /**
  * Created by Thomas on 27/02/2016.
  */
+// Service for SimWorker actions
 @Service
 public class SimWorkerService
 {

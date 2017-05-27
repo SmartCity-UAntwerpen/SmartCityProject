@@ -19,6 +19,7 @@ public class SimConfigController
     @Autowired
     private SimSupervisorService simSupervisor;
 
+    // Return bot status of bot with certain ID
     @RequestMapping(value = {"/bots/{botid}/"}, method = RequestMethod.GET)
     public ResponseEntity<SimBotStatus> getBotStatus(@PathVariable String botid)
     {

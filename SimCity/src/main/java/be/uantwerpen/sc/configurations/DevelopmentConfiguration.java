@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Profile;
 /**
  * Created by Thomas on 27/02/2016.
  */
-// Create the development configration, containing the h2 console database interface mapping
+// Create the development configuration, containing the h2 console database interface mapping
 @Profile("dev")
 @Configuration
 @Import(EmbeddedServletContainerAutoConfiguration.class)

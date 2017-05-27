@@ -3,6 +3,7 @@ package be.uantwerpen.sc.models;
 /**
  * Created by Thomas on 27/02/2016.
  */
+// Class for simulation workers
 public class SimWorker
 {
     private int id;

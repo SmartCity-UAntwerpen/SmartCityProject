@@ -8,10 +8,10 @@ import org.springframework.context.annotation.Profile;
 /**
  * Created by Thomas on 29/05/2016.
  */
+//Configurations for stand-alone mode
 @Profile("standalone")
 @Configuration
 @Import(EmbeddedServletContainerAutoConfiguration.class)
 public class StandAloneConfiguration
 {
-    //Configurations for Stand-Alone mode
 }

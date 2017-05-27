@@ -12,6 +12,7 @@ import java.util.List;
 /**
  * Created by Thomas on 26/02/2016.
  */
+// Class for simulated robots
 public class SimCar extends SimVehicle
 {
     private SimCore carCore;
@@ -216,6 +217,11 @@ public class SimCar extends SimVehicle
 
     @Override
     protected boolean sendStop() {
+        return true;
+    }
+
+    @Override
+    protected boolean sendRestart() {
         return true;
     }
 

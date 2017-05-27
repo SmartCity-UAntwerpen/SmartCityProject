@@ -5,6 +5,7 @@ import be.uantwerpen.sc.tools.Terminal;
 /**
  * Created by Thomas on 26/02/2016.
  */
+// SimVehicle subclass for SimBot
 public abstract class SimVehicle extends SimBot
 {
     protected int startPoint;

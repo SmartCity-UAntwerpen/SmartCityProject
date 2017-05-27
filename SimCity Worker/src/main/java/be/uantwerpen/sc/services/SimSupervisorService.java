@@ -13,6 +13,7 @@ import java.util.List;
 /**
  * Created by Thomas on 26/02/2016.
  */
+// Supervisor service for different bot actions
 @Service
 public class SimSupervisorService
 {

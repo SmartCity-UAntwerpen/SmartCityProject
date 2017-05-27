@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Profile;
 /**
  * Created by Thomas on 25/02/2016.
  */
+// Create the development configuration
 @Profile("dev")
 @Configuration
 @Import(EmbeddedServletContainerAutoConfiguration.class)

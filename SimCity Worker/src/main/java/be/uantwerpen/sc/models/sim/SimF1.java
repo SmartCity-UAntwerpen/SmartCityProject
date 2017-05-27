@@ -8,6 +8,7 @@ import java.net.Socket;
 /**
  * Created by Thomas on 3/05/2017.
  */
+// Class for simulated F1-car
 public class SimF1 extends SimVehicle
 {
     private String ip;
@@ -54,8 +55,13 @@ public class SimF1 extends SimVehicle
             //Send data over socket
             simSocket.sendMessage("create " + id + "\n");
 
-            //Receive ACK when F1 car is succesfully created in the core
-            if(simSocket.getMessage().equalsIgnoreCase("ACK")) {
+            String response = simSocket.getMessage();
+            while(response == null)
+            {
+                response = simSocket.getMessage();
+            }
+            //Receive ACK when F1 car is successfully created in the core
+            if(response.equalsIgnoreCase("ACK")) {
                 System.out.println("Create acknowledge received.");
                 simSocket.close();
             } else {
@@ -81,10 +87,19 @@ public class SimF1 extends SimVehicle
             //Send data over socket
             simSocket.sendMessage("run " + id + "\n");
 
-            //Receive ACK when F1 car is succesfully started in the core
-            if(simSocket.getMessage().equalsIgnoreCase("ACK")) {
+            String response = simSocket.getMessage();
+            while(response == null)
+            {
+                response = simSocket.getMessage();
+            }
+            //Receive ACK when F1 car is successfully started in the core
+            if(response.equalsIgnoreCase("ACK")) {
                 System.out.println("Start acknowledge received.");
                 simSocket.close();
+            } else if(response.equalsIgnoreCase("NACK")) {
+                System.out.println("NACK received. Startpoint property was not set.");
+                simSocket.close();
+                return false;
             } else {
                 simSocket.close();
                 this.stop();
@@ -108,9 +123,46 @@ public class SimF1 extends SimVehicle
             //Send data over socket
             simSocket.sendMessage("stop " + id + "\n");
 
-            //Receive ACK when F1 car is succesfully stopped in the core
-            if(simSocket.getMessage().equalsIgnoreCase("ACK")) {
+            String response = simSocket.getMessage();
+            while(response == null)
+            {
+                response = simSocket.getMessage();
+            }
+            //Receive ACK when F1 car is successfully stopped in the core
+            if(response.equalsIgnoreCase("ACK")) {
                 System.out.println("Stop acknowledge received.");
+                simSocket.close();
+            } else {
+                simSocket.close();
+                this.stop();
+                return false;
+            }
+        } catch (IOException e) {
+            System.out.println("I/O exception occurred!");
+            this.stop();
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    protected boolean sendRestart() {
+        //Create socket connection to F1 Core
+        try {
+            SimSocket simSocket = new SimSocket(new Socket(this.ip, this.port));
+            simSocket.setTimeOut(500);
+
+            //Send data over socket
+            simSocket.sendMessage("restart " + id + "\n");
+
+            String response = simSocket.getMessage();
+            while(response == null)
+            {
+                response = simSocket.getMessage();
+            }
+            //Receive ACK when F1 car is successfully restarted in the core
+            if(response.equalsIgnoreCase("ACK")) {
+                System.out.println("Restart acknowledge received.");
                 simSocket.close();
             } else {
                 simSocket.close();
@@ -135,8 +187,13 @@ public class SimF1 extends SimVehicle
             //Send data over socket
             simSocket.sendMessage("kill " + id + "\n");
 
-            //Receive ACK when F1 car is succesfully removed in the core
-            if(simSocket.getMessage().equalsIgnoreCase("ACK")) {
+            String response = simSocket.getMessage();
+            while(response == null)
+            {
+                response = simSocket.getMessage();
+            }
+            //Receive ACK when F1 car is successfully removed in the core
+            if(response.equalsIgnoreCase("ACK")) {
                 System.out.println("Remove acknowledge received.");
                 simSocket.close();
             } else {
@@ -165,10 +222,19 @@ public class SimF1 extends SimVehicle
                 //Send data over socket
                 simSocket.sendMessage("set " + id + " " + property + " " + value + "\n");
 
-                //Receive ACK when F1 car property is succesfully set in the core
-                if(simSocket.getMessage().equalsIgnoreCase("ACK")) {
+                String response = simSocket.getMessage();
+                while(response == null)
+                {
+                    response = simSocket.getMessage();
+                }
+                //Receive ACK when F1 car property is successfully set in the core
+                if(response.equalsIgnoreCase("ACK")) {
                     System.out.println("Set acknowledge received.");
                     simSocket.close();
+                } else if(response.equalsIgnoreCase("NACK")) {
+                    System.out.println("NACK received. Property could not be set in F1 core.");
+                    simSocket.close();
+                    return false;
                 } else {
                     simSocket.close();
                     this.stop();

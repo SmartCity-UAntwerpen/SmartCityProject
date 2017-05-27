@@ -9,6 +9,7 @@ import java.util.List;
 /**
  * Created by Thomas on 27/05/2016.
  */
+// Core simulation
 public class SimCore
 {
     private String coreLocation;

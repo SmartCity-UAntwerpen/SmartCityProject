@@ -8,6 +8,7 @@ import java.net.SocketTimeoutException;
 /**
  * Created by Thomas on 5/05/2017.
  */
+// Class for managing socket communications to vehicle cores
 public class SimSocket
 {
     private Socket socket;

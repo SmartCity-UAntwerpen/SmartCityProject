@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 /**
  * Created by Thomas on 25/02/2016.
  */
+// Security configuration
 @Configuration
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter
 {
@@ -22,6 +23,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter
         devConfiguration(http);
     }
 
+    // Security configuration in development configuration
     protected void devConfiguration(HttpSecurity http) throws Exception
     {
         for(String profile : environment.getActiveProfiles())

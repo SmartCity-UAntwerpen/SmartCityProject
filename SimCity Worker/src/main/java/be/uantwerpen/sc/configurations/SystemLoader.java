@@ -34,7 +34,7 @@ public class SystemLoader implements ApplicationRunner
             {
                 //Thread interrupted
             }
-
+            // Output to terminal when ready
             terminalService.systemReady();
         }
     }

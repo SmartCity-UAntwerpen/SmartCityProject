@@ -14,7 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
  * Created by Thomas on 5/05/2017.
  */
 @RestController
-public class SimConfigController {
+public class SimConfigController
+{
     @Autowired
     private SimSupervisorService simSupervisor;
 

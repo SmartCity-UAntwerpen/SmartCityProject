@@ -3,6 +3,7 @@ package be.uantwerpen.sc.models;
 /**
  * Created by Niels on 4/05/2016.
  */
+// Job class
 public class Job {
 
     private int jobId;

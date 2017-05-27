@@ -7,6 +7,7 @@ import org.springframework.test.context.support.DefaultActiveProfilesResolver;
 /**
  * Created by Thomas on 25/02/2016.
  */
+// Active profile resolver
 @Configuration
 public class SystemPropertyActiveProfileResolver implements ActiveProfilesResolver
 {

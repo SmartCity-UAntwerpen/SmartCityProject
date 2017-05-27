@@ -3,7 +3,7 @@ package be.uantwerpen.sc.models.sim.messages;
 /**
  * Created by Thomas on 5/05/2017.
  */
-// Class containing the status of a bot
+// Class containing the status information of a bot
 public class SimBotStatus
 {
         private final int id;

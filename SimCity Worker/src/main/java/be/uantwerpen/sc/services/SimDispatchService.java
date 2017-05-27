@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 /**
  * Created by Thomas on 25/02/2016.
  */
+// Service for dispatching several bot type objects
 @Service
 public class SimDispatchService
 {
