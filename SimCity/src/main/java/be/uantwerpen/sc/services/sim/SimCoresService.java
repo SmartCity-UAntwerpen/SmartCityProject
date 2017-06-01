@@ -2,6 +2,7 @@ package be.uantwerpen.sc.services.sim;
 
 import be.uantwerpen.sc.models.sim.SimBot;
 import be.uantwerpen.sc.models.sim.SimCore;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -19,22 +20,42 @@ import java.io.File;
 @Service
 public class SimCoresService
 {
+    private static String configFileLocation;
+    private static String jarFileLocation;
+
+    @Value("${configFile}")
+    private void setConfigFileLocation(String configFile) {
+        configFileLocation = configFile;
+    }
+
+    @Value("${jarFile}")
+    private void setJarFileLocation(String jarFile) {
+        jarFileLocation = jarFile;
+    }
+
+//    @Value("${configFile}")
+//    private String configFileLocation;
+
+//    @Value("${jarFile}")
+//    private String jarFileLocation;
+
     private final static String coreResourceFolder = "configTemplates/";
     private final static String coreConfigFile = "BotCoreConfig.xml";
 
-    static public SimCore getSimulationCore(SimBot bot)
+    public static SimCore getSimulationCore(SimBot bot)
     {
         return getSimulationCore(bot.getType());
     }
 
-    static public SimCore getSimulationCore(String type)
+    public static SimCore getSimulationCore(String type)
     {
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder documentBuilder;
         Document document;
         SimCore simCore = null;
 
-        File configFile = new File("./SimCity Worker/src/main/resources/" + coreResourceFolder + coreConfigFile);
+        // The location is based on the development mode and the supplied location in the corresponding properties file
+        File configFile = new File(configFileLocation + coreResourceFolder + coreConfigFile);
 
         // Debug by outputting path
         //System.err.println(configFile.getAbsolutePath());
@@ -43,8 +64,8 @@ public class SimCoresService
         {
 
             //Configuration file is not available
-            System.err.println("Configuration file: '" + coreResourceFolder + coreConfigFile + "' not found!");
-
+            //System.err.println("Configuration file: '" + coreResourceFolder + coreConfigFile + "' not found!");
+            System.err.println("Configuration file: '" + configFile.getAbsolutePath() + "' not found!");
             return null;
         }
 
@@ -80,7 +101,7 @@ public class SimCoresService
                                 //Check if core file exists
                                 if(!new File(coreLocation).exists())
                                 {
-                                    File locationTest = new File("./" + coreResourceFolder + coreLocation);
+                                    File locationTest = new File(jarFileLocation + coreResourceFolder + coreLocation);
 
                                     if(locationTest.exists())
                                     {
@@ -89,7 +110,8 @@ public class SimCoresService
                                     else
                                     {
                                         //Core file can not be found in filesystem!
-                                        System.err.println("JAR file: '" + coreLocation + "' can not be found!");
+                                        //System.err.println("JAR file: '" + coreLocation + "' can not be found!");
+                                        System.err.println("JAR file: '" + locationTest.getAbsolutePath() + "' can not be found!");
 
                                         continue;
                                     }

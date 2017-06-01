@@ -91,7 +91,7 @@ public abstract class Terminal
         {
             BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
 
-            System.out.print("# ");
+            //System.out.print("# ");
 
             try
             {
