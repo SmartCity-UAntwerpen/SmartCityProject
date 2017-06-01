@@ -33,12 +33,6 @@ public class SimCoresService
         jarFileLocation = jarFile;
     }
 
-//    @Value("${configFile}")
-//    private String configFileLocation;
-
-//    @Value("${jarFile}")
-//    private String jarFileLocation;
-
     private final static String coreResourceFolder = "configTemplates/";
     private final static String coreConfigFile = "BotCoreConfig.xml";
 

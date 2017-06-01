@@ -136,4 +136,62 @@ public class UserRepositoryTests
         //There are originally 'origUserRepositorySize' users declared in the database
         Assert.assertEquals(count, origUserRepositorySize);
     }
+
+    @Test
+    public void testEditUser()
+    {
+        //Get repository size before test
+        int origUserRepositorySize = (int)userRepository.count();
+
+        //Setup user
+        User user = new User();
+        String originalUsername = "lol";
+        user.setUsername(originalUsername);
+        user.setFirstName("TesterFirstName");
+        user.setLastName("TesterLastName");
+        user.setPassword("test");
+
+        //Save user, verify has ID value after save
+        assertNull(user.getId());       //Null before save
+        userRepository.save(user);
+        assertNotNull(user.getId());    //Not null after save
+
+        //Verify count of users in database
+        long userCount = userRepository.count();
+        Assert.assertEquals(userCount, origUserRepositorySize + 1);      //One user has been added to the database
+
+        //Fetch from database
+        User fetchedUser = userRepository.findOne(user.getId());
+
+        //Should not be null
+        assertNotNull(fetchedUser);
+
+        //Edit user
+        String newUsername = "editTesterUserName";
+        fetchedUser.setUsername(newUsername);
+        userRepository.delete(fetchedUser.getId());
+
+        //Should be null
+        User deletedUser = userRepository.findOne(fetchedUser.getId());
+        assertNull(deletedUser);
+
+        //Save edited user, verify has ID value after save
+        userRepository.save(fetchedUser);
+        assertNotNull(fetchedUser.getId());    //Not null after save
+
+        //Fetch from database using old username(should not exist anymore)
+        fetchedUser = userRepository.findByUsername(originalUsername);
+
+        //Should be null
+        assertNull(fetchedUser);
+
+        //Fetch from database using new username
+        fetchedUser = userRepository.findByUsername(newUsername);
+
+        //Should not be null
+        assertNotNull(fetchedUser);
+
+        //Remove the new user
+        userRepository.delete(fetchedUser.getId());
+    }
 }
