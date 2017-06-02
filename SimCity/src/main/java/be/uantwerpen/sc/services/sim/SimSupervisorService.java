@@ -209,7 +209,13 @@ public class SimSupervisorService
         {
             bot.stop();
             bot.remove();
-            return this.bots.remove(bot);
+
+            // The following line is commented out because we want to be able to delete SimBots, even when the corresponding cores go down
+            // Otherwise, bots are kept with an ID that isn't known in the corresponding cores and can never be deleted
+            //return this.bots.remove(bot);
+
+            this.bots.remove(bot);
+            return true;
         }
         else
         {

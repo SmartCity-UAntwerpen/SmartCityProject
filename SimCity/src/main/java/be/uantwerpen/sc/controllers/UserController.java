@@ -34,47 +34,27 @@ public class UserController extends GlobalModelController
         webDataBinder.setAllowedFields("username", "firstName", "lastName", "password", "roles");
     }
 
-    // Shows certain user information
-    @RequestMapping(value="/users/{username}/", method=RequestMethod.GET)
-    @PreAuthorize("hasRole('logon')")
-    public String showUserForm(@PathVariable String username, HttpServletRequest request, ModelMap model)
-    {
-        User user = userService.findByUsername(username);
-
-        if(user != null)
-        {
-            model.addAttribute("user", user);
-            model.addAttribute("allRoles", roleService.findAll());
-        }
-        else
-        {
-            model.clear();
-            return "redirect:/settings/users?errorUserNotFound";
-        }
-
-        return "protected/forms/userForm";
-    }
-
     // Edit user information
-    @RequestMapping(value="/users/{username}", method=RequestMethod.POST)
+    @RequestMapping(value="/users/{id}", method=RequestMethod.POST)
     @PreAuthorize("hasRole('logon')")
     public String editUser(@Validated @ModelAttribute("user") User user, BindingResult result, HttpServletRequest request, SessionStatus sessionStatus, ModelMap model)
     {
         if(result.hasErrors())
         {
-            return "protected/forms/userForm";
+            return "protected/settings/usersSettings";
         }
 
         String[] path = request.getServletPath().split("/");
+        Long id = Long.parseLong(path[2]);
 
         User retrievedUser = userService.findByUsername(user.getUsername());
-        if(retrievedUser != null)
+        if(retrievedUser != null && retrievedUser.getId() != user.getId())
         {
             return "redirect:/settings/users?errorAlreadyExists";
         }
         else
         {
-            retrievedUser = userService.findByUsername(path[2]);
+            retrievedUser = userService.findOne(id);
             retrievedUser.setFirstName(user.getFirstName());
             retrievedUser.setLastName(user.getLastName());
             retrievedUser.setUsername(user.getUsername());
@@ -106,25 +86,23 @@ public class UserController extends GlobalModelController
     }
 
     // Delete user
-    @RequestMapping(value="/users/{username}/delete")
+    @RequestMapping(value="/users/{id}/delete")
     @PreAuthorize("hasRole('logon')")
-    public String deleteUser(@PathVariable String username, HttpServletRequest request, ModelMap model)
+    public String deleteUser(@PathVariable String id, HttpServletRequest request, ModelMap model)
     {
-        if(!userService.getPrincipalUser().getUsername().equals(username))
-        {
-            if(userService.delete(username))
-            {
+        if(!id.isEmpty() && id.matches("^\\d+$")) {
+            Long userId = Long.parseLong(id);
+            if (!userService.getPrincipalUser().getId().equals(userId)) {
+                userService.delete(userId);
                 model.clear();
                 return "redirect:/settings/users?userRemoved";
-            }
-            else
-            {
-                return "redirect:/settings/users?errorUserRemove";
+            } else {
+                return "redirect:/settings/users?errorUserActive";
             }
         }
         else
         {
-            return "redirect:/settings/users?errorUserActive";
+            return "redirect:/settings/users?errorUserRemove";
         }
     }
 }

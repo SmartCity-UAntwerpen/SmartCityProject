@@ -98,9 +98,9 @@
                                 <td th:text="${aUser.id}">ID</td>
                                 <td th:text="${aUser.firstName} + ' ' + ${aUser.lastName}">Name</td>
                                 <td th:text="${aUser.username}">Username</td>
-                                <td><a type="button" class="btn btn-default btn-sm" th:title="#{settings.edit}" data-toggle="modal" th:attr="data-target='#editUserModal'+${aUser.id}"><span class="glyphicon glyphicon-pencil"></span></a></td>
+                                <td><a type="button" class="btn btn-default btn-sm" th:title="#{settings.edit}" data-toggle="modal" th:attr="data-target='#editUserModal'+${aUser.id}+${aUser.firstName}+${aUser.lastName}+${aUser.password}"><span class="glyphicon glyphicon-pencil"></span></a></td>
                                 <div th:replace="protected/modals/editUserModal :: editUserModal"></div>
-                                <td><a th:href="@{'/users/' + ${aUser.username} + '/delete'}" type="button" class="btn btn-danger btn-sm" th:title="#{settings.delete}"><span class="glyphicon glyphicon-trash"></span></a></td>
+                                <td><a th:href="@{'/users/' + ${aUser.id} + '/delete'}" type="button" class="btn btn-danger btn-sm" th:title="#{settings.delete}"><span class="glyphicon glyphicon-trash"></span></a></td>
                             </tr>
                         </table>
                     </div>

@@ -31,6 +31,11 @@ public class UserService
         return this.userRepository.findAll();
     }
 
+    public User findOne(Long id)
+    {
+        return this.userRepository.findOne(id);
+    }
+
     public boolean add(final User user)
     {
         if(isDuplicatedUsername(user))
@@ -83,6 +88,11 @@ public class UserService
         }
 
         return false;
+    }
+
+    public void delete(Long id)
+    {
+        this.userRepository.delete(id);
     }
 
     public User findByUsername(String userName)

@@ -3,36 +3,36 @@
 
 <!-- Edit Worker Modal Form -->
 <div th:fragment="editUserModal">
-    <div class="modal fade" th:id="editUserModal+${aUser.id}" tabindex="-1" role="dialog" aria-labelledby="editUserModalLabel">
+    <div class="modal fade" th:id="editUserModal+${aUser.id}+${aUser.firstName}+${aUser.lastName}+${aUser.password}" tabindex="-1" role="dialog" aria-labelledby="editUserModalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="editUserModalLabel" th:text="#{modal.edituser.title}">Edit user</h4>
                 </div>
-                <form id="editUserForm" th:action="@{/users/{username}(username=${aUser.username})}" th:object="${user}" method="post">
+                <form id="editUserForm" th:action="@{/users/{id}(id=${aUser.id})}" th:object="${user}" method="post">
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="firstName" class="control" th:text="#{user.firstName} + ':'">First name:</label>
-                            <input type="text" class="form-control" id="firstName" th:field="*{firstName}"
+                            <input type="text" class="form-control" id="firstName" th:value="${aUser.firstName}" name="firstName"
                                    required="true" th:oninvalid="'javascript:this.setCustomValidity(\''+#{modal.edituser.fillFirstName}+'\');'" oninput="this.setCustomValidity('')"/>
                             <label for="lastName" class="control" th:text="#{user.lastName} + ':'">Last name:</label>
-                            <input type="text" class="form-control" id="lastName" th:field="*{lastName}"
+                            <input type="text" class="form-control" id="lastName" th:value="${aUser.lastName}" name="lastName"
                                    required="true" th:oninvalid="'javascript:this.setCustomValidity(\''+#{modal.edituser.fillLastName}+'\');'" oninput="this.setCustomValidity('')"/>
                             <label for="username" class="control" th:text="#{user.username} + ':'">Username:</label>
-                            <input type="text" class="form-control" id="username" th:field="*{username}"
+                            <input type="text" class="form-control" id="username" th:value="${aUser.username}" name="username"
                                    required="true" th:oninvalid="'javascript:this.setCustomValidity(\''+#{modal.edituser.fillUserName}+'\');'" oninput="this.setCustomValidity('')"/>
                         </div>
                         <hr/>
                         <div class="form-group">
                             <label for="password" class="control" th:text="#{modal.newuser.newPassword} + ':'">New password:</label>
-                            <input type="password" class="form-control" id="password" th:field="*{password}"
+                            <input type="password" class="form-control" id="password" th:value="${aUser.password}" name="password"
                                    required="true" th:oninvalid="'javascript:this.setCustomValidity(\''+#{modal.edituser.fillPassword}+'\');'" oninput="this.setCustomValidity('')"/>
                         </div>
                         <hr/>
                         <div class="form-group">
-                            <label for="role" class="control" th:text="#{user.role} + ':'">Role:</label>
-                            <select class="form-control" id="role" th:field="*{roles}">
+                            <label for="roles" class="control" th:text="#{user.role} + ':'">Role:</label>
+                            <select class="form-control" id="roles" th:field="*{roles}">
                                 <option th:each="role:${allRoles}" th:value="${{role}}" th:text="${role.name}"></option>
                             </select>
                         </div>
