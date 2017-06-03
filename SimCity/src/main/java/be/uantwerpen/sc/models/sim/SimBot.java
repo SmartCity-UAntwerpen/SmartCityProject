@@ -66,11 +66,6 @@ public abstract class SimBot implements Runnable
 
         this.running = true;
 
-        if(this.getType() == "car" && this.getStartPoint() == -1)
-        {
-            return false;
-        }
-
         return true;
     }
 
@@ -88,21 +83,14 @@ public abstract class SimBot implements Runnable
                 //Wait for thread to stop
             }
         }
-        if(getType() == "car")
+        if(this.sendRestart())
         {
-            return this.start();
+            this.running = true;
+            return true;
         }
         else
         {
-            if(this.sendRestart())
-            {
-                this.running = true;
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return false;
         }
     }
 

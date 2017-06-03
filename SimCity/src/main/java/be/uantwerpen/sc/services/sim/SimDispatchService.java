@@ -18,11 +18,17 @@ public class SimDispatchService
     @Autowired
     SimSupervisorService supervisorService;
 
+    @Value("${rc.core.ip}")
+    private String robotCoreIp;
+
     @Value("${ds.core.ip}")
     private String droneCoreIp;
 
     @Value("${f1.core.ip}")
     private String f1CoreIp;
+
+    @Value("#{new Integer(${rc.core.port})}")
+    private int robotCorePort;
 
     @Value("#{new Integer(${ds.core.port})}")
     private int droneCorePort;
@@ -61,7 +67,7 @@ public class SimDispatchService
         switch(botType.toLowerCase().trim())
         {
             case "car":
-                simBot = new SimCar();
+                simBot = new SimCar(robotCoreIp, robotCorePort);
                 break;
             case "drone":
                 simBot = new SimDrone(droneCoreIp, droneCorePort);

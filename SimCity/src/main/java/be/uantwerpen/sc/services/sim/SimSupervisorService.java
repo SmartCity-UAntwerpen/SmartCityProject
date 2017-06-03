@@ -18,12 +18,6 @@ import java.util.List;
 @Service
 public class SimSupervisorService
 {
-    @Value("${sc.core.ip:localhost}")
-    private String serverCoreIP;
-
-    @Value("#{new Integer(${sc.core.port}) ?: 1994}")
-    private int serverCorePort;
-
     private List<SimBot> bots;
 
     public SimSupervisorService()
@@ -118,8 +112,6 @@ public class SimSupervisorService
 
         if(bot != null)
         {
-            bot.setServerCoreAddress(this.serverCoreIP, this.serverCorePort);
-
             return bot.start();
         }
         else
