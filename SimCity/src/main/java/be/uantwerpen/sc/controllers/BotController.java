@@ -58,7 +58,7 @@ public class BotController extends GlobalModelController{
         }
         else
         {
-            return "redirect:/bots/?botCreatedFailed";
+            return "redirect:/workers/management/?botCreatedFailed";
         }
 
     }
@@ -71,11 +71,11 @@ public class BotController extends GlobalModelController{
 
         if(this.instantiateBots(type, Integer.parseInt(amount)))
         {
-            return "redirect:/bots/?botsDeployedSuccess";
+            return "redirect:/workers/management/?botsDeployedSuccess";
         }
         else
         {
-            return "redirect:/bots/?botsDeployedFailed";
+            return "redirect:/workers/management/?botsDeployedFailed";
         }
 
     }
@@ -87,11 +87,11 @@ public class BotController extends GlobalModelController{
     {
         if(this.startBot(botId))
         {
-            return "redirect:/bots/?botStartedSuccess";
+            return "redirect:/workers/management/?botStartedSuccess";
         }
         else
         {
-            return "redirect:/bots/?botStartedFailed";
+            return "redirect:/workers/management/?botStartedFailed";
         }
     }
 
@@ -123,11 +123,11 @@ public class BotController extends GlobalModelController{
     {
         if(this.stopBot(botId))
         {
-            return "redirect:/bots/?botStoppedSuccess";
+            return "redirect:/workers/management/?botStoppedSuccess";
         }
         else
         {
-            return "redirect:/bots/?botStoppedFailed";
+            return "redirect:/workers/management/?botStoppedFailed";
         }
     }
 
@@ -138,11 +138,11 @@ public class BotController extends GlobalModelController{
     {
         if(this.restartBot(botId))
         {
-            return "redirect:/bots/?botRestartedSuccess";
+            return "redirect:/workers/management/?botRestartedSuccess";
         }
         else
         {
-            return "redirect:/bots/?botRestartedFailed";
+            return "redirect:/workers/management/?botRestartedFailed";
         }
     }
 
@@ -153,11 +153,11 @@ public class BotController extends GlobalModelController{
     {
         if(this.killBot(botId))
         {
-            return "redirect:/bots/?botKilledSuccess";
+            return "redirect:/workers/management/?botKilledSuccess";
         }
         else
         {
-            return "redirect:/bots/?botKilledFailed";
+            return "redirect:/workers/management/?botKilledFailed";
         }
     }
 
@@ -168,11 +168,11 @@ public class BotController extends GlobalModelController{
     {
         if(this.killAllBots())
         {
-            return "redirect:/bots/?botsDeletedSuccess";
+            return "redirect:/workers/management/?botsDeletedSuccess";
         }
         else
         {
-            return "redirect:/bots/?botsDeletedFailed";
+            return "redirect:/workers/management/?botsDeletedFailed";
         }
     }
 
@@ -183,11 +183,11 @@ public class BotController extends GlobalModelController{
     {
         if(this.setBotProperty(botId, property, String.valueOf(value)))
         {
-            return "redirect:/bots/?botEditedSuccess";
+            return "redirect:/workers/management/?botEditedSuccess";
         }
         else
         {
-            return "redirect:/bots/?botEditedFailed";
+            return "redirect:/workers/management/?botEditedFailed";
         }
     }
 
