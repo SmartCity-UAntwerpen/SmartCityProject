@@ -4,7 +4,7 @@ import be.uantwerpen.sc.services.sockets.SimSocket;
 
 import java.io.IOException;
 import java.net.Socket;
-
+ 
 /**
  * Created by Thomas on 5/05/2017.
  */
