@@ -64,7 +64,12 @@ public class SimDrone extends SimVehicle
             if(response.equalsIgnoreCase("ACK")) {
                 System.out.println("Create acknowledge received.");
                 simSocket.close();
+            } else if(response.equalsIgnoreCase("NACK")) {
+                System.out.println("NACK received. Bot could not be created.");
+                simSocket.close();
+                return false;
             } else {
+                System.out.println("Unknown response received. Bot was stopped.");
                 simSocket.close();
                 this.stop();
                 return false;
@@ -102,6 +107,7 @@ public class SimDrone extends SimVehicle
                 simSocket.close();
                 return false;
             } else {
+                System.out.println("Unknown response received. Bot was stopped.");
                 simSocket.close();
                 this.stop();
                 return false;
@@ -133,7 +139,12 @@ public class SimDrone extends SimVehicle
             if(response.equalsIgnoreCase("ACK")) {
                 System.out.println("Stop acknowledge received.");
                 simSocket.close();
+            } else if(response.equalsIgnoreCase("NACK")) {
+                System.out.println("NACK received. Bot could not be stopped.");
+                simSocket.close();
+                return false;
             } else {
+                System.out.println("Unknown response received. Bot was stopped.");
                 simSocket.close();
                 this.stop();
                 return false;
@@ -165,7 +176,12 @@ public class SimDrone extends SimVehicle
             if(response.equalsIgnoreCase("ACK")) {
                 System.out.println("Restart acknowledge received.");
                 simSocket.close();
+            } else if(response.equalsIgnoreCase("NACK")) {
+                System.out.println("NACK received. Bot could not be restarted.");
+                simSocket.close();
+                return false;
             } else {
+                System.out.println("Unknown response received. Bot was stopped.");
                 simSocket.close();
                 this.stop();
                 return false;
@@ -197,7 +213,12 @@ public class SimDrone extends SimVehicle
             if(response.equalsIgnoreCase("ACK")) {
                 System.out.println("Remove acknowledge received.");
                 simSocket.close();
+            } else if(response.equalsIgnoreCase("NACK")) {
+                System.out.println("NACK received. Bot could not be removed.");
+                simSocket.close();
+                return false;
             } else {
+                System.out.println("Unknown response received. Bot was stopped.");
                 simSocket.close();
                 this.stop();
                 return false;
@@ -237,6 +258,7 @@ public class SimDrone extends SimVehicle
                     simSocket.close();
                     return false;
                 } else {
+                    System.out.println("Unknown response received. Bot was stopped.");
                     simSocket.close();
                     this.stop();
                     return false;
