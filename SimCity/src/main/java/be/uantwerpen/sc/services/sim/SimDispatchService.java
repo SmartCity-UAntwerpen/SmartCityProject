@@ -67,13 +67,16 @@ public class SimDispatchService
         switch(botType.toLowerCase().trim())
         {
             case "car":
-                simBot = new SimCar(robotCoreIp, robotCorePort);
+                simBot = new SimCar();
+                simBot.setServerCoreAddress(robotCoreIp, robotCorePort);
                 break;
             case "drone":
-                simBot = new SimDrone(droneCoreIp, droneCorePort);
+                simBot = new SimDrone();
+                simBot.setServerCoreAddress(droneCoreIp, droneCorePort);
                 break;
             case "f1":
-                simBot = new SimF1(f1CoreIp, f1CorePort);
+                simBot = new SimF1();
+                simBot.setServerCoreAddress(f1CoreIp, f1CorePort);
                 break;
             default:
                 simBot = null;
