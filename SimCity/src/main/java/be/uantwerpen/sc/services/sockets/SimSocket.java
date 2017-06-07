@@ -37,7 +37,7 @@ public class SimSocket
         try {
             this.socket.setSoTimeout(timeOut);
         } catch (SocketException e) {
-            System.err.println("SocketException: could not set socket time-out!");
+            //System.err.println("SocketException: could not set socket time-out!");
         }
     }
 
@@ -73,7 +73,7 @@ public class SimSocket
         catch(IOException e)
         {
             //Could not open input stream
-            System.err.println("Could not open input stream!");
+            //System.err.println("Could not open input stream!");
 
             return null;
         }
@@ -98,7 +98,7 @@ public class SimSocket
         catch(IOException e)
         {
             //Could not read input stream
-            System.err.println("Could not read input stream!");
+            //System.err.println("Could not read input stream!");
         }
 
         return message;
@@ -121,7 +121,7 @@ public class SimSocket
         catch(IOException e)
         {
             //Could not open output stream
-            System.err.println("Could not open output stream!");
+            //System.err.println("Could not open output stream!");
 
             return false;
         }
@@ -134,7 +134,7 @@ public class SimSocket
         catch(IOException e)
         {
             //Could not write to output stream
-            System.err.println("Could not write to output stream!");
+            //System.err.println("Could not write to output stream!");
 
             success = false;
         }

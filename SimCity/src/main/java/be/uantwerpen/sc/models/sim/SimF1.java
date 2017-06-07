@@ -30,42 +30,10 @@ public class SimF1 extends SimVehicle
     }
 
     @Override
-    public boolean parseProperty(String property, String value) throws Exception
+    public boolean parseProperty(String property) throws Exception
     {
-        if(super.parseProperty(property, value))
+        if(super.parseProperty(property))
         {
-            //Create socket connection to F1 Core
-            try {
-                SimSocket simSocket = new SimSocket(new Socket(this.ip, this.port));
-                simSocket.setTimeOut(500);
-
-                //Send data over socket
-                simSocket.sendMessage("set " + id + " " + property + " " + value + "\n");
-
-                String response = simSocket.getMessage();
-                while(response == null)
-                {
-                    response = simSocket.getMessage();
-                }
-                //Receive ACK when F1 car property is successfully set in the core
-                if(response.equalsIgnoreCase("ACK")) {
-                    System.out.println("Set acknowledge received.");
-                    simSocket.close();
-                } else if(response.equalsIgnoreCase("NACK")) {
-                    System.out.println("NACK received. Property could not be set in F1 core.");
-                    simSocket.close();
-                    return false;
-                } else {
-                    System.out.println("Unknown response received. Bot was stopped.");
-                    simSocket.close();
-                    this.stop();
-                    return false;
-                }
-            } catch (IOException e) {
-                System.out.println("I/O exception occurred!");
-                this.stop();
-                return false;
-            }
             return true;
         }
 
@@ -77,11 +45,43 @@ public class SimF1 extends SimVehicle
     }
 
     @Override
-    public boolean parseProperty(String property) throws Exception
+    public boolean parseProperty(String property, String value) throws Exception
     {
-        if(super.parseProperty(property))
-        {
-            return true;
+        if(super.parseProperty(property, value)) {
+            //Create socket connection to core
+            try {
+                SimSocket simSocket = new SimSocket(new Socket(this.ip, this.port));
+                simSocket.setTimeOut(500);
+
+                //Send data over socket
+                if (simSocket.sendMessage("set " + id + " " + property + " " + value + "\n")) {
+                    String response = simSocket.getMessage();
+                    while (response == null) {
+                        response = simSocket.getMessage();
+                    }
+                    //Receive ACK when property is successfully set in the core
+                    if (response.equalsIgnoreCase("ACK")) {
+                        System.out.println("Set acknowledge received.");
+                        simSocket.close();
+                        return true;
+                    } else if (response.equalsIgnoreCase("NACK")) {
+                        System.out.println("NACK received. Property could not be set in core.");
+                        simSocket.close();
+                        return false;
+                    } else {
+                        System.out.println("Unknown response received. Bot was stopped.");
+                        simSocket.close();
+                        return false;
+                    }
+                } else {
+                    System.out.println("Socket connection could not be established.");
+                    simSocket.close();
+                    return false;
+                }
+            } catch (IOException e) {
+                System.out.println("I/O exception occurred!");
+                return false;
+            }
         }
 
         switch(property.toLowerCase().trim())
