@@ -102,7 +102,6 @@ public class WorkerController extends GlobalModelController
     }
 
     // Show worker management page with bot actions
-    // Mapping moet /workers/{id}/... worden
     @RequestMapping(value="/workers/management", method= RequestMethod.GET)
     public String manageWorker(ModelMap model, @Validated @ModelAttribute("type") String type) throws Exception
     {
