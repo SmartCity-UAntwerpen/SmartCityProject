@@ -145,7 +145,7 @@ public class UserRepositoryTests
 
         //Setup user
         User user = new User();
-        String originalUsername = "lol";
+        String originalUsername = "originalUsername";
         user.setUsername(originalUsername);
         user.setFirstName("TesterFirstName");
         user.setLastName("TesterLastName");
