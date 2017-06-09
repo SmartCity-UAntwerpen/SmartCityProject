@@ -1,10 +1,8 @@
 package be.uantwerpen.sc.services.sim;
 
-import be.uantwerpen.sc.models.Bot;
 import be.uantwerpen.sc.models.sim.SimBot;
 import be.uantwerpen.sc.models.sim.messages.SimBotStatus;
 import be.uantwerpen.sc.tools.Terminal;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

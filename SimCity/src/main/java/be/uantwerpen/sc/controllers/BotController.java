@@ -96,7 +96,7 @@ public class BotController extends GlobalModelController{
     }
 
 /*
-    // Run bots with IDs in a certain range
+    // NOT IMPLEMENTED IN FRONTEND YET: Run bots with IDs in a certain range
     @RequestMapping(value="/workers/{workerId}/bots/run/{botId1}/{botId2}")
     @PreAuthorize("hasRole('logon')")
     public String runBots(ModelMap model)

@@ -5,7 +5,6 @@ import be.uantwerpen.sc.models.MyAbstractPersistable;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-import java.net.URL;
 import java.util.Date;
 import java.util.List;
 
