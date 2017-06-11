@@ -8,7 +8,7 @@ SmartCityProject (simulation of the SmartCity)
 The SmartCity Project is a small scale model of an IoT city with autonomous vehicles and other city facilities
 controlled by our own developed cloud platform. The main goal of this project is to build a heterogeneous
 distributed environment which includes the integration of real-time embedded systems (e.g. cars, traffic-lights)
-with the cloud software. This system is developed for educational purposes. This directory of the repository only contains the modules used for the simulation part of this project.
+with the cloud software. This system is developed for educational purposes. This repository only contains the modules used for the simulation part of this project.
 
 
 SmartCity Modules
