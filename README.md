@@ -24,6 +24,8 @@ SimCity Modules
 
  - SimCity: is a webservice which provides a web front-end to control the SimBots on the different SimCity Workers.
  - SimCity Worker: this module allow to initialise and run simulation of bots in the SmartCity environment.
+ 
+Remark: The simulation branch is an older version of our system. The new version separates the SimCity frontend from the SimCity Worker. The new version however, isn't fully operational. Right now there isn't a new implementation for the simulated robots. Thats is why we kept the simulation branch alive; it is an older, operational version but it works with an older version of the SimCity Core. 
 
 
 Developed by
